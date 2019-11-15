@@ -1,1 +1,4 @@
-# a file to be completed
+from core import Core
+
+if __name__ == '__main__':
+    core = Core()
