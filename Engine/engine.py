@@ -9,6 +9,7 @@ class Engine:
         self.reactive_keyword = []
         self.verbose = True
         self.log = []
+        self.id = -1
         self.name = "default Engine"
         self.current_folder = os.path.dirname(__file__)
         self.dl_directory = os.path.join(self.current_folder, "dl")
