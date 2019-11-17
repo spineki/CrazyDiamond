@@ -10,11 +10,9 @@ class Engine:
         self.verbose = True
         self.log = []
         self.name = "default Engine"
-        self.root_path = os.getcwd()
-        self.dl_path = os.getcwd() + "/dl/"
-        self.path = os.getcwd() + "/Engine"
+        self.current_folder = os.path.dirname(__file__)
+        self.dl_directory = os.path.join(self.current_folder, "dl")
         self.callback = lambda x :None
-        print(self.path)
         print("Engine created")
 
     def react_to_keyword(self, keyword):
@@ -70,3 +68,6 @@ class Engine:
             return directory
         except:
             return False
+
+
+
