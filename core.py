@@ -12,7 +12,6 @@ class Core:
         self.messages_to_display = []
         self.start_engines()
 
-
     def start_engines(self):
         e = EngineTest()
         self.addEngine(e)

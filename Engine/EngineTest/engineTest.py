@@ -8,7 +8,7 @@ class EngineTest(EngineTests):
         self.current_folder = os.path.dirname(__file__)
         self.name = "test"
 
-    def get_switch_task_template(self):
+    def get_task_template(self):
         task_template_file = os.path.join(self.current_folder, "task_template_engineTest.json")
         task_template = self.get_json_file(task_template_file)
         return task_template
