@@ -85,8 +85,9 @@ def using_arguments(query):
     # We save the indice of the current argument that need to be filled for the engine.
     argument_indice = int(data.split(" ", 1)[-1][1:]) # [1:] to get rid of the hashtag
 
-    if argument_indice > len(current_task):
-        print("là, c'est le zeub")
+    if argument_indice >= len(current_task):
+        choosing_send(query)
+        return
     current_argument = current_task[argument_indice]
     #bot.edit_message_text("text random",chat_id,query.message.message_id)
 
@@ -95,12 +96,41 @@ def using_arguments(query):
     text = keyword + "\n" + description
 
     bot.reply_to(message, text)
+    # Then, we tell the next function that need to be called is using_argument, to use the following indice
     global current_function
     current_function = using_arguments
+    # and we give the number of the next indice.
     global current_data
     current_data = "#argument #" + str(argument_indice + 1)
 
     print("nikoumouk")
+
+@bot.callback_query_handler(lambda query: "#choosing_send" in query.data)
+def choosing_send(query):
+    # first, we get a good message and data form
+    message, data = query_to_message(query)
+    markup = types.InlineKeyboardMarkup()
+
+    # here, possible to add add a custom recap of the task, with the possibility to edit the task
+    item_btn = types.InlineKeyboardButton("Yes!", callback_data="#sending_task " + "#yes")
+    markup.row(item_btn)
+    item_btn = types.InlineKeyboardButton("No!", callback_data="#sending_task " + "#no")
+    markup.row(item_btn)
+    bot.reply_to(message, "The task is ready to go. Do you really want to send it?", reply_markup=markup)
+
+
+
+@bot.callback_query_handler(lambda query: "#sending_task" in query.data)
+def sending_task(query):
+    # first, we get a good message and data form
+    message, data = query_to_message(query)
+    choice = data.split(" ", 1)[-1]
+    if choice == "#yes":
+        print("sending to the core")
+    else:
+        print("aborting")
+    # We save the indice of the current argument that need to be filled for the engine.
+
 
 
 
