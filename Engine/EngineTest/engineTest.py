@@ -14,6 +14,11 @@ class EngineTest(EngineTests):
         task_template = self.get_json_file(task_template_file)
         return task_template
 
+    def get_minimal_task_template(self):
+        task_template_file = os.path.join(self.current_folder, "task_template_engineTest.json")
+        task_template = self.get_json_file(task_template_file)
+        return task_template
+
     def switch(self):
         pass
 

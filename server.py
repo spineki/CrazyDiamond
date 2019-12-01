@@ -24,11 +24,6 @@ def query_to_message(query):
         # we need to use the shared query
         return query, current_data # because query is a message
 
-class Custom_query:
-    def __init__(self, data, message):
-        self.data = data
-        self.message = message
-
 
 bot.send_message(chat_id, "Done!")
 
@@ -139,8 +134,15 @@ def sending_task(query):
 @bot.message_handler(content_types=["text"])
 def react_to_text(message):
     bot.reply_to(message," Let's see that...")
-    a = core.get_reacting_motor(message.text)
-    bot.reply_to(message, "The engine *" + a.name + "* can handle your request", parse_mode="Markdown")
+    global current_engine
+    global current_task
+    global current_data
+    current_engine = core.get_reacting_motor(message.text)
+    bot.reply_to(message, "The engine *" + current_engine.name + "* can handle your request", parse_mode="Markdown")
+    current_task =  current_engine.get_minimal_task_template()
+    current_data = "#argument #0"
+    using_arguments(message)
+
 
 print("start bot pooling")
 
