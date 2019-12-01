@@ -5,7 +5,7 @@ from Engine.EngineTest.engineTest import EngineTest
 class Core:
     def __init__(self):
         self.queue = []
-        self.engines = {}
+        self.engines = []
         self.progress = 0.0
         self.id_count = 0
         self.current_task = None
@@ -19,10 +19,7 @@ class Core:
     def addEngine(self, e):
         e.id = self.id_count
         self.id_count += 1
-        if e.category not in self.engines:
-            self.engines[e.category] = [e]
-        else:
-            self.engines[e.category].append(e)
+        self.engines.append(e)
 
     def get_all_engines(self):
         engines  = []
@@ -33,6 +30,11 @@ class Core:
 
     def task_analyzer(self, task):
         return None
+
+    def get_reacting_motor(self, keyword):
+        for engine in self.engines:
+            if engine.react_to_keyword(keyword):
+                return engine.__class__() # we reinit an object to avoir overloading
 
     # Handling message ****************************************************************************
     def error_handling_message(self, task):

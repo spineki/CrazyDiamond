@@ -7,6 +7,7 @@ class EngineTest(EngineTests):
         super().__init__()
         self.current_folder = os.path.dirname(__file__)
         self.name = "test"
+        self.reactive_keyword = "test"
 
     def get_task_template(self):
         task_template_file = os.path.join(self.current_folder, "task_template_engineTest.json")
