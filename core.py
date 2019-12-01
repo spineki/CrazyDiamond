@@ -28,13 +28,14 @@ class Core:
                 engines.append(engine)
         return engines
 
-    def task_analyzer(self, task):
-        return None
-
     def get_reacting_motor(self, keyword):
         for engine in self.engines:
             if engine.react_to_keyword(keyword):
                 return engine.__class__() # we reinit an object to avoir overloading
+
+    def add_request(self, engine, task):
+        self.queue.append([engine, task])
+        print("youpi")
 
     # Handling message ****************************************************************************
     def error_handling_message(self, task):
@@ -45,7 +46,14 @@ class Core:
 
     # RUN *****************************************************************************************
     def run_task(self, task):
-        return None
+        engine = task[0]
+        arguments = task[0]
+        arguments = { arg["keyword"]:arg["value"] for arg in arguments }
+
+        self.test_funct(**arguments)
+
+    def test_funct(self, keyword, value):
+        print(keyword, value)
 
     def pooling(self):
         while True:
@@ -55,14 +63,14 @@ class Core:
                 continue
 
             self.current_task = self.queue.pop(0)
-            handling = self.task_analyzer(self.current_task)
+            """handling = self.task_analyzer(self.current_task)
             if handling == False:
                 self.error_handling_message(self.current_task)
-                continue
+                continue"""
 
-            self.success_handling_message(self.current_task)
             self.progress = 0.0
-            self.logs = self.run_task(handling)
+            self.logs = self.run_task(self.current_task)
             self.progress = 100.0
+            self.success_handling_message(self.logs)
             t = time.clock() - t
             print("finished in ", t, "seconds")

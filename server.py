@@ -1,4 +1,5 @@
 import telebot
+from copy import deepcopy
 from telebot import types, util
 
 
@@ -71,9 +72,6 @@ def using_engine(query):
 
     using_arguments(query)
 
-
-
-
 @bot.callback_query_handler(lambda query: "#arguments" in query.data.split(" ", 1) )
 def using_arguments(query):
     # first, we get a good message and data form
@@ -114,22 +112,18 @@ def choosing_send(query):
     markup.row(item_btn)
     bot.reply_to(message, "The task is ready to go. Do you really want to send it?", reply_markup=markup)
 
-
-
 @bot.callback_query_handler(lambda query: "#sending_task" in query.data)
 def sending_task(query):
     # first, we get a good message and data form
     message, data = query_to_message(query)
     choice = data.split(" ", 1)[-1]
     if choice == "#yes":
-        print("sending to the core")
+        engine_to_send = deepcopy(current_engine)
+        task_to_send = deepcopy(current_task)
+        core.add_request(engine_to_send, task_to_send )
     else:
         print("aborting")
     # We save the indice of the current argument that need to be filled for the engine.
-
-
-
-
 
 @bot.message_handler(content_types=["text"])
 def react_to_text(message):
