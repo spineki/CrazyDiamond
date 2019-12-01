@@ -137,11 +137,23 @@ def react_to_text(message):
     global current_engine
     global current_task
     global current_data
-    current_engine = core.get_reacting_motor(message.text)
-    bot.reply_to(message, "The engine *" + current_engine.name + "* can handle your request", parse_mode="Markdown")
-    current_task =  current_engine.get_minimal_task_template()
-    current_data = "#argument #0"
-    using_arguments(message)
+    global current_function
+
+    if current_function != None:
+        new_function = current_function
+        current_function = None
+
+        new_function(message) # to avoid concurency access that will never change current_function
+    else:
+        current_engine = core.get_reacting_motor(message.text)
+        bot.reply_to(message, "The engine *" + current_engine.name + "* can handle your request", parse_mode="Markdown")
+        current_task =  current_engine.get_minimal_task_template()
+        current_data = "#argument #0"
+        using_arguments(message)
+
+
+
+
 
 
 print("start bot pooling")
