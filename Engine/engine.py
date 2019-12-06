@@ -1,6 +1,6 @@
 import json
 import os
-
+from os.path import dirname
 from PIL import Image
 
 class Engine:
@@ -11,8 +11,8 @@ class Engine:
         self.log = []
         self.id = -1
         self.name = "default Engine"
-        self.current_folder = os.path.dirname(__file__)
-        self.dl_directory = os.path.join(self.current_folder, "dl")
+        self.current_folder = dirname(__file__)
+        self.dl_directory = os.path.join(dirname(self.current_folder), "dl")
         self.callback = lambda x :None
         print("Engine created")
 
@@ -61,14 +61,11 @@ class Engine:
                 if not os.path.exists(directory):
                     os.makedirs(directory)
             else: # wasn't specified, we just recreate the dl path if it doesn't already exists
-                if not os.path.exists(self.dl_path):
-                    os.makedirs(self.dl_path)
-                directory = self.dl_path
+                if not os.path.exists(self.dl_directory):
+                    os.makedirs(self.dl_directory)
+                directory = self.dl_directory
                 print("directory void, we will save in the ")
             print(directory)
             return directory
         except:
             return False
-
-
-

@@ -1,0 +1,438 @@
+[
+    {
+        "value": "One Piece",
+        "data": "one-piece"
+    },
+    {
+        "value": "Black Butler",
+        "data": "black-butler"
+    },
+    {
+        "value": "Hunter X Hunter",
+        "data": "hunter-x-hunter"
+    },
+    {
+        "value": "Nanatsu No Taizai",
+        "data": "nanatsu-no-taizai"
+    },
+    {
+        "value": "One Punch Man",
+        "data": "one-punch-man"
+    },
+    {
+        "value": "Kingdom",
+        "data": "kingdom"
+    },
+    {
+        "value": "Shingeki No Kyojin",
+        "data": "shingeki-no-kyojin"
+    },
+    {
+        "value": "Eden's Zero",
+        "data": "edens-zero"
+    },
+    {
+        "value": "My Hero Academia",
+        "data": "my-hero-academia"
+    },
+    {
+        "value": "The Promised neverland",
+        "data": "the-promised-neverland"
+    },
+    {
+        "value": "Black Clover",
+        "data": "black-clover"
+    },
+    {
+        "value": "Tokyo Ghoul:re",
+        "data": "tokyo-ghoulre"
+    },
+    {
+        "value": "Ace Of Diamond",
+        "data": "ace-of-diamond"
+    },
+    {
+        "value": "+Anima",
+        "data": "anima"
+    },
+    {
+        "value": "A Story About Treating A Female Knight, Who Has Never Been Treated As A Woman, As A Woman",
+        "data": "a-story-about-treating-a-female-knight-who-has-never-been-treated-as-a-woman-as-a-woman"
+    },
+    {
+        "value": "Ad Astra",
+        "data": "ad-astra"
+    },
+    {
+        "value": "Aflame Inferno",
+        "data": "aflame-inferno"
+    },
+    {
+        "value": "After Transformation, Mine And Her Wild Fantasy",
+        "data": "after-transformation-mine-and-her-wild-fantasy"
+    },
+    {
+        "value": "Combat Continent - Douluo Dalu",
+        "data": "combat-continent-douluo-dalu"
+    },
+    {
+        "value": "Boruto",
+        "data": "boruto"
+    },
+    {
+        "value": "Fairy Tail 100 Years Quest",
+        "data": "fairy-tail-100-years-quest"
+    },
+    {
+        "value": "Berserk",
+        "data": "berserk"
+    },
+    {
+        "value": "Haikyuu",
+        "data": "haikyuu"
+    },
+    {
+        "value": "God Of Martial Arts",
+        "data": "god-of-martial-arts"
+    },
+    {
+        "value": "Tales Of Demons And Gods",
+        "data": "tales-of-demons-and-gods"
+    },
+    {
+        "value": "The Gamer",
+        "data": "the-gamer"
+    },
+    {
+        "value": "Doupo Cangqiong",
+        "data": "doupo-cangqiong"
+    },
+    {
+        "value": "Dr. Stone",
+        "data": "dr-stone"
+    },
+    {
+        "value": "Ao No Exorcist",
+        "data": "ao-no-exorcist"
+    },
+    {
+        "value": "Fairy Tail",
+        "data": "fairy-tail"
+    },
+    {
+        "value": "Doupo Cangqiong Zhi Yao Lao Chuanqi",
+        "data": "doupo-cangqiong-zhi-yao-lao-chuanqi"
+    },
+    {
+        "value": "Hajime No Ippo",
+        "data": "hajime-no-ippo"
+    },
+    {
+        "value": "Kimetsu No Yaiba",
+        "data": "kimetsu-no-yaiba"
+    },
+    {
+        "value": "Detective Conan",
+        "data": "detective-conan"
+    },
+    {
+        "value": "Bleach",
+        "data": "bleach"
+    },
+    {
+        "value": "Dragon Ball Super",
+        "data": "dragon-ball-super"
+    },
+    {
+        "value": "Star Martial God Technique",
+        "data": "star-martial-god-technique"
+    },
+    {
+        "value": "Ajin",
+        "data": "ajin"
+    },
+    {
+        "value": "Real Account",
+        "data": "real-account"
+    },
+    {
+        "value": "Naruto",
+        "data": "naruto"
+    },
+    {
+        "value": "Highschool Of The Dead",
+        "data": "highschool-of-the-dead"
+    },
+    {
+        "value": "Gantz",
+        "data": "gantz"
+    },
+    {
+        "value": "Boku Girl",
+        "data": "boku-girl"
+    },
+    {
+        "value": "Gamaran",
+        "data": "gamaran"
+    },
+    {
+        "value": "Platinum END",
+        "data": "platinum-end"
+    },
+    {
+        "value": "Karate Shoukoushi Kohinata Minoru",
+        "data": "karate-shoukoushi-kohinata-minoru"
+    },
+    {
+        "value": "Very Pure",
+        "data": "very-pure"
+    },
+    {
+        "value": "Moriarty",
+        "data": "moriarty"
+    },
+    {
+        "value": "Orient",
+        "data": "orient"
+    },
+    {
+        "value": "Gintama",
+        "data": "gintama"
+    },
+    {
+        "value": "Tenkuu Shinpan",
+        "data": "tenkuu-shinpan"
+    },
+    {
+        "value": "Solo Leveling",
+        "data": "solo-leveling"
+    },
+    {
+        "value": "Shokugeki No Soma",
+        "data": "shokugeki-no-soma"
+    },
+    {
+        "value": "Chainsaw Man",
+        "data": "chainsaw-man"
+    },
+    {
+        "value": "Blades Of The Guardians",
+        "data": "blades-of-the-guardians"
+    },
+    {
+        "value": "Samurai 8: Conte D'Hachimaru",
+        "data": "samurai-8-conte-dhachimaru"
+    },
+    {
+        "value": "Dai Dark",
+        "data": "dai-dark"
+    },
+    {
+        "value": "Aku Ingin Menjadi Resepsionis Dunia Sihir!",
+        "data": "aku-ingin-menjadi-resepsionis-dunia-sihir"
+    },
+    {
+        "value": "Tokyo Shinobi Squad",
+        "data": "tokyo-shinobi-squad"
+    },
+    {
+        "value": "one piece",
+        "data": "one-piece-"
+    },
+    {
+        "value": "Shokugeki No Soma: Le Dessert",
+        "data": "shokugeki-no-soma-le-dessert"
+    },
+    {
+        "value": "Douluo Dalu 2 - L'exceptionnel Clan Tang",
+        "data": "douluo-dalu-2-lexceptionnel-clan-tang"
+    },
+    {
+        "value": "Isekai Goumon Hime",
+        "data": "isekai-goumon-hime"
+    },
+    {
+        "value": "Feng Shen Ji",
+        "data": "feng-shen-ji"
+    },
+    {
+        "value": "A Returner's Magic Should Be Special",
+        "data": "a-returners-magic-should-be-special"
+    },
+    {
+        "value": "Mejaz - Regulus In The World",
+        "data": "mejaz-regulus-in-the-world"
+    },
+    {
+        "value": "A World Ruled By Cats",
+        "data": "a-world-ruled-by-cats"
+    },
+    {
+        "value": "Time Lover",
+        "data": "time-lover"
+    },
+    {
+        "value": "MookHyang - Dark Lady",
+        "data": "mookhyang-dark-lady"
+    },
+    {
+        "value": "Dimensional Mercenary",
+        "data": "dimensional-mercenary"
+    },
+    {
+        "value": "Sincerely: I Became A Duke's Maid",
+        "data": "sincerely-i-became-a-dukes-maid"
+    },
+    {
+        "value": "Regnal Trigger",
+        "data": "regnal-trigger"
+    },
+    {
+        "value": "Fox Girls Are Better",
+        "data": "fox-girls-are-better"
+    },
+    {
+        "value": "Cangqiong Bang Zhi Wan Shou Gui Yuan",
+        "data": "cangqiong-bang-zhi-wan-shou-gui-yuan"
+    },
+    {
+        "value": "Player Reborn",
+        "data": "player-reborn"
+    },
+    {
+        "value": "Tondemo Skill De Isekai Hourou Meshi",
+        "data": "tondemo-skill-de-isekai-hourou-meshi"
+    },
+    {
+        "value": "Lalin's Curse",
+        "data": "lalins-curse"
+    },
+    {
+        "value": "Jagaaaaaan",
+        "data": "jagaaaaaan"
+    },
+    {
+        "value": "Arigatights!",
+        "data": "arigatights"
+    },
+    {
+        "value": "Fuufu Ijou, Koibito Miman.",
+        "data": "fuufu-ijou-koibito-miman"
+    },
+    {
+        "value": "My Wife Is A Man",
+        "data": "my-wife-is-a-man"
+    },
+    {
+        "value": "You'Re In The Deep Starlight",
+        "data": "youre-in-the-deep-starlight"
+    },
+    {
+        "value": "Dad Is A Hero, Mom Is A Spirit, I'm A Reincarnator",
+        "data": "dad-is-a-hero-mom-is-a-spirit-im-a-reincarnator"
+    },
+    {
+        "value": "Aka Akatoretachi No Monogatari",
+        "data": "aka-akatoretachi-no-monogatari"
+    },
+    {
+        "value": "Tokyo Revengers",
+        "data": "tokyo-revengers"
+    },
+    {
+        "value": "Act-Age",
+        "data": "actage"
+    },
+    {
+        "value": "Martial King's Retired Life",
+        "data": "martial-kings-retired-life"
+    },
+    {
+        "value": "Vinland Saga",
+        "data": "vinland-saga"
+    },
+    {
+        "value": "War's Unwomanly Face",
+        "data": "wars-unwomanly-face"
+    },
+    {
+        "value": "Gleipnir",
+        "data": "gleipnir"
+    },
+    {
+        "value": "Akai Kiba: Blue Sonnet",
+        "data": "akai-kiba-blue-sonnet"
+    },
+    {
+        "value": "Revival Man",
+        "data": "revival-man"
+    },
+    {
+        "value": "Bouncer",
+        "data": "bouncer"
+    },
+    {
+        "value": "Her Highness Is Mighty",
+        "data": "her-highness-is-mighty"
+    },
+    {
+        "value": "Dahliya Wilts No More",
+        "data": "dahliya-wilts-no-more"
+    },
+    {
+        "value": "Choco Latte",
+        "data": "choco-latte"
+    },
+    {
+        "value": "Mayabi",
+        "data": "mayabi"
+    },
+    {
+        "value": "Lazy Dungeon Master",
+        "data": "lazy-dungeon-master"
+    },
+    {
+        "value": "River God Seeks Adoption",
+        "data": "river-god-seeks-adoption"
+    },
+    {
+        "value": "Spider-Man: Fake Red",
+        "data": "spiderman-fake-red"
+    },
+    {
+        "value": "FFF-Class Trashero",
+        "data": "fffclass-trashero"
+    },
+    {
+        "value": "My Lord, The Wolf Queen",
+        "data": "my-lord-the-wolf-queen"
+    },
+    {
+        "value": "Gundam Seed Destiny dj - AA",
+        "data": "gundam-seed-destiny-dj-aa"
+    },
+    {
+        "value": "Humor Me",
+        "data": "humor-me"
+    },
+    {
+        "value": "We Shall Now Begin Ethics",
+        "data": "we-shall-now-begin-ethics"
+    },
+    {
+        "value": "Ikurou-san (43-sai) wa Amaetai",
+        "data": "ikurousan-43sai-wa-amaetai"
+    },
+    {
+        "value": "Disease",
+        "data": "disease"
+    },
+    {
+        "value": "Shinigami Bocchan To Kuro Maid",
+        "data": "shinigami-bocchan-to-kuro-maid"
+    },
+    {
+        "value": "Charlotte has five disciples",
+        "data": "charlotte-has-five-disciples"
+    }
+]

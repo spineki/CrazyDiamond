@@ -2,6 +2,8 @@ import telebot
 from copy import deepcopy
 from telebot import types, util
 
+# big problem: unable to launch a text mode and save it. Maybe i need to create a numerical keyboard that will
+# # modify the last value, and a confirm button to launch the next asked argument
 
 import threading
 from core import Core
@@ -17,6 +19,7 @@ current_engine = None
 current_task = None
 current_function = None
 current_data = None
+last_text_message = ""
 
 def query_to_message(query):
     if hasattr(query,"data"): # the query is a real query
@@ -79,9 +82,12 @@ def using_arguments(query):
     # We save the indice of the current argument that need to be filled for the engine.
     argument_indice = int(data.split(" ", 1)[-1][1:]) # [1:] to get rid of the hashtag
 
+
     if argument_indice >= len(current_task):
         choosing_send(query)
         return
+
+
     current_argument = current_task[argument_indice]
     #bot.edit_message_text("text random",chat_id,query.message.message_id)
 
@@ -132,11 +138,12 @@ def react_to_text(message):
     global current_task
     global current_data
     global current_function
+    global last_text_message
 
     if current_function != None:
         new_function = current_function
         current_function = None
-
+        last_text_message = message.text
         new_function(message) # to avoid concurency access that will never change current_function
     else:
         current_engine = core.get_reacting_motor(message.text)
@@ -152,5 +159,15 @@ def react_to_text(message):
 
 print("start bot pooling")
 
-bot.polling()
+def launch_core():
+    core.pooling()
+
+def launch_server():
+    bot.polling(none_stop=False, interval=0.5, timeout=20)
+
+thread_core = threading.Thread(target = launch_core)
+thread_core.start()
+
+thread_server = threading.Thread(target=launch_server)
+thread_server.start()
 

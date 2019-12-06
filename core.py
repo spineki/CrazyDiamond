@@ -47,13 +47,14 @@ class Core:
     # RUN *****************************************************************************************
     def run_task(self, task):
         engine = task[0]
-        arguments = task[0]
+        arguments = task[1]
+        print(arguments, "argument")
         arguments = { arg["keyword"]:arg["value"] for arg in arguments }
 
         self.test_funct(**arguments)
 
-    def test_funct(self, keyword, value):
-        print(keyword, value)
+    def test_funct(self, a, b, c):
+        print(a, b, c)
 
     def pooling(self):
         while True:
