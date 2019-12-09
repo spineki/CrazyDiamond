@@ -47,6 +47,10 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+# get rid of dl
+dl/*
+
+
 # Translations
 *.mo
 *.pot

@@ -2,6 +2,8 @@ from Engine.engine import Engine
 import bs4
 import os
 import requests
+import time
+import urllib.request
 
 
 class EngineMangas(Engine):
@@ -13,11 +15,38 @@ class EngineMangas(Engine):
         self.category = "Manga"
 
     def download_picture(self, url, save_path_file):
-        """ Download a binary file"""
+        """ Download a binary file
+        here we use urllib, that seems to be a lot faster than requests on manga websites.
+        """
+        t1 = time.clock()
+        self.print_v("before download")
         try:
-            r = requests.get(url)
+            r = urllib.request.urlopen(url)
+
+            #r = requests.get(url, stream = False, headers = {'Connection': 'close'}) # maybe speed up requests
+            self.print_v("after download", time.clock() - t1)
             with open(save_path_file, "wb") as flux:
-                flux.write(r.content)
+                self.print_v('before writting')
+                flux.write(r.read()) # instead of r.content()
+            return True
+        except Exception as exception:
+            print(str(exception))
+            return False
+
+
+    def safe_download_picture(self, url, save_path_file):
+        """ Download a binary file
+                here we use request, that seems safer than urlib.
+                """
+        t1 = time.clock()
+        self.print_v("before download")
+        try:
+
+            r = requests.get(url, stream = False, headers = {'Connection': 'close'}) # maybe speed up requests
+            self.print_v("after download", time.clock() - t1)
+            with open(save_path_file, "wb") as flux:
+                self.print_v('before writting')
+                flux.write(r.content)  # instead of r.content()
             return True
         except Exception as exception:
             print(str(exception))
@@ -25,7 +54,7 @@ class EngineMangas(Engine):
 
     def get_soup(self, url):
         """Create a soup from an url. Return a soup object if possible. None else"""
-        print("ici l'url dans le requests ", url)
+        self.print_v("ici l'url dans le requests ", url)
         r = requests.get(url)
         soup = bs4.BeautifulSoup(r.content, features="lxml")
         return soup

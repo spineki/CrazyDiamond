@@ -14,7 +14,7 @@ class EngineScansMangas(EngineMangas):
         self.break_time = 0.1
         self.name = "ScansManga"
         self.current_folder = os.path.dirname(__file__)
-        self.list_manga_url = os.path.join(self.current_folder, "scans_mangas_list_manga.json")
+        self.list_manga_path = os.path.join(self.current_folder, "scans_mangas_list_manga.json")
         self.url_search  = "https://scans-mangas.com/mangas/"
 
     def get_list_volume_from_manga_url(self, url):
@@ -88,7 +88,7 @@ class EngineScansMangas(EngineMangas):
             manga_title = name.split(":")[0].strip()
 
             max_page = pages[-1]["num"]
-
+            print(max_page, " found")
             return {"manga_title": manga_title, "chapter_num": chapter_num, "max_pages": max_page, "pages" : pages}
         except Exception as ex:
             self.print_v(str(ex))
@@ -122,7 +122,8 @@ class EngineScansMangas(EngineMangas):
             save_name = self.purify_name(
                 directory + manga_title + "_" + str(chapter_num) + "_" + str(number) + "." + extension)
             # here, we finally download the picture
-            self.download_picture(link, save_name)
+            print(save_name, " the file we want to download")
+            self.safe_download_picture(link, save_name)
             time.sleep(self.break_time)
 
     def download_manga(self, url, selection = "*", directory = ""):
@@ -143,9 +144,10 @@ class EngineScansMangas(EngineMangas):
                 i+=1
                 folder_name = results_presentation_page["title"] + "_V" + str(chapter["num"])
                 if root_directory == "":
-                    directory = self.purify_name(self.dl_directory + results_presentation_page["title"] + "/" + folder_name + "/")
+
+                    directory = self.purify_name(os.path.join(self.dl_directory, results_presentation_page["title"] + "/" + folder_name + "/"))
                 else:
-                    directory = self.purify_name(root_directory + "/" + results_presentation_page["title"] + "/" + folder_name + "/")
+                    directory = self.purify_name(os.path.join(root_directory, results_presentation_page["title"] + "/" + folder_name + "/"))
                 self.print_v("Download in " + directory + "\n")
                 pbar.set_description(chapter["title"] + " :")
 
@@ -208,7 +210,8 @@ class EngineScansMangas(EngineMangas):
             if directory =="":
                 directory = self.purify_name(self.dl_directory + title + "/")
             self.make_directory(directory)
-            save_name = self.purify_name(directory + num_chapter + "_" + str(num_page) + "." + search_word.split(".")[-1])
+            save_name = self.purify_name(os.path.join(directory,  num_chapter + "_" + str(num_page) + "." + search_word.split(".")[-1]))
+
             self.download_picture(search_word, save_name)
 
         elif "lecture-en-ligne" in search_word: # we are lookin for a volume and all of its chapters
