@@ -49,6 +49,7 @@ coverage.xml
 
 # get rid of dl
 dl/*
+!dl/.keep
 
 
 # Translations
