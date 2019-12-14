@@ -128,8 +128,25 @@ class EngineMangas(Engine):
         except Exception as e:
             self.print_v("An error occured while saving the webpage from this url: ", url, " see: ", str(e))
 
-
     def lexicographical_list_converter(self, name_list, sep ="_"):
+        """ Returns a list of name where number are adjusted with lexicographical order
+
+        Args:
+            name_list (list): List of all the names that need to be changed
+            sep (string): The default separator used to detect numbers
+
+        Returns:
+            name_with_extension_list (list): List of all names rewritten with lexicographical order
+            None (None): Returns None if error
+
+        Raises:
+            Doesn't raise an error.
+            print a warning with self.print_v() and return None
+
+        Example:
+            >>> e.lexicographical_list_converter(["a_50_1.jpg", "a_1_8.png", "a_300_30.bmp"])
+            >>> ['a_050_01.jpg', 'a_001_08.png', 'a_300_30.bmp']
+        """
 
         try:
             # First we separate the name from it's extension
@@ -138,58 +155,69 @@ class EngineMangas(Engine):
             split_radical_on_sep_list = [split_name[0].split(sep) for split_name in split_name_list]
 
             # We check if every name has the same 'structure'
-            reference_size = len(split_radical_on_sep_list)
+            reference_size = len(split_radical_on_sep_list[0])
+            print(split_radical_on_sep_list)
             for split_radical in split_radical_on_sep_list:
                 if len(split_radical) != reference_size:
                     self.print_v("All the names in name_list must have the same format: ")
-                    return False
+                    return None
 
         except Exception as e:
             self.print_v("The name_list variable as a problem: ", str(e))
-            return False
+            return None
 
-        # We select the first element of the list that will be used to know where digits are.
-        index_list = []
-        reference_name = split_radical_on_sep_list[0]
-        for i in range(len(reference_name)):
-            if reference_name[i].isdigit():
-                index_list.append(i)
-            # we can also deal with float
+        try:
+            # We select the first element of the list that will be used to know where digits are.
+            index_list = []
+            reference_name = split_radical_on_sep_list[0]
+            for i in range(len(reference_name)):
+                if reference_name[i].isdigit():
+                    index_list.append(i)
+                # we can also deal with float
+        except Exception as e:
+            self.print_v("Error while extracting numbers from the names, perhaps there is an unsupported float: ", str(e))
+            return None
 
-        # We now have a list of all indexes where are numbers
-        # we need to get the max number corresponding to all indexes
-        max_list = []
-        for index in index_list:
-            # list of all number of all split name at the given index
-            number_at_index_list = [ int(split_radical[index]) for split_radical in split_radical_on_sep_list ]
-            max_list.append(max(number_at_index_list))
+        try:
+            # We now have a list of all indexes where there are numbers
+            # we need to get the max number corresponding to all indexes
+            max_list = []
+            for index in index_list:
+                # list of all number of all split name at the given index
+                number_at_index_list = [ int(split_radical[index]) for split_radical in split_radical_on_sep_list ]
+                max_list.append(max(number_at_index_list))
 
-        # for all indexes that are number, we add 0 to get a constant size
-        for i in range(len(index_list)):
-            index = index_list[i]
-            max_number = max_list[i]
-            # we get the size of the max number: faster than len(str(max_number))
-            max_size = int(math.log10(max_number)) + 1
-            for split_radical in split_radical_on_sep_list:
-                split_radical[index] = "0" * (max_size - len(split_radical[index])) + split_radical[index]
+            # for all indexes that are number, we add 0 to get a constant size.
+            for i in range(len(index_list)):
+                index = index_list[i]
+                max_number = max_list[i]
+                # we get the size of the max number: faster than len(str(max_number))
+                max_size = int(math.log10(max_number)) + 1
+                for split_radical in split_radical_on_sep_list:
+                    split_radical[index] = "0" * (max_size - len(split_radical[index])) + split_radical[index]
+        except Exception as e:
+            self.print_v("Error while adding zero to the names: ", str(e))
+            return None
 
-        # finally, we reconstruct the names by adding the separator and the extension
-        name_with_extension_list = []
-        for i in range(len(split_name_list)):
-            radical = sep.join(split_radical_on_sep_list[i])
-            name_with_extension = radical + "." + split_name_list[i][-1] # we add the extension at the end of the radical
-            name_with_extension_list.append(name_with_extension)
+        try:
+            # Finally, we reconstruct the names by adding the separator and the extension
+            name_with_extension_list = []
+            for i in range(len(split_name_list)):
+                radical = sep.join(split_radical_on_sep_list[i])
+                name_with_extension = radical + "." + split_name_list[i][-1] # we add the extension at the end of the radical
+                name_with_extension_list.append(name_with_extension)
+        except Exception as e:
+            self.print_v("Error while dealing with the extensions, maybe a file has no extensions?: ", str(e))
+            return None
 
         return name_with_extension_list
 
-
-    @staticmethod
-    def rename_folder(path, sep="_"):
+    def rename_file_from_folder_lexico(self, folder_directory, display_only = True):
         """ Rename every files in a folder to get a lexicographical order list of files
 
         Args:
-            path (string): Path of the folder where files need to be renamed
-            sep (string): The default separator that will replace unauthorized characters
+            folder_directory (string): Path of the folder where files need to be renamed
+            display_only (bool): default True. If True, just print the changes, else, execute the modificationand rename all the files in the folder
 
         Returns:
             bool (bool): True if no error, False else
@@ -197,47 +225,35 @@ class EngineMangas(Engine):
         Raises:
             Doesn't raise an error.
             print a warning.
-
-        Example:
-            test
         """
 
-        # get the list of all files in the given folder
-        files = os.listdir(path)
+        try:
 
-        decompo_file = [file.rsplit(".", 1) for file in files]  # on a decompoFile[i][0] radical et  decompoFile[i][1] extension
-        list_indice = []
-        list_decompo = [file[0].split(sep) for file in decompo_file]
+            files = os.listdir(folder_directory)
+            if files == []:
+                return True
+        except Exception as e:
+            self.print_v("impossible to analyze ", folder_directory, " folder. Maybe it's a wrong path: ", str(e))
+            return False
 
-        example_decompo = list_decompo[0]
-        for i in range(len(example_decompo)):
-            if example_decompo[i].isdigit():
-                list_indice.append(i)
-        print(list_indice)
-        # now, we the indice list for all the names that are linked to a number (of page, chapter, tome...)
-        for indice in list_indice:
-            # we get all the number cooresponding to the indice
-            list_num = []
-            for file in list_decompo:
-                print(file)
-                list_num.append(int(file[indice]))
-            # we get the greatest
-            max_number = max(list_num)
-            size = len(str(max_number))
-            for j in range(len(list_decompo)):
-                # we add has many zeros as needed to make the number corresponding to a perfect ratio
-                list_decompo[j][indice] = "0" * (size - len(str(list_decompo[j][indice]))) + str(
-                    list_decompo[j][indice])
+        lexico_files = self.lexicographical_list_converter(files)
+        if lexico_files == None:
+            return False
 
-        new_files_without_ext = [sep.join(elem) for elem in list_decompo]
-        new_files_with_ext = [new_files_without_ext[i] + "." + decompo_file[i][1] for i in
-                              range(len(new_files_without_ext))]
+        try:
+            for i in range(len(files)):
+                old_file = files[i]
+                new_file = lexico_files[i]
+                old_path = os.path.join(folder_directory, old_file)
+                new_path = os.path.join(folder_directory, new_file)
+                if display_only:
+                    print(old_path, " -> ", new_path)
+                else:
+                    if old_file != new_file:
+                        os.rename(old_path, new_path)
 
-        for i in range(len(files)):
-            file_old = files[i]
-            file_new = new_files_with_ext[i]
-            print(file_old)
-            print(file_new)
+        except Exception as e:
+            print("impossible to rename the files: ", str(e))
+            return False
 
-            if file_old != file_new:
-                os.rename(path + "/" + file_old, path + "/" + file_new)
+        return True
