@@ -4,6 +4,15 @@ from os.path import dirname
 from PIL import Image
 
 class Engine:
+    """ The super Class `Engine` is not designed to be instanciated, but to be inherited from.
+
+        It handles basic generic function that allow log gestion, writting, loading json, printing...
+        Args:
+            None (None): no parameter are required
+
+        Returns:
+            bool: The return value. True for success, False otherwise.
+        """
 
     def __init__(self):
         self.reactive_keyword = []
@@ -23,11 +32,11 @@ class Engine:
                 return True
         return False
 
-    def print_v(self, text):
+    def print_v(self, *text):
         # allow to print considering the verbose parameter:
-        self.log.append(text)
+        self.log.append(" ".join(text))
         if self.verbose:
-            print(text)
+            print(*text)
 
     def get_logs(self, sep = " \n "):
         logi = ""

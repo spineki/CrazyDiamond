@@ -3,6 +3,17 @@ from Engine.EngineTest.engineTest import EngineTest
 
 
 class Core:
+    """Class Core that manages task affectation to pluggin-engines
+
+    This class allows users to requests multiple kind of data: `music`, `video`, `manga` and download them directly in a `dl` folder.
+
+    Args:
+        None (None): no parameter are required
+
+    Returns:
+        bool: The return value. True for success, False otherwise.
+    """
+
     def __init__(self):
         self.queue = []
         self.engines = []

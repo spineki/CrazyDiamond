@@ -4,9 +4,14 @@ import traceback
 import time
 import os
 from tqdm import tqdm
-
+"""
+This class is in progress
+"""
 
 class EngineScansMangas(EngineMangas):
+    """
+    A class that parse, search and download manga from the website https://scans-mangas.com/mangas/
+    """
 
     def __init__(self):
         super().__init__()
@@ -153,9 +158,23 @@ class EngineScansMangas(EngineMangas):
 
                 self.download_chapter(chapter["link"], directory)
 
-    def get_manga_search_page_list(self):
+    def get_all_available_manga_list(self):
+        """
+        return the list of all mangas available on the scansmanga website
+        ARGS:
+            None
+        RETURN:
+
+        EXAMPLE:
+            RETURN:
+            a list of dict with keys:
+                "title": string -> name of the manga
+                "link" : string -> url of the manga main page
+            an empty list if no manga corresponds to the the name searched
+        """
+
         results = []
-        print('trying to get' + self.url_search+ "in get_manga_search_page_list")
+        print('trying to get ' + self.url_search+ "in get_manga_search_page_list")
         soup = self.get_soup(self.url_search)
 
         list_mangas_found = soup.find_all("div", {"class": "item red"})
@@ -163,12 +182,36 @@ class EngineScansMangas(EngineMangas):
             results.append({"title": manga.find("h2").text, "link": manga.find("a")["href"]})
         return results
 
-    def search_manga(self, name):
-        # https://scans-mangas.com/lecture-en-ligne/jojos-bizarre-adventure/
-        """ Search a manga in the database. If not, make a requests, update the config, and search it again"""
-        results = []
+    def find_manga_by_name(self, name = ""):
+        """ Search a 'manga' by its name in the database. If not found, make a requests, update the config, and search it again
+            It returns every manga that has the name field in it's title
+        Args:
+            name (string): name of the required manga
+
+        Returns:
+            result (list): 'title' and links
+                avec retour à la ligne\n
+                test
+            test (string): name of the manga.
+
+            link (string): url of the manga main page.
+            an empty list if no manga correspond to the the name searched
+
+        Examples:
+            find_manga_by_name("jojo"):
+                * [{'title': 'JoJo’s Bizarre Adventure', 'link': 'https://scans-mangas.com/lecture-en-ligne/jojos-bizarre-adventure/'}]
+
+            find_manga_by_name("naru"): [{'title': 'Ane Naru Mono', 'link': 'https://scans-mangas.com/lecture-en-ligne/ane-naru-mono/'},
+                {'title': 'Curry Naru Shokutaku', 'link': 'https://scans-mangas.com/lecture-en-ligne/curry-naru-shokutaku/'},
+                {'title': 'Naruto', 'link': 'https://scans-mangas.com/lecture-en-ligne/naruto/'},
+                {'title': 'Yoru Ni Naru To Boku Wa', 'link': 'https://scans-mangas.com/lecture-en-ligne/yoru-ni-naru-to-boku-wa/'}]
+         """
+
+
+        results = [] # list of found manga
         found = False
-        self.print_v("recherche dans la base de donnee" + self.list_manga_path)
+
+        # first, we search the name in the database
         try:
             list_manga = self.get_json_file(self.list_manga_path)
         except:
@@ -178,27 +221,27 @@ class EngineScansMangas(EngineMangas):
             if name.lower() in manga["title"].lower():
                 found = True
                 results.append(manga)
+
+        # if the manga is not in the database, we look for it online
         if not found:
-            self.print_v("recherche en ligne")
+            self.print_v("search online " + name)
             # update the list
-            list_manga = self.get_manga_search_page_list()
+            list_manga = self.get_all_available_manga_list()
             # save the list in the file
             self.save_json_file(list_manga, self.list_manga_path)
             for manga in list_manga:
                 if name.lower() in manga["title"].lower():
                     results.append(manga)
-
         return results
 
     def switch(self, search_word, selection ="*", directory = ""):
         self.log = []
         if "https" not in search_word: # we are looking for a title of a manga
 
-            list_manga = self.search_manga(search_word)
+            list_manga = self.find_manga_by_name(search_word)
             if list_manga != []:  # we found a corresponding manga
-                self.print_v("Manga found: " +  str(list_manga))
+                self.print_v("Manga found in the database: " +  str(list_manga))
                 chosen_manga = list_manga[0]
-
                 url = chosen_manga["link"]
                 self.download_manga(url, selection, directory)
 

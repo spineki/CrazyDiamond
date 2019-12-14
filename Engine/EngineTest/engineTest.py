@@ -2,6 +2,11 @@ from Engine.EngineTest.engineTests import EngineTests
 import os
 
 class EngineTest(EngineTests):
+    """
+    The Class `EngineTests` is a toy class, used to test the core and engine architecture
+
+    It simulates some task and can give a task template to the user
+    """
 
     def __init__(self):
         super().__init__()
