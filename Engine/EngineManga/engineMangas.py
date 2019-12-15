@@ -2,8 +2,18 @@ from Engine.engine import Engine
 import bs4
 import os
 import requests
+
 import urllib.request
 import math
+import time
+
+import aiohttp
+import asyncio
+
+async def get(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            return response
 
 
 class EngineMangas(Engine):
@@ -68,6 +78,7 @@ class EngineMangas(Engine):
             >>> engineMangas.download_picture("www.your_picture.png", "C:Users/your/path/to/file.png")
         """
 
+        url = url.strip()
         try:
             r = urllib.request.urlopen(url)
 
@@ -99,9 +110,20 @@ class EngineMangas(Engine):
         """
 
         try:
-            r = requests.get(url, stream=False, headers={'Connection': 'close'})  # maybe speed up requests
-            with open(save_path_file, "wb") as flux:
-                flux.write(r.content)  # instead of r.content()
+
+
+            t = time.clock()
+            url = url.strip()
+            self.r = requests.get(url, stream = False,  headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})  # maybe speed up requests
+            self.print_v("requests time: ", str(time.clock() - t))
+
+            if self.r.status_code != 200:
+                return False
+
+            with open(save_path_file, 'wb') as flux:
+                flux.write(self.r.content)
+
+            time.sleep(0.1)
             return True
 
         except Exception as exception:
