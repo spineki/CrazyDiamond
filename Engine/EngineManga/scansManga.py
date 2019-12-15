@@ -241,7 +241,6 @@ class EngineScansMangas(EngineMangas):
         chapters = results_presentation_page["chapter_list"]
 
 
-        chapters = [chapters[i] for i in range(int(selection[0])-1, int(selection[1]))]
         for chapter in chapters:
 
             folder_name = results_presentation_page["title"] + "_V" + str(chapter["num"])
@@ -309,11 +308,11 @@ class EngineScansMangas(EngineMangas):
             None if no manga corresponds to the the name searched
 
         Examples:
-            >>> find_manga_by_name("jojo"):
+            >>> self.find_manga_by_name("jojo")
             >>> ouput: [{'title': 'JoJo’s Bizarre Adventure', 'link': 'https://scans-mangas.com/lecture-en-ligne/jojos-bizarre-adventure/'}]
 
-            >>> find_manga_by_name("naru"): [{'title': 'Ane Naru Mono', 'link': 'https://scans-mangas.com/lecture-en-ligne/ane-naru-mono/'},
-            >>> {'title': 'Curry Naru Shokutaku', 'link': 'https://scans-mangas.com/lecture-en-ligne/curry-naru-shokutaku/'}, {'title': 'Naruto', 'link': 'https://scans-mangas.com/lecture-en-ligne/naruto/'}, {'title': 'Yoru Ni Naru To Boku Wa', 'link': 'https://scans-mangas.com/lecture-en-ligne/yoru-ni-naru-to-boku-wa/'}]
+            >>> self.find_manga_by_name("naru")
+            >>> output: [{'title': 'Ane Naru Mono', 'link': 'https://scans-mangas.com/lecture-en-ligne/ane-naru-mono/'}, {'title': 'Curry Naru Shokutaku', 'link': 'https://scans-mangas.com/lecture-en-ligne/curry-naru-shokutaku/'}, {'title': 'Naruto', 'link': 'https://scans-mangas.com/lecture-en-ligne/naruto/'}, {'title': 'Yoru Ni Naru To Boku Wa', 'link': 'https://scans-mangas.com/lecture-en-ligne/yoru-ni-naru-to-boku-wa/'}]
          """
 
         # list of found manga
