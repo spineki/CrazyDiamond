@@ -23,6 +23,32 @@ class EngineMangas(Engine):
         super().__init__()
         self.category = "Manga"
 
+    def get_soup(self, url):
+        """Creates a soup from an url with lxml parser. Returns a soup object if possible. None else
+        Args:
+            url (string): url of the webpage that will be turned into a soup
+
+        Returns:
+            soup (soup): A beautifulSoup soup obejct of the page
+            None (None): if there is an error
+
+        Raises:
+            Doesn't raise an error but return None if there is a dl or soup creation.
+            print_v() the error
+        """
+
+        self.print_v("Trying to get the web page",  url)
+        try:
+            r = requests.get(url)
+            if r.status_code == 200:
+                soup = bs4.BeautifulSoup(r.content, features="lxml")
+                return soup
+        except Exception as e:
+            try:
+                self.print_v("Error: ", str(e), "with error code ", r.status_code)
+            except Exception as _:  # the r value doesn't exist yet
+                self.print_v("Error: ", str(e), ". Impossible to get a status code from the resquests")
+
     def download_picture(self, url, save_path_file):
         """ Download a binary file.
         Here we use urllib, that seems to be a lot faster than requests on some manga websites.
@@ -81,32 +107,6 @@ class EngineMangas(Engine):
         except Exception as exception:
             self.print_v(str(exception))
             return False
-
-    def get_soup(self, url):
-        """Creates a soup from an url with lxml parser. Returns a soup object if possible. None else
-        Args:
-            url (string): url of the webpage that will be turned into a soup
-
-        Returns:
-            soup (soup): A beautifulSoup soup obejct of the page
-            None (None): if there is an error
-
-        Raises:
-            Doesn't raise an error but return None if there is a dl or soup creation.
-            print_v() the error
-        """
-
-        self.print_v("Trying to get the web page",  url)
-        try:
-            r = requests.get(url)
-            if r.status_code == 200:
-                soup = bs4.BeautifulSoup(r.content, features="lxml")
-                return soup
-        except Exception as e:
-            try:
-                self.print_v("Error: ", str(e), "with error code ", r.status_code)
-            except Exception as _:  # the r value doesn't exist yet
-                self.print_v("Error: ", str(e), ". Impossible to get a status code from the resquests")
 
     def save_html(self, url, path):
         """Save the html from a webpage using requests library

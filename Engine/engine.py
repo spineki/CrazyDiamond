@@ -28,8 +28,8 @@ class Engine:
         Raises:
             None (none): None
          """
-        for k in self.reactive_keyword:
-            if k in keyword:
+        for keyword_meant_to_react in self.reactive_keyword:
+            if keyword in keyword_meant_to_react:
                 return True
         return False
 
@@ -56,7 +56,7 @@ class Engine:
         if self.verbose:
             print(*text)
 
-    def get_logs(self, sep=" \n "):
+    def get_logs(self, sep="\n"):
         """ Gets the logs saved with print_v in a prettified string
 
         Args:
