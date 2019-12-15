@@ -43,38 +43,41 @@ import requests
 e = EngineLelscan()
 # e.download_chapter("https://www.lelscan-vf.com/manga/kimetsu-no-yaiba/99")
 
+def asyncDownload(url_list, url_folder_path):
 
-async def get(url):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            return await response.read()
+    async def get(url):
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                if response.status == 200:
+                    return await response.read()
+                print(response.status)
+                return None
 
-async def save(path, content):
-    async with aiof.open(path, 'wb') as afp:
-        # writer = Writer(afp)
-        await afp.write(content)
-        await afp.flush()
-        #await writer(content)
+    async def save(path, content):
+        if content == None:
+            return None
+        async with aiof.open(path, 'wb') as afp:
+            await afp.write(content)
+            await afp.flush()
 
-names = ["01","02","03","04"]
+    if len(url_list) != len(url_folder_path):
+        return None
+    print("after")
+    loop = asyncio.get_event_loop()
+    results = loop.run_until_complete(asyncio.gather(*[get(url) for url in url_list]))
 
-t = time.clock()
-loop = asyncio.get_event_loop()
-coroutines = [get("https://www.lelscan-vf.com/uploads/manga/kimetsu-no-yaiba/chapters/105/"+ a + ".png") for a in names]
-results = loop.run_until_complete(asyncio.gather(*coroutines))
-print(time.clock() - t)
-
-# info = results[0].content._buffer[0]
-with open("image_async_0.png", "wb") as f:
-    f.write(results[0])
-with open("image_async_1.png", "wb") as f:
-    f.write(results[1])
-print("passage aux coroutines")
-
-ref = results[0]
+    results = loop.run_until_complete(asyncio.gather(*[save(url_folder_path[i], results[i]) for i in range(len(url_list))]))
 
 t = time.clock()
-coroutines = [save(names[i] + ".png", results[i]) for i in range(len(names))]
-results = loop.run_until_complete(asyncio.gather(*coroutines))
-print(time.clock() - t)
-
+asyncDownload(["https://c.japscan.co/lel/Kingdom/625/01.png",
+               "https://www.lelscan-vf.com/uploads/manga/kimetsu-no-yaiba/chapters/107/02.png",
+               "https://www.lelscan-vf.com/uploads/manga/kimetsu-no-yaiba/chapters/107/03.png",
+               "https://www.lelscan-vf.com/uploads/manga/kimetsu-no-yaiba/chapters/107/04.png",
+               "https://www.lelscan-vf.com/uploads/manga/kimetsu-no-yaiba/chapters/107/05.png"],
+              ["a.png",
+               "b.png",
+               "c.png",
+               "d.png",
+               "e.png"]
+              )
+print(time.clock() - t , "s")
