@@ -1,18 +1,12 @@
 import json
 import os
 from os.path import dirname
-from PIL import Image
+
 
 class Engine:
     """ The super Class `Engine` is not designed to be instanciated, but to be inherited from.
-
         It handles basic generic function that allow log gestion, writting, loading json, printing...
-        Args:
-            None (None): no parameter are required
-
-        Returns:
-            bool: The return value. True for success, False otherwise.
-        """
+    """
 
     def __init__(self):
         self.reactive_keyword = []
@@ -22,59 +16,133 @@ class Engine:
         self.name = "default Engine"
         self.current_folder = dirname(__file__)
         self.dl_directory = os.path.join(dirname(self.current_folder), "dl")
-        self.callback = lambda x :None
+        self.callback = lambda x: None
         print("Engine created")
 
     def react_to_keyword(self, keyword):
-        """ return True if the motor is meant to react to the given url, False else """
+        """ Verify if an engine is supposed to react to the given keyword
+        Args:
+            keyword (string): keyword that will be verified
+        Returns:
+            bool (bool): True if the keyword is in engine list of reactive keyword, False else
+        Raises:
+            None (none): None
+         """
         for k in self.reactive_keyword:
             if k in keyword:
                 return True
         return False
 
     def print_v(self, *text):
-        # allow to print considering the verbose parameter:
+        """ Prints to the terminal the text if self.verbose is True. Keeps in engine logs memory the text
+
+        Args:
+            *text (list): texts that can be juxtaposed, or given as a list, and that need to be displayed
+        Return:
+            None (None):
+
+        Examples:
+            >>> e = Engine()
+            >>> e.print_v("hi", "I am", "a test")
+            >>> ouput: "hi I am a test"
+            >>> e.verbose = False
+            >>> e.print_v("another test")
+            >>> output: None
+            >>> e.get_logs()
+            >>> ouput: "hi I am a test", "another test"
+        """
+
         self.log.append(" ".join(text))
         if self.verbose:
             print(*text)
 
-    def get_logs(self, sep = " \n "):
-        logi = ""
-        for line in self.log:
-            logi+=line + sep
+    def get_logs(self, sep=" \n "):
+        """ Gets the logs saved with print_v in a prettified string
+
+        Args:
+            sep (string): separator used between each log
+
+        Returns:
+            logi (string): prettified logs
+        """
+
+        logi = sep.join(self.log)
         return logi
 
-    def get_json_file(self, path):
-        with open(path, "r", encoding="utf8") as flux:
-            data = json.load(flux)
-        return data
+    def get_json_file(self, file_path):
+        """ Retrieves json file using json library
+        Args:
+            file_path (string): Path to the json path with the .json extension.
+        Returns:
+            data (dict): a json object of the file
+            None (None): If there is an error, returns None
+        Raises:
+            Raises nothing but print_v() the error
+        """
 
-    def save_json_file(self, data, path):
-        with open(path, "w", encoding="utf8") as flux:
-            flux.write(json.dumps(data, indent=4))
+        try:
+            with open(file_path, "r", encoding="utf8") as flux:
+                data = json.load(flux)
+            return data
+        except Exception as e:
+            self.print_v("impossible to load json file ", file_path, " : ", str(e))
+            return None
 
-    def purify_name(self, name, replacement = "_"):
-        forbidden_char = ["<", ">","\"", "|", "?", "*", " ", "!", "'" ]
-        return "".join(letter if letter not in forbidden_char else replacement for letter in name )
+    def save_json_file(self, data, file_path):
+        """ Saves json file using json library
+        Args:
+            data (string): Data that need to be saved in file_path
+            file_path (string): Path to the json path with the .json extension.
+        Returns:
+            bool (bool): True if no error, False else
+        Raises:
+            Raises nothing but print_v() the error
+        """
 
-    def make_directory(self, directory):
-        """Make a directory if it doesn't exist. The default value is directly in the dl folder
-        ARGS:
-            directory : path of the to-create directory
-        RETURN:
-            True if no error
-            False else
+        try:
+            with open(file_path, "w", encoding="utf8") as flux:
+                flux.write(json.dumps(data, indent=4))
+            return True
+
+        except Exception as e:
+            self.print_v("impossible to save in json file ", file_path, " : ", str(e))
+            return False
+
+    def purify_name(self, name, replacement="_"):
+        """ Purify a string from it's system forbidden characters
+        Args:
+            name (string): name that need to be purified from forbidden characters
+            replacement (string): a replacement character that will replace forbidden chars in name
+
+        Returns:
+            string (string): Purified name
+            None (None): If there is a mistake
+
+        Raises:
+            Raises nothing but print_v() the error
+        """
+
+        try:
+            forbidden_char = ["<", ">", "\"", "|", "?", "*", " ", "!", "'"]
+            return "".join(letter if letter not in forbidden_char else replacement for letter in name)
+        except Exception as e:
+            self.print_v(" Impossible purify ", name, " : ", str(e))
+            return None
+
+    def make_directory(self, directory_path):
+        """Make a directory if it doesn't exist.
+        Args:
+            directory_path : path of the to-create directory
+        Returns:
+            bool (bool): True if no error, False else
+
+        Raises:
+            Raises nothing but print_v() the error
         """
         try:
-            if directory != "": # thus, the directory has been chosen
-                if not os.path.exists(directory):
-                    os.makedirs(directory)
-            else: # wasn't specified, we just recreate the dl path if it doesn't already exists
-                if not os.path.exists(self.dl_directory):
-                    os.makedirs(self.dl_directory)
-                directory = self.dl_directory
-                print("directory void, we will save in the ")
-            print(directory)
-            return directory
-        except:
+            if not os.path.exists(directory_path):
+                os.makedirs(directory_path)
+            return True
+        except Exception as e:
+            self.print_v("Impossible to create directory ", directory_path, " : ", str(e))
             return False

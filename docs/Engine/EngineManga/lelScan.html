@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.2" />
+<title>Engine.EngineManga.lelScan API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Engine.EngineManga.lelScan</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from Engine.EngineManga.engineMangas import EngineMangas
+import json
+import time
+import os
+from tqdm import tqdm
+
+
+class EngineLelscan(EngineMangas):
+
+    def __init__(self):
+        super().__init__()
+        self.reactive_keyword = [&#34;lelscan&#34;]
+        self.break_time = 0.1
+        self.name = &#34;EngineLelscan&#34;
+        self.current_folder = os.path.dirname(__file__)
+
+        self.list_manga_path = os.path.join(self.current_folder, &#34;lelscan_list_manga.json&#34;)
+        self.url_picture = &#34;https://lelscan-vf.com/uploads/manga/&#34; # https://lelscan-vf.com/uploads/manga/dr-stone/chapters/125/01.png
+        self.url_manga = &#34;https://www.lelscan-vf.com/manga/&#34;     # https://lelscan-vf.com/manga/tales-of-demons-and-gods
+        self.url_search  = &#34;https://lelscan-vf.com/search&#34;
+
+    def get_manga_search_page_list(self):
+        &#34;&#34;&#34; retrieve list of all manga of the website&#34;&#34;&#34;
+        soup = self.get_soup(self.url_search)
+        list_manga = json.loads(soup.find(&#34;p&#34;).text)[&#34;suggestions&#34;]
+        return list_manga
+
+    def search_manga(self, name):
+        &#34;&#34;&#34; Search a manga in the database. If not, make a requests, update the config, and search it again&#34;&#34;&#34;
+        results = []
+        found = False
+        print(&#34;recherche dans la base de donnee&#34;)
+        try:
+            list_manga = self.get_json_file(self.list_manga_path)
+        except:
+            list_manga = []
+        for manga in list_manga:
+            if name.lower() in manga[&#34;value&#34;].lower():
+                found = True
+                results.append(manga)
+        if not found:
+            print(&#34;recherche en ligne&#34;)
+            # update the list
+            list_manga = self.get_manga_search_page_list()
+            # save the list in the file
+            self.save_json_file(list_manga, self.list_manga_path)
+            for manga in list_manga:
+                if name.lower() in manga[&#34;value&#34;].lower():
+                    results.append(manga)
+        return results
+
+    def handle_presentation_page(self, url):
+        &#34;&#34;&#34; Find all chapter in the manga presentation page&#34;&#34;&#34;
+        soup = self.get_soup(url)
+        title = soup.find(&#34;h2&#34;, {&#34;class&#34;: &#34;widget-title&#34;}).text.strip()
+        synopsis = soup.find(&#34;div&#34;, {&#34;class&#34;: &#34;well&#34;}).find(&#34;p&#34;).text
+        chapter_list = [ {&#34;title&#34;:chap.find(&#34;em&#34;).text, &#34;chapter&#34;: chap.find(&#34;a&#34;).text, &#34;link&#34;: chap.find(&#34;a&#34;)[&#34;href&#34;]}   for chap in soup.find_all(&#34;h5&#34;, {&#34;class&#34;: &#34;chapter-title-rtl&#34;})]
+        return { &#34;title&#34;:title, &#34;synopsis&#34;:synopsis, &#34;chapter_list&#34;:chapter_list}
+
+    def handle_chapter(self, url):
+        chapter_num = url.rsplit(&#34;/&#34;, 1)[-1]
+        soup = self.get_soup(url)
+        if not self.verify_missing_chapter(soup):
+            print(&#34;un chapitre manquant&#34;, chapter_num)
+            return False
+        try: # some blank pages can still pass
+            manga_title = soup.find(&#34;img&#34;, {&#34;class&#34;: &#34;scan-page&#34;})[&#34;alt&#34;].split(&#34;:&#34;)[0].strip()
+            list_number_page = [int(opt[&#34;value&#34;]) for opt in soup.find_all(&#34;option&#34;) if &#34;value&#34; in opt.attrs]
+        except:
+            return False
+        max_page = max(list_number_page)
+
+        images_link = [img[&#34;data-src&#34;] for img in soup.find_all(&#34;img&#34;, {&#34;class&#34;: &#34;img-responsive&#34;}) if
+                       &#34;data-src&#34; in img.attrs]
+        # print(&#34;max_pages&#34;+ str(max_page)+ &#34;image_links&#34;,  images_link)
+        return {&#34;manga_title&#34;:manga_title, &#34;chapter_num&#34;: chapter_num, &#34;max_pages&#34;: max_page, &#34;image_links&#34;: images_link, &#34;image_numbers&#34;:list_number_page}
+
+    def download_chapter(self, url, directory = None):
+        &#34;&#34;&#34; Retrieve all images from the manga chapter page, rename them and download them to the folder
+        ARGS:
+            url:str: url of the given chapter: example &#34;https://www.lelscan-vf.com/manga/the-promised-neverland/132&#34;
+            directory
+        RETURN:
+
+        &#34;&#34;&#34;
+
+        results_chapter_page = self.handle_chapter(url)
+        if results_chapter_page == False:
+            return False
+
+
+        image_links = results_chapter_page[&#34;image_links&#34;]
+        image_number = results_chapter_page[&#34;image_numbers&#34;]
+        chapter_num = results_chapter_page[&#34;chapter_num&#34;]
+        max_pages  = results_chapter_page[&#34;max_pages&#34;]
+        manga_title = results_chapter_page[&#34;manga_title&#34;]
+        if directory == None:
+            directory = self.make_directory(os.path.join(self.dl_directory, self.purify_name(manga_title)))
+        else:
+            directory = self.make_directory(directory)
+        for i in range(len(image_links)):
+            link = image_links[i].strip()
+            number = image_number[i]
+            print(&#34;image &#34;, i)
+            extension = link.rsplit(&#34;.&#34;)[-1].strip()
+            save_name = self.purify_name(os.path.join(directory , manga_title+&#34;_&#34;+ chapter_num + &#34;_&#34; + str(number) + &#34;.&#34; + extension))
+
+            print(save_name)
+            # here, we finally download the picture
+            self.download_picture(link, save_name)
+            time.sleep(self.break_time)
+
+    def download_manga(self, url, selection = &#34;*&#34;, directory = &#34;&#34;):
+
+            results_presentation_page = self.handle_presentation_page(url)
+            chapters = results_presentation_page[&#34;chapter_list&#34;]
+            if directory == &#34;&#34;:
+                directory = self.purify_name(self.dl_directory + results_presentation_page[&#34;title&#34;] + &#34;/&#34;)
+            else:
+                directory = self.purify_name(directory + &#34;/&#34; + results_presentation_page[&#34;title&#34;] + &#34;/&#34;)
+            self.print_v(&#34;debut du telechargement du manga dans &#34; + directory)
+            chapters.reverse() # we want the chapters in the good order
+            self.print_v(str(len(chapters))+ &#34; chapters found&#34;)
+            if selection != &#34;*&#34;:
+                chapters = [chapters[i] for i in range(int(selection[0])-1, int(selection[1])  )]
+
+            pbar = tqdm(chapters)
+            i = 0
+            maxi = len(chapters)
+            for chapter in pbar:
+                self.callback(int(i * 10000 / maxi) / 100)
+                i+=1
+                pbar.set_description(&#34; :&#34; + chapter[&#34;chapter&#34;] + &#34; | &#34; + chapter[&#34;title&#34;])
+                # possibility to had a pbar
+                # we get the page of single chapter
+                self.download_chapter(chapter[&#34;link&#34;], directory)
+
+    def verify_missing_chapter(self, soup):
+        &#34;&#34;&#34;return False if a chapter is missing&#34;&#34;&#34;
+        try:
+            a = soup.find_all(&#34;div&#34;, {&#34;class&#34;: &#34;alert&#34;})
+            if a ==[]:
+                return True
+            a = a[0]
+            if &#34;Aucune page publiee&#34; in a.text:
+                return False
+            return True
+        except:
+            self.print_v(soup.prettify())
+            return False
+
+    def switch(self, search_word, selection =&#34;*&#34;, directory = &#34;&#34;):
+
+        if &#34;https&#34; not in search_word: # we are looking for a title of a manga
+
+            list_manga = self.search_manga(search_word)
+            if list_manga != []:  # we found a corresponding manga
+                print(&#34;Manga found: &#34;,list_manga)
+                chosen_manga = list_manga[0]
+
+                url = self.url_manga + chosen_manga[&#34;data&#34;]
+                self.download_manga(url, selection, directory)
+
+        elif &#34;uploads&#34; in search_word:
+            items = search_word.rsplit(4)
+            num_page = items[-1]
+            num_chapter = items[-2]
+            title = items[-4]
+            if directory ==&#34;&#34;:
+                directory = self.purify_name(self.dl_directory + title + &#34;/&#34;)
+            self.make_directory(directory)
+            save_name = self.purify_name(directory + num_chapter + &#34;_&#34; + str(num_page) + &#34;.&#34; + search_word.split(&#34;.&#34;)[-1])
+            self.download_picture(search_word, save_name)
+
+        elif &#34;manga&#34; in search_word:
+            right_part_url = search_word.rsplit(&#34;/&#34;, 1)
+
+            if right_part_url[-1].isdigit(): # thus, we are look to the home page of a chapter:
+                self.download_chapter(search_word, directory)
+
+            else: # thus, it&#39;s the main page of the manga, were we can look for chapters
+                self.download_manga(search_word, directory)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Engine.EngineManga.lelScan.EngineLelscan"><code class="flex name class">
+<span>class <span class="ident">EngineLelscan</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>The super Class <code>EngineMangas</code> is not designed to be instanciated, but to be inherited from.</p>
+<p>It binds every engine that deals with mangas.
+The functions defined here perform web and I/O tasks.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>category</code></strong> :&ensp;<code>string</code></dt>
+<dd>category of the Engine; (here, manga).</dd>
+</dl>
+<p>Make it easier for the core to sort engines by category.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class EngineLelscan(EngineMangas):
+
+    def __init__(self):
+        super().__init__()
+        self.reactive_keyword = [&#34;lelscan&#34;]
+        self.break_time = 0.1
+        self.name = &#34;EngineLelscan&#34;
+        self.current_folder = os.path.dirname(__file__)
+
+        self.list_manga_path = os.path.join(self.current_folder, &#34;lelscan_list_manga.json&#34;)
+        self.url_picture = &#34;https://lelscan-vf.com/uploads/manga/&#34; # https://lelscan-vf.com/uploads/manga/dr-stone/chapters/125/01.png
+        self.url_manga = &#34;https://www.lelscan-vf.com/manga/&#34;     # https://lelscan-vf.com/manga/tales-of-demons-and-gods
+        self.url_search  = &#34;https://lelscan-vf.com/search&#34;
+
+    def get_manga_search_page_list(self):
+        &#34;&#34;&#34; retrieve list of all manga of the website&#34;&#34;&#34;
+        soup = self.get_soup(self.url_search)
+        list_manga = json.loads(soup.find(&#34;p&#34;).text)[&#34;suggestions&#34;]
+        return list_manga
+
+    def search_manga(self, name):
+        &#34;&#34;&#34; Search a manga in the database. If not, make a requests, update the config, and search it again&#34;&#34;&#34;
+        results = []
+        found = False
+        print(&#34;recherche dans la base de donnee&#34;)
+        try:
+            list_manga = self.get_json_file(self.list_manga_path)
+        except:
+            list_manga = []
+        for manga in list_manga:
+            if name.lower() in manga[&#34;value&#34;].lower():
+                found = True
+                results.append(manga)
+        if not found:
+            print(&#34;recherche en ligne&#34;)
+            # update the list
+            list_manga = self.get_manga_search_page_list()
+            # save the list in the file
+            self.save_json_file(list_manga, self.list_manga_path)
+            for manga in list_manga:
+                if name.lower() in manga[&#34;value&#34;].lower():
+                    results.append(manga)
+        return results
+
+    def handle_presentation_page(self, url):
+        &#34;&#34;&#34; Find all chapter in the manga presentation page&#34;&#34;&#34;
+        soup = self.get_soup(url)
+        title = soup.find(&#34;h2&#34;, {&#34;class&#34;: &#34;widget-title&#34;}).text.strip()
+        synopsis = soup.find(&#34;div&#34;, {&#34;class&#34;: &#34;well&#34;}).find(&#34;p&#34;).text
+        chapter_list = [ {&#34;title&#34;:chap.find(&#34;em&#34;).text, &#34;chapter&#34;: chap.find(&#34;a&#34;).text, &#34;link&#34;: chap.find(&#34;a&#34;)[&#34;href&#34;]}   for chap in soup.find_all(&#34;h5&#34;, {&#34;class&#34;: &#34;chapter-title-rtl&#34;})]
+        return { &#34;title&#34;:title, &#34;synopsis&#34;:synopsis, &#34;chapter_list&#34;:chapter_list}
+
+    def handle_chapter(self, url):
+        chapter_num = url.rsplit(&#34;/&#34;, 1)[-1]
+        soup = self.get_soup(url)
+        if not self.verify_missing_chapter(soup):
+            print(&#34;un chapitre manquant&#34;, chapter_num)
+            return False
+        try: # some blank pages can still pass
+            manga_title = soup.find(&#34;img&#34;, {&#34;class&#34;: &#34;scan-page&#34;})[&#34;alt&#34;].split(&#34;:&#34;)[0].strip()
+            list_number_page = [int(opt[&#34;value&#34;]) for opt in soup.find_all(&#34;option&#34;) if &#34;value&#34; in opt.attrs]
+        except:
+            return False
+        max_page = max(list_number_page)
+
+        images_link = [img[&#34;data-src&#34;] for img in soup.find_all(&#34;img&#34;, {&#34;class&#34;: &#34;img-responsive&#34;}) if
+                       &#34;data-src&#34; in img.attrs]
+        # print(&#34;max_pages&#34;+ str(max_page)+ &#34;image_links&#34;,  images_link)
+        return {&#34;manga_title&#34;:manga_title, &#34;chapter_num&#34;: chapter_num, &#34;max_pages&#34;: max_page, &#34;image_links&#34;: images_link, &#34;image_numbers&#34;:list_number_page}
+
+    def download_chapter(self, url, directory = None):
+        &#34;&#34;&#34; Retrieve all images from the manga chapter page, rename them and download them to the folder
+        ARGS:
+            url:str: url of the given chapter: example &#34;https://www.lelscan-vf.com/manga/the-promised-neverland/132&#34;
+            directory
+        RETURN:
+
+        &#34;&#34;&#34;
+
+        results_chapter_page = self.handle_chapter(url)
+        if results_chapter_page == False:
+            return False
+
+
+        image_links = results_chapter_page[&#34;image_links&#34;]
+        image_number = results_chapter_page[&#34;image_numbers&#34;]
+        chapter_num = results_chapter_page[&#34;chapter_num&#34;]
+        max_pages  = results_chapter_page[&#34;max_pages&#34;]
+        manga_title = results_chapter_page[&#34;manga_title&#34;]
+        if directory == None:
+            directory = self.make_directory(os.path.join(self.dl_directory, self.purify_name(manga_title)))
+        else:
+            directory = self.make_directory(directory)
+        for i in range(len(image_links)):
+            link = image_links[i].strip()
+            number = image_number[i]
+            print(&#34;image &#34;, i)
+            extension = link.rsplit(&#34;.&#34;)[-1].strip()
+            save_name = self.purify_name(os.path.join(directory , manga_title+&#34;_&#34;+ chapter_num + &#34;_&#34; + str(number) + &#34;.&#34; + extension))
+
+            print(save_name)
+            # here, we finally download the picture
+            self.download_picture(link, save_name)
+            time.sleep(self.break_time)
+
+    def download_manga(self, url, selection = &#34;*&#34;, directory = &#34;&#34;):
+
+            results_presentation_page = self.handle_presentation_page(url)
+            chapters = results_presentation_page[&#34;chapter_list&#34;]
+            if directory == &#34;&#34;:
+                directory = self.purify_name(self.dl_directory + results_presentation_page[&#34;title&#34;] + &#34;/&#34;)
+            else:
+                directory = self.purify_name(directory + &#34;/&#34; + results_presentation_page[&#34;title&#34;] + &#34;/&#34;)
+            self.print_v(&#34;debut du telechargement du manga dans &#34; + directory)
+            chapters.reverse() # we want the chapters in the good order
+            self.print_v(str(len(chapters))+ &#34; chapters found&#34;)
+            if selection != &#34;*&#34;:
+                chapters = [chapters[i] for i in range(int(selection[0])-1, int(selection[1])  )]
+
+            pbar = tqdm(chapters)
+            i = 0
+            maxi = len(chapters)
+            for chapter in pbar:
+                self.callback(int(i * 10000 / maxi) / 100)
+                i+=1
+                pbar.set_description(&#34; :&#34; + chapter[&#34;chapter&#34;] + &#34; | &#34; + chapter[&#34;title&#34;])
+                # possibility to had a pbar
+                # we get the page of single chapter
+                self.download_chapter(chapter[&#34;link&#34;], directory)
+
+    def verify_missing_chapter(self, soup):
+        &#34;&#34;&#34;return False if a chapter is missing&#34;&#34;&#34;
+        try:
+            a = soup.find_all(&#34;div&#34;, {&#34;class&#34;: &#34;alert&#34;})
+            if a ==[]:
+                return True
+            a = a[0]
+            if &#34;Aucune page publiee&#34; in a.text:
+                return False
+            return True
+        except:
+            self.print_v(soup.prettify())
+            return False
+
+    def switch(self, search_word, selection =&#34;*&#34;, directory = &#34;&#34;):
+
+        if &#34;https&#34; not in search_word: # we are looking for a title of a manga
+
+            list_manga = self.search_manga(search_word)
+            if list_manga != []:  # we found a corresponding manga
+                print(&#34;Manga found: &#34;,list_manga)
+                chosen_manga = list_manga[0]
+
+                url = self.url_manga + chosen_manga[&#34;data&#34;]
+                self.download_manga(url, selection, directory)
+
+        elif &#34;uploads&#34; in search_word:
+            items = search_word.rsplit(4)
+            num_page = items[-1]
+            num_chapter = items[-2]
+            title = items[-4]
+            if directory ==&#34;&#34;:
+                directory = self.purify_name(self.dl_directory + title + &#34;/&#34;)
+            self.make_directory(directory)
+            save_name = self.purify_name(directory + num_chapter + &#34;_&#34; + str(num_page) + &#34;.&#34; + search_word.split(&#34;.&#34;)[-1])
+            self.download_picture(search_word, save_name)
+
+        elif &#34;manga&#34; in search_word:
+            right_part_url = search_word.rsplit(&#34;/&#34;, 1)
+
+            if right_part_url[-1].isdigit(): # thus, we are look to the home page of a chapter:
+                self.download_chapter(search_word, directory)
+
+            else: # thus, it&#39;s the main page of the manga, were we can look for chapters
+                self.download_manga(search_word, directory)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="Engine.EngineManga.engineMangas.EngineMangas" href="engineMangas.html#Engine.EngineManga.engineMangas.EngineMangas">EngineMangas</a></li>
+<li><a title="Engine.engine.Engine" href="../engine.html#Engine.engine.Engine">Engine</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="Engine.EngineManga.lelScan.EngineLelscan.download_chapter"><code class="name flex">
+<span>def <span class="ident">download_chapter</span></span>(<span>self, url, directory=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Retrieve all images from the manga chapter page, rename them and download them to the folder</p>
+<h2 id="args">ARGS</h2>
+<dl>
+<dt>url:str: url of the given chapter: example "https://www.lelscan-vf.com/manga/the-promised-neverland/132"</dt>
+<dt><strong><code>directory</code></strong></dt>
+<dd>&nbsp;</dd>
+</dl>
+<p>RETURN:</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def download_chapter(self, url, directory = None):
+    &#34;&#34;&#34; Retrieve all images from the manga chapter page, rename them and download them to the folder
+    ARGS:
+        url:str: url of the given chapter: example &#34;https://www.lelscan-vf.com/manga/the-promised-neverland/132&#34;
+        directory
+    RETURN:
+
+    &#34;&#34;&#34;
+
+    results_chapter_page = self.handle_chapter(url)
+    if results_chapter_page == False:
+        return False
+
+
+    image_links = results_chapter_page[&#34;image_links&#34;]
+    image_number = results_chapter_page[&#34;image_numbers&#34;]
+    chapter_num = results_chapter_page[&#34;chapter_num&#34;]
+    max_pages  = results_chapter_page[&#34;max_pages&#34;]
+    manga_title = results_chapter_page[&#34;manga_title&#34;]
+    if directory == None:
+        directory = self.make_directory(os.path.join(self.dl_directory, self.purify_name(manga_title)))
+    else:
+        directory = self.make_directory(directory)
+    for i in range(len(image_links)):
+        link = image_links[i].strip()
+        number = image_number[i]
+        print(&#34;image &#34;, i)
+        extension = link.rsplit(&#34;.&#34;)[-1].strip()
+        save_name = self.purify_name(os.path.join(directory , manga_title+&#34;_&#34;+ chapter_num + &#34;_&#34; + str(number) + &#34;.&#34; + extension))
+
+        print(save_name)
+        # here, we finally download the picture
+        self.download_picture(link, save_name)
+        time.sleep(self.break_time)</code></pre>
+</details>
+</dd>
+<dt id="Engine.EngineManga.lelScan.EngineLelscan.download_manga"><code class="name flex">
+<span>def <span class="ident">download_manga</span></span>(<span>self, url, selection='*', directory='')</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def download_manga(self, url, selection = &#34;*&#34;, directory = &#34;&#34;):
+
+        results_presentation_page = self.handle_presentation_page(url)
+        chapters = results_presentation_page[&#34;chapter_list&#34;]
+        if directory == &#34;&#34;:
+            directory = self.purify_name(self.dl_directory + results_presentation_page[&#34;title&#34;] + &#34;/&#34;)
+        else:
+            directory = self.purify_name(directory + &#34;/&#34; + results_presentation_page[&#34;title&#34;] + &#34;/&#34;)
+        self.print_v(&#34;debut du telechargement du manga dans &#34; + directory)
+        chapters.reverse() # we want the chapters in the good order
+        self.print_v(str(len(chapters))+ &#34; chapters found&#34;)
+        if selection != &#34;*&#34;:
+            chapters = [chapters[i] for i in range(int(selection[0])-1, int(selection[1])  )]
+
+        pbar = tqdm(chapters)
+        i = 0
+        maxi = len(chapters)
+        for chapter in pbar:
+            self.callback(int(i * 10000 / maxi) / 100)
+            i+=1
+            pbar.set_description(&#34; :&#34; + chapter[&#34;chapter&#34;] + &#34; | &#34; + chapter[&#34;title&#34;])
+            # possibility to had a pbar
+            # we get the page of single chapter
+            self.download_chapter(chapter[&#34;link&#34;], directory)</code></pre>
+</details>
+</dd>
+<dt id="Engine.EngineManga.lelScan.EngineLelscan.get_manga_search_page_list"><code class="name flex">
+<span>def <span class="ident">get_manga_search_page_list</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>retrieve list of all manga of the website</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_manga_search_page_list(self):
+    &#34;&#34;&#34; retrieve list of all manga of the website&#34;&#34;&#34;
+    soup = self.get_soup(self.url_search)
+    list_manga = json.loads(soup.find(&#34;p&#34;).text)[&#34;suggestions&#34;]
+    return list_manga</code></pre>
+</details>
+</dd>
+<dt id="Engine.EngineManga.lelScan.EngineLelscan.handle_chapter"><code class="name flex">
+<span>def <span class="ident">handle_chapter</span></span>(<span>self, url)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_chapter(self, url):
+    chapter_num = url.rsplit(&#34;/&#34;, 1)[-1]
+    soup = self.get_soup(url)
+    if not self.verify_missing_chapter(soup):
+        print(&#34;un chapitre manquant&#34;, chapter_num)
+        return False
+    try: # some blank pages can still pass
+        manga_title = soup.find(&#34;img&#34;, {&#34;class&#34;: &#34;scan-page&#34;})[&#34;alt&#34;].split(&#34;:&#34;)[0].strip()
+        list_number_page = [int(opt[&#34;value&#34;]) for opt in soup.find_all(&#34;option&#34;) if &#34;value&#34; in opt.attrs]
+    except:
+        return False
+    max_page = max(list_number_page)
+
+    images_link = [img[&#34;data-src&#34;] for img in soup.find_all(&#34;img&#34;, {&#34;class&#34;: &#34;img-responsive&#34;}) if
+                   &#34;data-src&#34; in img.attrs]
+    # print(&#34;max_pages&#34;+ str(max_page)+ &#34;image_links&#34;,  images_link)
+    return {&#34;manga_title&#34;:manga_title, &#34;chapter_num&#34;: chapter_num, &#34;max_pages&#34;: max_page, &#34;image_links&#34;: images_link, &#34;image_numbers&#34;:list_number_page}</code></pre>
+</details>
+</dd>
+<dt id="Engine.EngineManga.lelScan.EngineLelscan.handle_presentation_page"><code class="name flex">
+<span>def <span class="ident">handle_presentation_page</span></span>(<span>self, url)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Find all chapter in the manga presentation page</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_presentation_page(self, url):
+    &#34;&#34;&#34; Find all chapter in the manga presentation page&#34;&#34;&#34;
+    soup = self.get_soup(url)
+    title = soup.find(&#34;h2&#34;, {&#34;class&#34;: &#34;widget-title&#34;}).text.strip()
+    synopsis = soup.find(&#34;div&#34;, {&#34;class&#34;: &#34;well&#34;}).find(&#34;p&#34;).text
+    chapter_list = [ {&#34;title&#34;:chap.find(&#34;em&#34;).text, &#34;chapter&#34;: chap.find(&#34;a&#34;).text, &#34;link&#34;: chap.find(&#34;a&#34;)[&#34;href&#34;]}   for chap in soup.find_all(&#34;h5&#34;, {&#34;class&#34;: &#34;chapter-title-rtl&#34;})]
+    return { &#34;title&#34;:title, &#34;synopsis&#34;:synopsis, &#34;chapter_list&#34;:chapter_list}</code></pre>
+</details>
+</dd>
+<dt id="Engine.EngineManga.lelScan.EngineLelscan.search_manga"><code class="name flex">
+<span>def <span class="ident">search_manga</span></span>(<span>self, name)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Search a manga in the database. If not, make a requests, update the config, and search it again</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def search_manga(self, name):
+    &#34;&#34;&#34; Search a manga in the database. If not, make a requests, update the config, and search it again&#34;&#34;&#34;
+    results = []
+    found = False
+    print(&#34;recherche dans la base de donnee&#34;)
+    try:
+        list_manga = self.get_json_file(self.list_manga_path)
+    except:
+        list_manga = []
+    for manga in list_manga:
+        if name.lower() in manga[&#34;value&#34;].lower():
+            found = True
+            results.append(manga)
+    if not found:
+        print(&#34;recherche en ligne&#34;)
+        # update the list
+        list_manga = self.get_manga_search_page_list()
+        # save the list in the file
+        self.save_json_file(list_manga, self.list_manga_path)
+        for manga in list_manga:
+            if name.lower() in manga[&#34;value&#34;].lower():
+                results.append(manga)
+    return results</code></pre>
+</details>
+</dd>
+<dt id="Engine.EngineManga.lelScan.EngineLelscan.switch"><code class="name flex">
+<span>def <span class="ident">switch</span></span>(<span>self, search_word, selection='*', directory='')</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def switch(self, search_word, selection =&#34;*&#34;, directory = &#34;&#34;):
+
+    if &#34;https&#34; not in search_word: # we are looking for a title of a manga
+
+        list_manga = self.search_manga(search_word)
+        if list_manga != []:  # we found a corresponding manga
+            print(&#34;Manga found: &#34;,list_manga)
+            chosen_manga = list_manga[0]
+
+            url = self.url_manga + chosen_manga[&#34;data&#34;]
+            self.download_manga(url, selection, directory)
+
+    elif &#34;uploads&#34; in search_word:
+        items = search_word.rsplit(4)
+        num_page = items[-1]
+        num_chapter = items[-2]
+        title = items[-4]
+        if directory ==&#34;&#34;:
+            directory = self.purify_name(self.dl_directory + title + &#34;/&#34;)
+        self.make_directory(directory)
+        save_name = self.purify_name(directory + num_chapter + &#34;_&#34; + str(num_page) + &#34;.&#34; + search_word.split(&#34;.&#34;)[-1])
+        self.download_picture(search_word, save_name)
+
+    elif &#34;manga&#34; in search_word:
+        right_part_url = search_word.rsplit(&#34;/&#34;, 1)
+
+        if right_part_url[-1].isdigit(): # thus, we are look to the home page of a chapter:
+            self.download_chapter(search_word, directory)
+
+        else: # thus, it&#39;s the main page of the manga, were we can look for chapters
+            self.download_manga(search_word, directory)</code></pre>
+</details>
+</dd>
+<dt id="Engine.EngineManga.lelScan.EngineLelscan.verify_missing_chapter"><code class="name flex">
+<span>def <span class="ident">verify_missing_chapter</span></span>(<span>self, soup)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>return False if a chapter is missing</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def verify_missing_chapter(self, soup):
+    &#34;&#34;&#34;return False if a chapter is missing&#34;&#34;&#34;
+    try:
+        a = soup.find_all(&#34;div&#34;, {&#34;class&#34;: &#34;alert&#34;})
+        if a ==[]:
+            return True
+        a = a[0]
+        if &#34;Aucune page publiee&#34; in a.text:
+            return False
+        return True
+    except:
+        self.print_v(soup.prettify())
+        return False</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="Engine.EngineManga.engineMangas.EngineMangas" href="engineMangas.html#Engine.EngineManga.engineMangas.EngineMangas">EngineMangas</a></b></code>:
+<ul class="hlist">
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.download_picture" href="engineMangas.html#Engine.EngineManga.engineMangas.EngineMangas.download_picture">download_picture</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.get_json_file" href="../engine.html#Engine.engine.Engine.get_json_file">get_json_file</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.get_logs" href="../engine.html#Engine.engine.Engine.get_logs">get_logs</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.get_soup" href="engineMangas.html#Engine.EngineManga.engineMangas.EngineMangas.get_soup">get_soup</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.lexicographical_list_converter" href="engineMangas.html#Engine.EngineManga.engineMangas.EngineMangas.lexicographical_list_converter">lexicographical_list_converter</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.make_directory" href="../engine.html#Engine.engine.Engine.make_directory">make_directory</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.print_v" href="../engine.html#Engine.engine.Engine.print_v">print_v</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.purify_name" href="../engine.html#Engine.engine.Engine.purify_name">purify_name</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.react_to_keyword" href="../engine.html#Engine.engine.Engine.react_to_keyword">react_to_keyword</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.rename_file_from_folder_lexico" href="engineMangas.html#Engine.EngineManga.engineMangas.EngineMangas.rename_file_from_folder_lexico">rename_file_from_folder_lexico</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.safe_download_picture" href="engineMangas.html#Engine.EngineManga.engineMangas.EngineMangas.safe_download_picture">safe_download_picture</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.save_html" href="engineMangas.html#Engine.EngineManga.engineMangas.EngineMangas.save_html">save_html</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.save_json_file" href="../engine.html#Engine.engine.Engine.save_json_file">save_json_file</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Engine.EngineManga" href="index.html">Engine.EngineManga</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Engine.EngineManga.lelScan.EngineLelscan" href="#Engine.EngineManga.lelScan.EngineLelscan">EngineLelscan</a></code></h4>
+<ul class="">
+<li><code><a title="Engine.EngineManga.lelScan.EngineLelscan.download_chapter" href="#Engine.EngineManga.lelScan.EngineLelscan.download_chapter">download_chapter</a></code></li>
+<li><code><a title="Engine.EngineManga.lelScan.EngineLelscan.download_manga" href="#Engine.EngineManga.lelScan.EngineLelscan.download_manga">download_manga</a></code></li>
+<li><code><a title="Engine.EngineManga.lelScan.EngineLelscan.get_manga_search_page_list" href="#Engine.EngineManga.lelScan.EngineLelscan.get_manga_search_page_list">get_manga_search_page_list</a></code></li>
+<li><code><a title="Engine.EngineManga.lelScan.EngineLelscan.handle_chapter" href="#Engine.EngineManga.lelScan.EngineLelscan.handle_chapter">handle_chapter</a></code></li>
+<li><code><a title="Engine.EngineManga.lelScan.EngineLelscan.handle_presentation_page" href="#Engine.EngineManga.lelScan.EngineLelscan.handle_presentation_page">handle_presentation_page</a></code></li>
+<li><code><a title="Engine.EngineManga.lelScan.EngineLelscan.search_manga" href="#Engine.EngineManga.lelScan.EngineLelscan.search_manga">search_manga</a></code></li>
+<li><code><a title="Engine.EngineManga.lelScan.EngineLelscan.switch" href="#Engine.EngineManga.lelScan.EngineLelscan.switch">switch</a></code></li>
+<li><code><a title="Engine.EngineManga.lelScan.EngineLelscan.verify_missing_chapter" href="#Engine.EngineManga.lelScan.EngineLelscan.verify_missing_chapter">verify_missing_chapter</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

@@ -104,7 +104,7 @@ class EngineMangas(Engine):
                 return soup
         except Exception as e:
             try:
-                self.print_v("Error: ", str(e), "with error code ", r.status_code )
+                self.print_v("Error: ", str(e), "with error code ", r.status_code)
             except Exception as _:  # the r value doesn't exist yet
                 self.print_v("Error: ", str(e), ". Impossible to get a status code from the resquests")
 
@@ -128,7 +128,7 @@ class EngineMangas(Engine):
         except Exception as e:
             self.print_v("An error occured while saving the webpage from this url: ", url, " see: ", str(e))
 
-    def lexicographical_list_converter(self, name_list, sep ="_"):
+    def lexicographical_list_converter(self, name_list, sep="_"):
         """ Returns a list of name where number are adjusted with lexicographical order
 
         Args:
@@ -175,7 +175,8 @@ class EngineMangas(Engine):
                     index_list.append(i)
                 # we can also deal with float
         except Exception as e:
-            self.print_v("Error while extracting numbers from the names, perhaps there is an unsupported float: ", str(e))
+            self.print_v("Error while extracting numbers from the names,"
+                         "perhaps there is an unsupported float: ", str(e))
             return None
 
         try:
@@ -184,7 +185,7 @@ class EngineMangas(Engine):
             max_list = []
             for index in index_list:
                 # list of all number of all split name at the given index
-                number_at_index_list = [ int(split_radical[index]) for split_radical in split_radical_on_sep_list ]
+                number_at_index_list = [int(split_radical[index]) for split_radical in split_radical_on_sep_list]
                 max_list.append(max(number_at_index_list))
 
             # for all indexes that are number, we add 0 to get a constant size.
@@ -204,7 +205,8 @@ class EngineMangas(Engine):
             name_with_extension_list = []
             for i in range(len(split_name_list)):
                 radical = sep.join(split_radical_on_sep_list[i])
-                name_with_extension = radical + "." + split_name_list[i][-1] # we add the extension at the end of the radical
+                # We add the extension at the end of the radical
+                name_with_extension = radical + "." + split_name_list[i][-1]
                 name_with_extension_list.append(name_with_extension)
         except Exception as e:
             self.print_v("Error while dealing with the extensions, maybe a file has no extensions?: ", str(e))
@@ -212,12 +214,13 @@ class EngineMangas(Engine):
 
         return name_with_extension_list
 
-    def rename_file_from_folder_lexico(self, folder_directory, display_only = True):
+    def rename_file_from_folder_lexico(self, folder_directory, display_only=True):
         """ Rename every files in a folder to get a lexicographical order list of files
 
         Args:
             folder_directory (string): Path of the folder where files need to be renamed
-            display_only (bool): default True. If True, just print the changes, else, execute the modificationand rename all the files in the folder
+            display_only (bool): default True.
+                If True, just print the changes, else, execute the modificationand rename all the files in the folder
 
         Returns:
             bool (bool): True if no error, False else
@@ -237,7 +240,7 @@ class EngineMangas(Engine):
             return False
 
         lexico_files = self.lexicographical_list_converter(files)
-        if lexico_files == None:
+        if lexico_files is None:
             return False
 
         try:

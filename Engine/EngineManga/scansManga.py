@@ -1,16 +1,12 @@
 from Engine.EngineManga.engineMangas import EngineMangas
-import json
-import traceback
 import time
 import os
 from tqdm import tqdm
-"""
-This class is in progress
-"""
+
 
 class EngineScansMangas(EngineMangas):
     """
-    A class that parse, search and download manga from the website https://scans-mangas.com/mangas/
+    A class that parses, searches and downloads mangas from the website https://scans-mangas.com/mangas/
     """
 
     def __init__(self):
@@ -20,21 +16,27 @@ class EngineScansMangas(EngineMangas):
         self.name = "ScansManga"
         self.current_folder = os.path.dirname(__file__)
         self.list_manga_path = os.path.join(self.current_folder, "scans_mangas_list_manga.json")
-        self.url_search  = "https://scans-mangas.com/mangas/"
+        self.url_search = "https://scans-mangas.com/mangas/"
 
     def get_list_volume_from_manga_url(self, url):
         """
-        get the list of all volumes from a manga url
+        Gets the list of all volumes from a manga url
 
-        ARGS:
-            url -> string: url of the manga
-        RETURN:
-            dict with keys:
-                "title" -> string : title of the manga
-                ""chapter_list" -> dict with keys:
-                    "link" -> string: link of the url of the chapter
-                    "title" -> string: title of the chapter
-                    "num" -> float or int: number of the chapter
+        Args:
+            url (string): url of the manga
+
+        Returns:
+             A dict with the following keys
+             {
+            title (string): Title of the manga
+            chapter_list (dict): A dictionnary with the following keys
+            {
+            link (string): link of the url of the chapter
+            title (string): title of the chapter
+            num (float or int): number of the chapter
+            }
+            }
+            None (None): None if there is an error
         """
 
         def is_float(string):
@@ -43,178 +45,284 @@ class EngineScansMangas(EngineMangas):
                 return True
             except ValueError:
                 return False
-        def is_int(float):
+
+        def is_int(_float):
             try:
-                int(float)
+                int(_float)
                 return True
             except ValueError:
                 return False
 
-        soup = self.get_soup(url) # we get the soup related to the url
-        results = soup.find_all("option", {"rel":"bookmark"})
-        result_list = []
-        for page in results:
-            title = page.text.strip()
-            list_number = [float(s) for s in title.split() if is_float(s)] # we need to handle decimal valued chapters
-            list_number = [int(s) if  is_int(s) else s for s in list_number ]
-            result_list.append({"link" : page["value"], "title": title, "num": list_number[-1]})
-        result_list = sorted(result_list, key = lambda i: i['num'])
-        title = soup.find("h1").text
-        title = title.strip()
-        return {"title" : title, "chapter_list" : result_list}
+        # We get the soup related to the url
+        soup = self.get_soup(url)
+        if soup is None:
+            return None
 
-    def handle_chapter(self, url):
-        """take the url of a chapter, return the manga_title, the chapter_num, the max number page, the pages dict {link, number}"""
+        # We look for a specific tag in the page
         try:
-            soup = self.get_soup(url)
-            list_pages_found = soup.find_all("img", {"class": "lozad lazyload"})
-            pages = []
-            if list_pages_found == []:
-                self.print_v("error, nothing found in the page" + url+ "I will try another time")
-                url += "?view"
-                soup = self.get_soup(url)
-                list_pages_found = soup.find_all("img", {"class": "lozad lazyload"})
-                pages = []
-                if list_pages_found == []:
-                    self.print_v("error, nothing found in the page another time" )
-                    return False
-                self.print_v("finally found " + url )
+            results = soup.find_all("option", {"rel": "bookmark"})
+        except Exception as e:
+            self.print_v("impossible to fin the 'option' tag in the webpage from ", url, ": ", str(e))
+            return None
 
+        # we extract titles, number of the volume....
+        try:
+            result_list = []
+            for page in results:
+                title = page.text.strip()
+                # We need to handle decimal valued chapters
+                list_number = [float(s) for s in title.split() if is_float(s)]
+                list_number = [int(s) if is_int(s) else s for s in list_number]
+                result_list.append({"link": page["value"], "title": title, "num": list_number[-1]})
+        except Exception as e:
+            self.print_v("Impossible to get proper numbers from the html page ", url, ": ", str(e))
+            return None
+
+        result_list = sorted(result_list, key=lambda i: i['num'])
+
+        # We need the correct title as mentionned in the page
+        try:
+            title = soup.find("h1").text
+            title = title.strip()
+
+        except Exception as e:
+            self.print_v("impossible to find the 'h1' tag for title in th page ", url, ": ", str(e))
+            return None
+
+        return {"title": title, "chapter_list": result_list}
+
+    def get_info_from_chapter_url(self, url):
+        """Takes the url of a chapter, and returns a set of valuable infos
+        Args:
+            url (string): url of the chapter
+        Returns:
+            Dictionnary with the following keys
+            {
+            manga_title (string): title of the manga
+            chapter_num (int): number of the current chapter
+            max_pages (int): number of pages in the current chapter
+            pages (dict): Dictionnary with the following keys
+            {
+            link (string): link of the picture
+            num (int): number of the picture (page)
+            }
+            }
+            None (None): None if there is an error
+        Raises:
+            Doesn't raise an error. print a warning with self.print_v().
+
+        Examples:
+            Todo
+        """
+
+        soup = self.get_soup(url)
+        if soup is None:
+            return None
+
+        # We extract all img fields.
+        try:
+            list_pages_found = soup.find_all("img", {"class": "lozad lazyload"})
+        except Exception as e:
+            self.print_v("Impossible to get the 'img' tag in the page ", url, ": ", str(e))
+            return None
+
+        # We try with a little hack to get the ?view page avoiding the adds
+        if list_pages_found == []:
+            self.print_v("error, nothing found in the page", url + "I will try another time")
+            url += "?view"
+            soup = self.get_soup(url)
+            if soup is None:
+                return None
+            try:
+                list_pages_found = soup.find_all("img", {"class": "lozad lazyload"})
+            except Exception as e:
+                self.print_v("Impossible to get the 'img' tag in the page ", url, ": ", str(e))
+                return None
+
+            if list_pages_found == []:
+                self.print_v("error, nothing found in the page even adding ?view")
+                return None
+
+        # We create the list of pages that are linked to this chapter
+        pages = []
+        try:
             for page in list_pages_found:
                 name = page["alt"]
-                indice = name.find("Page")
-                num = int(name[indice+len("Page"):])
+                index = name.find("Page")
+                num = int(name[index + len("Page"):])
                 pages.append({"link": page["data-src"], "num": num})
+        except Exception as e:
+            self.print_v("Impossible to get the 'alt' or 'Page' or 'link' tag in the page ", url, ": ", str(e))
+            return None
 
-            first_page = list_pages_found[0]
+        # We get general manga info as name, number of the chapter, manga_title, number max of pages
+        first_page = list_pages_found[0]
+        try:
             name = first_page["alt"]
-            indice = name.find("Chapter")
-            chapter_num = int(name[indice + len("chapter"):].strip().split()[0])
+            index = name.find("Chapter")
+            chapter_num = int(name[index + len("chapter"):].strip().split()[0])
             manga_title = name.split(":")[0].strip()
+            max_page = int(pages[-1]["num"])
 
-            max_page = pages[-1]["num"]
-            print(max_page, " found")
-            return {"manga_title": manga_title, "chapter_num": chapter_num, "max_pages": max_page, "pages" : pages}
-        except Exception as ex:
-            self.print_v(str(ex))
+        except Exception as e:
+            self.print_v("Impossible to get tags 'alt' or 'Chapter'", ": ", str(e))
+            return None
+
+        return {"manga_title": manga_title, "chapter_num": chapter_num, "max_pages": max_page, "pages": pages}
+
+    def download_chapter(self, url, folder_path=None):
+        """ Download all images from the manga chapter page, rename them (purification) and download them
+        ARGS:
+            url (str): url of the given chapter. example "https://www.lelscan-vf.com/manga/the-promised-neverland/132"
+            folder_path (string): default, default dl path. Path of the folder where images are downloaded.
+
+        Returns:
+            bool (bool): True if no error, False else
+
+        Raises:
+             Doesn't raise an error.
+
+        Examples:
+            wip
+        """
+
+        # We retrieve info from the chapter
+        results_chapter_page = self.get_info_from_chapter_url(url)
+        if results_chapter_page is None:
             return False
 
-    def download_chapter(self, url, directory=""):
-
-        """ Retrieve all images from the manga chapter page, rename them and download them to the folder
-                ARGS:
-                    url:str: url of the given chapter: example "https://www.lelscan-vf.com/manga/the-promised-neverland/132"
-                    directory
-                RETURN:
-
-                """
-        results_chapter_page = self.handle_chapter(url)
-        if results_chapter_page == False:
+        # We create the download directory
+        create_directory = self.make_directory(folder_path)
+        if create_directory is False:
             return False
-        directory = self.make_directory(directory)
-        if directory == False:
-            return False
+
+        # Unpacking values
         pages = results_chapter_page["pages"]
         chapter_num = results_chapter_page["chapter_num"]
-        max_pages = results_chapter_page["max_pages"]
+        # max_pages = results_chapter_page["max_pages"]
         manga_title = results_chapter_page["manga_title"]
 
         for page in pages:
             link = page["link"]
             number = page["num"]
-
             extension = link.rsplit(".")[-1].strip()
-            save_name = self.purify_name(
-                directory + manga_title + "_" + str(chapter_num) + "_" + str(number) + "." + extension)
+
+            file_name = manga_title + "_" + str(chapter_num) + "_" + str(number) + "." + extension
+            file_name = self.purify_name(file_name)
+            save_name = os.path.join(folder_path, file_name)
+
             # here, we finally download the picture
-            print(save_name, " the file we want to download")
             self.safe_download_picture(link, save_name)
             time.sleep(self.break_time)
 
-    def download_manga(self, url, selection = "*", directory = ""):
-            results_presentation_page = self.get_list_volume_from_manga_url(url)
-            chapters = results_presentation_page["chapter_list"]
-            self.print_v(str(len(chapters)) + " chapters found")
-            if selection != "*":
-                self.print_v("default selection range")
-                chapters = [chapters[i] for i in range(int(selection[0])-1, int(selection[1])  )]
+        return True
 
-            root_directory = directory
-            pbar = tqdm(chapters)
-            i =  0
-            maxi = len(chapters)
+    def download_manga(self, url, folder_path=None):
+        """ Download all images from the manga main page, rename them (purification) and download them
+        ARGS:
+            url (str): url of the given manga.
+            selection (list): list of manga that will be downloaded
+            folder_path (string): default, default dl path. Path of the folder where images are downloaded.
 
-            for chapter in pbar:
-                self.callback(int(i*10000/maxi)/100)
-                i+=1
-                folder_name = results_presentation_page["title"] + "_V" + str(chapter["num"])
-                if root_directory == "":
+        Returns:
+            bool (bool): True if no error, False else
 
-                    directory = self.purify_name(os.path.join(self.dl_directory, results_presentation_page["title"] + "/" + folder_name + "/"))
-                else:
-                    directory = self.purify_name(os.path.join(root_directory, results_presentation_page["title"] + "/" + folder_name + "/"))
-                self.print_v("Download in " + directory + "\n")
-                pbar.set_description(chapter["title"] + " :")
+        Raises:
+            Doesn't raise an error.
 
-                self.download_chapter(chapter["link"], directory)
+        Examples:
+            wip
+        """
+        # We gather main manga page info
+        results_presentation_page = self.get_list_volume_from_manga_url(url)
+        if results_presentation_page is None:
+            return False
+
+        chapters = results_presentation_page["chapter_list"]
+
+
+        chapters = [chapters[i] for i in range(int(selection[0])-1, int(selection[1]))]
+        for chapter in chapters:
+
+            folder_name = results_presentation_page["title"] + "_V" + str(chapter["num"])
+            if folder_path is None:
+                folder_path = self.dl_directory
+            manga_directory = os.path.join(folder_path, results_presentation_page["title"])
+            volume_directory = os.path.join(manga_directory, folder_name)
+            volume_directory = self.purify_name(volume_directory)
+
+            self.download_chapter(chapter["link"], volume_directory)
+
+
+        return True
 
     def get_all_available_manga_list(self):
-        """
-        return the list of all mangas available on the scansmanga website
-        ARGS:
-            None
-        RETURN:
+        """ Returns the list of all mangas available on the scansmanga website
+
+        Args:
+            None (None): None
+
+        Returns:
+            results (list): list of all found manga. Each element is a dict with the following keys
+            {
+            title (string): Name of the manga
+            link (string): url of th emanga main page
+            }
+            None (None): None if there is no manga or an error
+
+        Raises:
+            Doesn't raise an error. print_v() errors.
 
         EXAMPLE:
-            RETURN:
-            a list of dict with keys:
-                "title": string -> name of the manga
-                "link" : string -> url of the manga main page
-            an empty list if no manga corresponds to the the name searched
+            Wip
         """
 
         results = []
-        print('trying to get ' + self.url_search+ "in get_manga_search_page_list")
-        soup = self.get_soup(self.url_search)
 
-        list_mangas_found = soup.find_all("div", {"class": "item red"})
-        for manga in list_mangas_found:
-            results.append({"title": manga.find("h2").text, "link": manga.find("a")["href"]})
+        soup = self.get_soup(self.url_search)
+        if soup is None:
+            return None
+        try:
+            list_mangas_found = soup.find_all("div", {"class": "item red"})
+            for manga in list_mangas_found:
+                results.append({"title": manga.find("h2").text, "link": manga.find("a")["href"]})
+        except Exception as e:
+            self.print_v("Impossible to find mangas in the page. Maybe tags are broken in ", self.url_search, ": ", str(e))
+
+        if results == []:
+            return None
         return results
 
-    def find_manga_by_name(self, name = ""):
-        """ Search a 'manga' by its name in the database. If not found, make a requests, update the config, and search it again
-            It returns every manga that has the name field in it's title
+    def find_manga_by_name(self, name):
+        """ Searches a 'manga' by its name in the database. If not found, makes a requests, updates the config, and searches it again
+            It returns every manga that has the name field in its title.
         Args:
             name (string): name of the required manga
 
         Returns:
-            result (list): 'title' and links
-                avec retour à la ligne\n
-                test
-            test (string): name of the manga.
+            results (list): A list of dict with the following keys
+            {
+            title (string): Name of the manga
+            link (string): url of th emanga main page
+            }
 
-            link (string): url of the manga main page.
-            an empty list if no manga correspond to the the name searched
+            None if no manga corresponds to the the name searched
 
         Examples:
-            find_manga_by_name("jojo"):
-                * [{'title': 'JoJo’s Bizarre Adventure', 'link': 'https://scans-mangas.com/lecture-en-ligne/jojos-bizarre-adventure/'}]
+            >>> find_manga_by_name("jojo"):
+            >>> ouput: [{'title': 'JoJo’s Bizarre Adventure', 'link': 'https://scans-mangas.com/lecture-en-ligne/jojos-bizarre-adventure/'}]
 
-            find_manga_by_name("naru"): [{'title': 'Ane Naru Mono', 'link': 'https://scans-mangas.com/lecture-en-ligne/ane-naru-mono/'},
-                {'title': 'Curry Naru Shokutaku', 'link': 'https://scans-mangas.com/lecture-en-ligne/curry-naru-shokutaku/'},
-                {'title': 'Naruto', 'link': 'https://scans-mangas.com/lecture-en-ligne/naruto/'},
-                {'title': 'Yoru Ni Naru To Boku Wa', 'link': 'https://scans-mangas.com/lecture-en-ligne/yoru-ni-naru-to-boku-wa/'}]
+            >>> find_manga_by_name("naru"): [{'title': 'Ane Naru Mono', 'link': 'https://scans-mangas.com/lecture-en-ligne/ane-naru-mono/'},
+            >>> {'title': 'Curry Naru Shokutaku', 'link': 'https://scans-mangas.com/lecture-en-ligne/curry-naru-shokutaku/'}, {'title': 'Naruto', 'link': 'https://scans-mangas.com/lecture-en-ligne/naruto/'}, {'title': 'Yoru Ni Naru To Boku Wa', 'link': 'https://scans-mangas.com/lecture-en-ligne/yoru-ni-naru-to-boku-wa/'}]
          """
 
-
-        results = [] # list of found manga
+        # list of found manga
+        results = []
         found = False
 
         # first, we search the name in the database
-        try:
-            list_manga = self.get_json_file(self.list_manga_path)
-        except:
+        list_manga = self.get_json_file(self.list_manga_path)
+        if list_manga == None:
             list_manga = []
 
         for manga in list_manga:
@@ -222,20 +330,30 @@ class EngineScansMangas(EngineMangas):
                 found = True
                 results.append(manga)
 
-        # if the manga is not in the database, we look for it online
+        # If the manga is not in the database, we look for it online
         if not found:
-            self.print_v("search online " + name)
+            self.print_v("searching online " + name)
             # update the list
             list_manga = self.get_all_available_manga_list()
+            if list_manga == None:
+                return None
+
             # save the list in the file
             self.save_json_file(list_manga, self.list_manga_path)
             for manga in list_manga:
                 if name.lower() in manga["title"].lower():
                     results.append(manga)
+
+        if results == []:
+            return None
         return results
 
     def switch(self, search_word, selection ="*", directory = ""):
-        self.log = []
+        """
+        Work in progress, we need to rebuild this part.
+        """
+
+        # self.log = []
         if "https" not in search_word: # we are looking for a title of a manga
 
             list_manga = self.find_manga_by_name(search_word)
