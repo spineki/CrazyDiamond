@@ -2,19 +2,12 @@ from Engine.engine import Engine
 import bs4
 import os
 import requests
-
 import urllib.request
 import math
 import time
-
 import aiohttp
 import asyncio
-
-async def get(url):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            return response
-
+import aiofiles as aiof
 
 class EngineMangas(Engine):
     """
@@ -110,8 +103,6 @@ class EngineMangas(Engine):
         """
 
         try:
-
-
             t = time.clock()
             url = url.strip()
             self.r = requests.get(url, stream = False,  headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})  # maybe speed up requests
@@ -129,6 +120,61 @@ class EngineMangas(Engine):
         except Exception as exception:
             self.print_v(str(exception))
             return False
+
+    def async_download_pictures(self, url_list, save_path_file_list):
+
+        async def get(url):
+            """
+            Make an async requests and returns the byte response content
+            Args:
+                url (string): url of the file
+
+            Returns:
+                response.read()(byte): content of the webpage
+                or None if there is an error.
+            """
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as response:
+                    if response.status == 200:
+                        return await response.read()
+                    self.print_v(response.status)
+                    return None
+
+        async def save(path, content):
+            """
+            Save the content in the path asynchronously
+
+            Args:
+                path (string): path of the saving location
+                content (byte): byte content that will be saved
+
+            Return:
+                results (list): list of booleans, True if no error or if the content is None, False else
+            """
+
+            if content == None:
+                return False
+            try:
+                async with aiof.open(path, 'wb') as afp:
+                    await afp.write(content)
+                    await afp.flush()
+                return True
+            except:
+                return False
+
+        if len(url_list) != len(save_path_file_list):
+            return None
+        try:
+            loop = asyncio.get_event_loop()
+            self.print_v("lauching gets")
+            results = loop.run_until_complete(asyncio.gather(*[get(url) for url in url_list]))
+            self.print("launching saving")
+            results = loop.run_until_complete(asyncio.gather(*[save(save_path_file_list[i], results[i]) for i in range(len(url_list))]))
+        except Exception as e:
+            self.print_v("Impossible to make the async download, an error occurred: ", str(e))
+            return [ False for _ in range(len(url_list))]
+
+        return results
 
     def save_html(self, url, path):
         """Save the html from a webpage using requests library

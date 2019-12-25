@@ -39,10 +39,6 @@ import requests
 
 # You must initialize logging, otherwise you'll not see debug output.
 
-
-e = EngineLelscan()
-# e.download_chapter("https://www.lelscan-vf.com/manga/kimetsu-no-yaiba/99")
-
 def asyncDownload(url_list, url_folder_path):
 
     async def get(url):
@@ -56,9 +52,14 @@ def asyncDownload(url_list, url_folder_path):
     async def save(path, content):
         if content == None:
             return None
-        async with aiof.open(path, 'wb') as afp:
-            await afp.write(content)
-            await afp.flush()
+        try:
+            async with aiof.open(path, 'wb') as afp:
+                await afp.write(content)
+                await afp.flush()
+            return True
+        except:
+            return False
+
 
     if len(url_list) != len(url_folder_path):
         return None
@@ -67,6 +68,7 @@ def asyncDownload(url_list, url_folder_path):
     results = loop.run_until_complete(asyncio.gather(*[get(url) for url in url_list]))
 
     results = loop.run_until_complete(asyncio.gather(*[save(url_folder_path[i], results[i]) for i in range(len(url_list))]))
+    return results
 
 t = time.clock()
 asyncDownload(["https://c.japscan.co/lel/Kingdom/625/01.png",

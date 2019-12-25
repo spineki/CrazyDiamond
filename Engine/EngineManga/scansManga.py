@@ -16,6 +16,7 @@ class EngineScansMangas(EngineMangas):
         self.list_manga_path = os.path.join(self.current_folder, "scans_mangas_list_manga.json")
         self.url_search = "https://scans-mangas.com/mangas/"
 
+    # INFO  ---------------------------------------------------------------------------------------
     def get_all_available_manga_list(self):
         """ Returns the list of all mangas available on the scansmanga website (after an online search)
 
@@ -260,6 +261,7 @@ class EngineScansMangas(EngineMangas):
 
         return {"manga_title": manga_title, "chapter_num": chapter_num, "max_pages": max_page, "pages": pages}
 
+    # DOWNLOAD ------------------------------------------------------------------------------------
     def download_chapter(self, url, folder_path= None):
         """ Download all images from the manga chapter page, rename them (purification) and download them
         ARGS:
@@ -310,7 +312,66 @@ class EngineScansMangas(EngineMangas):
 
         return True
 
-    def download_manga(self, url, folder_path=None):
+    def async_download_chapter(self, url, folder_path=None):
+        """ Download all images from the manga chapter page, rename them (purification) and download them
+        ARGS:
+            url (str): url of the given chapter.
+            folder_path (string): default, default dl path. Path of the folder where images are downloaded.
+
+        Returns:
+            bool (bool): True if no error, False else
+
+        Raises:
+             Doesn't raise an error.
+
+        Examples:
+            wip
+        """
+
+        if folder_path is None:
+            folder_path = self.dl_directory
+
+        # We retrieve info from the chapter
+        results_chapter_page = self.get_info_from_chapter_url(url)
+        if results_chapter_page is None:
+            return False
+
+        # We create the download directory
+        create_directory = self.make_directory(folder_path)
+        if create_directory is False:
+            return False
+
+        # Unpacking values
+        pages = results_chapter_page["pages"]
+        chapter_num = results_chapter_page["chapter_num"]
+        # max_pages = results_chapter_page["max_pages"]
+        manga_title = results_chapter_page["manga_title"]
+
+        url_list = []
+        save_path_file_list = []
+        for page in pages:
+            link = page["link"]
+            number = page["num"]
+            extension = link.rsplit(".")[-1].strip()
+
+            file_name = manga_title + "_" + str(chapter_num) + "_" + str(number) + "." + extension
+            file_name = self.purify_name(file_name)
+            save_name = os.path.join(folder_path, file_name)
+
+            # here, we finally download the picture
+
+            url_list.append(link)
+            save_path_file_list.append(save_name)
+
+        time.sleep(self.break_time)
+
+        results = self.async_download_pictures(url_list, save_path_file_list)
+        for elem in results:
+            if elem == False:
+                return False
+        return True
+
+    def download_manga(self, url, folder_path=None, async_mode = False):
         """ Download all images from the manga main page, rename them (purification) and download them
         ARGS:
             url (str): url of the given manga.
@@ -333,7 +394,6 @@ class EngineScansMangas(EngineMangas):
 
         chapters = results_presentation_page["chapter_list"]
 
-
         for chapter in chapters:
 
             folder_name = results_presentation_page["title"] + "_V" + str(chapter["num"])
@@ -343,11 +403,14 @@ class EngineScansMangas(EngineMangas):
             volume_directory = os.path.join(manga_directory, folder_name)
             volume_directory = self.purify_name(volume_directory)
 
-            self.download_chapter(chapter["link"], volume_directory)
-
+            if async_mode:
+                self.async_download_chapter(chapter["link"], volume_directory)
+            else:
+                self.download_chapter(chapter["link"], volume_directory)
 
         return True
 
+    # SWITCH --------------------------------------------------------------------------------------
     def switch(self, search_word, selection ="*", directory = ""):
         """
         Work in progress, we need to rebuild this part.

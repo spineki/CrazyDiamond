@@ -23,6 +23,7 @@ class EngineLelscan(EngineMangas):
         self.url_manga = "https://www.lelscan-vf.com/manga/"
         self.url_search = "https://lelscan-vf.com/search"
 
+    # INFO  ---------------------------------------------------------------------------------------
     def get_all_available_manga_list(self):
         """Returns the list of all mangas available on the lelscan website (after an online search)
 
@@ -233,6 +234,7 @@ class EngineLelscan(EngineMangas):
         chapter_num = url.rsplit("/", 1)[-1]
         return {"manga_title": manga_title, "chapter_num": chapter_num, "max_pages": max_page, "pages": pages}
 
+    # DOWNLOAD ------------------------------------------------------------------------------------
     def download_chapter(self, url, folder_path=None):
         """ Download all images from the manga chapter page, rename them (purification) and download them in the folder_path
         ARGS:
@@ -339,6 +341,7 @@ class EngineLelscan(EngineMangas):
             self.print_v("impossible to prperly parse the soup", soup.prettify(), str(e))
             return False
 
+    # SWITCH --------------------------------------------------------------------------------------
     def switch(self, search_word, selection ="*", directory = ""):
 
         if "https" not in search_word: # we are looking for a title of a manga
