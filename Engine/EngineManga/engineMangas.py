@@ -121,7 +121,7 @@ class EngineMangas(Engine):
             self.print_v(str(exception))
             return False
 
-    def async_download_pictures(self, url_list, save_path_file_list):
+    def async_separated_download_pictures(self, url_list, save_path_file_list):
 
         async def get(url):
             """
@@ -175,6 +175,55 @@ class EngineMangas(Engine):
             return [ False for _ in range(len(url_list))]
 
         return results
+
+    def async_download_pictures(self, url_list, save_path_file_list):
+        """ Async download files from the url_list and save it to save_path_file_list.
+
+                Args:
+                    url_list (list): list of the url of the file that need to be downloaded.
+                    save_path_file_list (list): where to save the file after the download.
+
+                Returns:
+                    results (list): a list of True, if the download was a sucess, False instead. Returns a single False if the list are incompatible
+
+                Raises:
+                    if an error occured, print the exception to the log with self.print_v().
+        """
+
+        async def get_and_save(url, path):
+            try:
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(url) as response:
+                        if response.status == 200:
+                            content = await response.read()
+                        else:
+                            return False
+            except Exception as e:
+                # requests error
+                self.print_v("impossible to download the file ", url_list, " : ", str(e))
+                return False
+
+            try:
+                async with aiof.open(path, 'wb+') as afp:
+                    await afp.write(content)
+                    await afp.flush()
+                    return True
+            except Exception as e:
+                self.print_v("impossible to save the file: ", str(e))
+                # saving error
+                return False
+
+        if len(url_list) != len(save_path_file_list):
+            return False
+
+        try:
+            loop = asyncio.get_event_loop()
+            results = loop.run_until_complete(asyncio.gather(*[get_and_save(url_list[i], save_path_file_list[i]) for i in range(len(url_list))]))
+            return results
+
+        except Exception as e:
+            self.print_v("Impossible to make the async download, an error occurred: ", str(e))
+            return [ False for _ in range(len(url_list))]
 
     def save_html(self, url, path):
         """Save the html from a webpage using requests library

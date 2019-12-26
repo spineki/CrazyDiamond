@@ -410,6 +410,57 @@ class EngineScansMangas(EngineMangas):
 
         return True
 
+    def download_volume_from_manga_name(self, name, number, folder_path = None, display_only = True):
+        """
+        Download a single volume just with the name of a manga
+        Args:
+            name (string): name of the manga
+            number (string): number of the volume to be downloaded (maybe rename it to volume)
+            folder_path (string): where to save the chapter. Default, dl
+
+        Returns:
+            bool (bool): False if the manga cannot be downloaded, list of bool if the donwload pass th esaync part
+
+        Raises:
+            None, but print_v() problems.
+
+        """
+
+        manga_list = self.find_manga_by_name(name)
+        if manga_list is None:
+            return False
+        first_manga = manga_list[0]
+        self.print_v(str(first_manga))
+
+        results = self.get_list_volume_from_manga_url(first_manga["link"])
+
+        if results is None:
+            return False
+
+        volume_list = results["chapter_list"]
+        if volume_list == []:
+            return False
+
+        found = False
+        found_volume = None
+        for volume in volume_list:
+            if volume["num"] == number:
+                found = True
+                found_volume = volume
+
+        if not found:
+            return False
+
+        print(found_volume)
+
+        if display_only:
+            return True
+        results = self.async_download_chapter(found_volume["link"])
+
+        return results
+
+
+
     # SWITCH --------------------------------------------------------------------------------------
     def switch(self, search_word, selection ="*", directory = ""):
         """
