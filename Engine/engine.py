@@ -33,6 +33,7 @@ class Engine:
                 return True
         return False
 
+    # LOGS ----------------------------------------------------------------------------------------
     def print_v(self, *text):
         """ Prints to the terminal the text if self.verbose is True. Keeps in engine logs memory the text
 
@@ -69,6 +70,7 @@ class Engine:
         logi = sep.join(self.log)
         return logi
 
+    # JSON ----------------------------------------------------------------------------------------
     def get_json_file(self, file_path):
         """ Retrieves json file using json library
         Args:
@@ -108,6 +110,7 @@ class Engine:
             self.print_v("impossible to save in json file ", file_path, " : ", str(e))
             return False
 
+    # DIRECTORY NAME ------------------------------------------------------------------------------
     def purify_name(self, name, replacement="_"):
         """ Purify a string from it's system forbidden characters
         Args:

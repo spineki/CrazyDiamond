@@ -451,11 +451,12 @@ class EngineScansMangas(EngineMangas):
         if not found:
             return False
 
-        print(found_volume)
+        print("manga found ", found_volume)
 
         if display_only:
             return True
-        results = self.async_download_chapter(found_volume["link"])
+
+        results = self.async_download_chapter(found_volume["link"], folder_path=folder_path)
 
         return results
 

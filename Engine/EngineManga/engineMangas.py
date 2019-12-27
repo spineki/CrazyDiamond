@@ -8,6 +8,7 @@ import time
 import aiohttp
 import asyncio
 import aiofiles as aiof
+import zipfile
 
 class EngineMangas(Engine):
     """
@@ -25,7 +26,7 @@ class EngineMangas(Engine):
         """
         super().__init__()
         self.category = "Manga"
-
+    # GET -----------------------------------------------------------------------------------------
     def get_soup(self, url):
         """Creates a soup from an url with lxml parser. Returns a soup object if possible. None else
         Args:
@@ -52,6 +53,27 @@ class EngineMangas(Engine):
             except Exception as _:  # the r value doesn't exist yet
                 self.print_v("Error: ", str(e), ". Impossible to get a status code from the resquests")
 
+    def save_html(self, url, path):
+        """Save the html from a webpage using requests library
+        Args:
+            url (string): url of the webpage that will be saved
+            path (string): where to save the html page
+
+        Returns:
+            bool (bool): True if no error, False else
+        Raises:
+            Doesn't raise an error but return None if there is a dl or soup creation.
+            print_v() the error
+        """
+        try:
+            soup = self.get_soup(url)
+            with open(path, "w", encoding="utf8") as flux:
+                for line in soup.prettify():
+                    flux.write(line)
+        except Exception as e:
+            self.print_v("An error occured while saving the webpage from this url: ", url, " see: ", str(e))
+
+    # DOWNLOAD ------------------------------------------------------------------------------------
     def download_picture(self, url, save_path_file):
         """ Download a binary file.
         Here we use urllib, that seems to be a lot faster than requests on some manga websites.
@@ -189,6 +211,7 @@ class EngineMangas(Engine):
                 Raises:
                     if an error occured, print the exception to the log with self.print_v().
         """
+        print(url_list, save_path_file_list)
 
         async def get_and_save(url, path):
             try:
@@ -200,10 +223,11 @@ class EngineMangas(Engine):
                             return False
             except Exception as e:
                 # requests error
-                self.print_v("impossible to download the file ", url_list, " : ", str(e))
+                self.print_v("impossible to download the file ", url, " : ", str(e))
                 return False
 
             try:
+                print(path, " de ", url)
                 async with aiof.open(path, 'wb+') as afp:
                     await afp.write(content)
                     await afp.flush()
@@ -225,26 +249,7 @@ class EngineMangas(Engine):
             self.print_v("Impossible to make the async download, an error occurred: ", str(e))
             return [ False for _ in range(len(url_list))]
 
-    def save_html(self, url, path):
-        """Save the html from a webpage using requests library
-        Args:
-            url (string): url of the webpage that will be saved
-            path (string): where to save the html page
-
-        Returns:
-            bool (bool): True if no error, False else
-        Raises:
-            Doesn't raise an error but return None if there is a dl or soup creation.
-            print_v() the error
-        """
-        try:
-            soup = self.get_soup(url)
-            with open(path, "w", encoding="utf8") as flux:
-                for line in soup.prettify():
-                    flux.write(line)
-        except Exception as e:
-            self.print_v("An error occured while saving the webpage from this url: ", url, " see: ", str(e))
-
+    # RENAMING ------------------------------------------------------------------------------------
     def lexicographical_list_converter(self, name_list, sep="_"):
         """ Returns a list of name where number are adjusted with lexicographical order
 
@@ -331,6 +336,29 @@ class EngineMangas(Engine):
 
         return name_with_extension_list
 
+    def rename_file_from_list(self, folder_directory, name_list, display_only=True):
+        lexico_files = self.lexicographical_list_converter(name_list)
+        if lexico_files is None:
+            return False
+
+        try:
+            for i in range(len(lexico_files)):
+                old_file = name_list[i]
+                new_file = lexico_files[i]
+                old_path = os.path.join(folder_directory, old_file)
+                new_path = os.path.join(folder_directory, new_file)
+                if display_only:
+                    print(old_path, " -> ", new_path)
+                else:
+                    if old_file != new_file:
+                        os.rename(old_path, new_path)
+
+        except Exception as e:
+            print("impossible to rename the files: ", str(e))
+            return False
+
+        return True
+
     def rename_file_from_folder_lexico(self, folder_directory, display_only=True):
         """ Rename every files in a folder to get a lexicographical order list of files
 
@@ -348,7 +376,6 @@ class EngineMangas(Engine):
         """
 
         try:
-
             files = os.listdir(folder_directory)
             if files == []:
                 return True
@@ -377,3 +404,31 @@ class EngineMangas(Engine):
             return False
 
         return True
+
+    # ZIP -----------------------------------------------------------------------------------------
+    # writing files to a zipfile
+    def compress_folder(self, dir_name):
+
+        try:
+            files = os.listdir(dir_name)
+            if files == []:
+                return True
+        except Exception as e:
+            self.print_v("impossible to analyze ", dir_name, " folder. Maybe it's a wrong path: ", str(e))
+            return False
+        try:
+            for i in range(len(files)):
+                files[i] = os.path.join(dir_name, files[i])
+        except Exception as e:
+            self.print_v("error while joining names ", str(e))
+            return False
+
+        try:
+            zip_file = zipfile.ZipFile(dir_name + '.zip', 'w')
+            with zip_file:
+                # writing each file one by one
+                for file in files:
+                    zip_file.write(file)
+        except Exception as e:
+            self.print_v("impossible to compress ", dir_name, " folder", str(e))
+            return False
