@@ -334,7 +334,7 @@ class EngineLelscan(EngineMangas):
             return True
 
         except Exception as e:
-            self.print_v("impossible to prperly parse the soup", soup.prettify(), str(e))
+            self.print_v("impossible to properly parse the soup", soup.prettify(), str(e))
             return False
 
     # SWITCH --------------------------------------------------------------------------------------
