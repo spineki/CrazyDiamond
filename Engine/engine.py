@@ -112,7 +112,7 @@ class Engine:
 
     # DIRECTORY NAME ------------------------------------------------------------------------------
     def purify_name(self, name, replacement="_"):
-        """ Purify a string from it's system forbidden characters
+        """ Purify a string from its system forbidden characters
         Args:
             name (string): name that need to be purified from forbidden characters
             replacement (string): a replacement character that will replace forbidden chars in name

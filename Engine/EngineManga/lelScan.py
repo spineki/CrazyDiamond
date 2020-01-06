@@ -42,7 +42,7 @@ class EngineLelscan(EngineMangas):
             Doesn't raise an error. print_v() errors.
 
         Examples:
-            Wip
+            TODO
         """
 
         soup = self.get_soup(self.url_search)
@@ -82,12 +82,8 @@ class EngineLelscan(EngineMangas):
             None if no manga corresponds to the the name searched
 
         Examples:
-            >>> self.find_manga_by_name("jojo")
-            >>> ouput: [{'title': 'JoJo’s Bizarre Adventure', 'link': 'https://scans-mangas.com/lecture-en-ligne/jojos-bizarre-adventure/'}]
-
-            >>> self.find_manga_by_name("naru")
-            >>> output: [{'title': 'Ane Naru Mono', 'link': 'https://scans-mangas.com/lecture-en-ligne/ane-naru-mono/'}, {'title': 'Curry Naru Shokutaku', 'link': 'https://scans-mangas.com/lecture-en-ligne/curry-naru-shokutaku/'}, {'title': 'Naruto', 'link': 'https://scans-mangas.com/lecture-en-ligne/naruto/'}, {'title': 'Yoru Ni Naru To Boku Wa', 'link': 'https://scans-mangas.com/lecture-en-ligne/yoru-ni-naru-to-boku-wa/'}]
-         """
+            TODO
+        """
 
         # list of found mangas
         results = []
@@ -97,6 +93,7 @@ class EngineLelscan(EngineMangas):
         list_manga = self.get_json_file(self.list_manga_path)
         if list_manga is None:
             list_manga = []
+
 
         for manga in list_manga:
             if name.lower() in manga["title"].lower():
@@ -110,7 +107,6 @@ class EngineLelscan(EngineMangas):
             list_manga = self.get_all_available_manga_list()
             if list_manga == None:
                 return None
-
             # save the list in the file
             self.save_json_file(list_manga, self.list_manga_path)
             for manga in list_manga:

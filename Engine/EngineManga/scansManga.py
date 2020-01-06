@@ -35,7 +35,7 @@ class EngineScansMangas(EngineMangas):
             Doesn't raise an error. print_v() errors.
 
         EXAMPLE:
-            Wip
+            TODO
         """
 
         results = []
@@ -83,7 +83,7 @@ class EngineScansMangas(EngineMangas):
 
         # first, we search the name in the database
         list_manga = self.get_json_file(self.list_manga_path)
-        if list_manga == None:
+        if list_manga is None:
             list_manga = []
 
         for manga in list_manga:
@@ -96,7 +96,7 @@ class EngineScansMangas(EngineMangas):
             self.print_v("searching online " + name)
             # update the list
             list_manga = self.get_all_available_manga_list()
-            if list_manga == None:
+            if list_manga is None:
                 return None
 
             # save the list in the file
@@ -275,7 +275,7 @@ class EngineScansMangas(EngineMangas):
              Doesn't raise an error.
 
         Examples:
-            wip
+            TODO
         """
 
         if folder_path is None:
@@ -325,7 +325,7 @@ class EngineScansMangas(EngineMangas):
              Doesn't raise an error.
 
         Examples:
-            wip
+            TODO
         """
 
         if folder_path is None:
@@ -371,7 +371,7 @@ class EngineScansMangas(EngineMangas):
                 return False
         return True
 
-    def download_manga(self, url, folder_path=None, async_mode = False):
+    def download_manga(self, url, folder_path=None, async_mode=False):
         """ Download all images from the manga main page, rename them (purification) and download them
         ARGS:
             url (str): url of the given manga.
@@ -385,7 +385,7 @@ class EngineScansMangas(EngineMangas):
             Doesn't raise an error.
 
         Examples:
-            wip
+            TODO
         """
         # We gather main manga page info
         results_presentation_page = self.get_list_volume_from_manga_url(url)
@@ -410,7 +410,7 @@ class EngineScansMangas(EngineMangas):
 
         return True
 
-    def download_volume_from_manga_name(self, name, number, folder_path = None, display_only = True):
+    def download_volume_from_manga_name(self, name, number, folder_path=None, display_only=True):
         """
         Download a single volume just with the name of a manga
         Args:
@@ -460,10 +460,8 @@ class EngineScansMangas(EngineMangas):
 
         return results
 
-
-
     # SWITCH --------------------------------------------------------------------------------------
-    def switch(self, search_word, selection ="*", directory = ""):
+    def switch(self, search_word, selection="*", directory=""):
         """
         Work in progress, we need to rebuild this part.
         """

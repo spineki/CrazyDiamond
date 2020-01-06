@@ -1,6 +1,7 @@
-from Engine.engine import Engine
-import bs4
+
 import os
+from abc import abstractmethod
+import bs4
 import requests
 import urllib.request
 import math
@@ -9,6 +10,8 @@ import aiohttp
 import asyncio
 import aiofiles as aiof
 import zipfile
+from Engine.engine import Engine
+
 
 class EngineMangas(Engine):
     """
@@ -26,6 +29,8 @@ class EngineMangas(Engine):
         """
         super().__init__()
         self.category = "Manga"
+        self.break_time=0.1
+
     # GET -----------------------------------------------------------------------------------------
     def get_soup(self, url):
         """Creates a soup from an url with lxml parser. Returns a soup object if possible. None else
@@ -72,6 +77,46 @@ class EngineMangas(Engine):
                     flux.write(line)
         except Exception as e:
             self.print_v("An error occured while saving the webpage from this url: ", url, " see: ", str(e))
+
+    @abstractmethod
+    def find_manga_by_name(self, name):
+        pass
+
+    @abstractmethod
+    def get_list_volume_from_manga_url(self, url):
+        pass
+
+    def get_list_volume_from_manga_name(self, name):
+        """
+        Gets the list of all volumes from a manga name (analyze the first manga found)
+
+        Args:
+            name (string): name of the manga
+
+        Returns:
+             A dict with the following keys
+             {
+            title (string): Title of the manga
+            synopsis (string): synopsis of the manga
+            chapter_list (dict): A dictionnary with the following keys
+            {
+            title (string): title of the chapter
+            link (string): link of the url of the chapter
+            num (float or int): number of the chapter
+            }
+            }
+            None (None): None if there is an error
+        """
+
+        results = self.find_manga_by_name(name)
+        if results is None or results == []:
+            return None
+
+        chosen_manga = results[0]
+        url = chosen_manga["link"]
+
+        list_volume = self.get_list_volume_from_manga_url(url)
+        return list_volume
 
     # DOWNLOAD ------------------------------------------------------------------------------------
     def download_picture(self, url, save_path_file):
@@ -127,76 +172,21 @@ class EngineMangas(Engine):
         try:
             t = time.clock()
             url = url.strip()
-            self.r = requests.get(url, stream = False,  headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})  # maybe speed up requests
+            r = requests.get(url, stream = False,  headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})  # maybe speed up requests
             self.print_v("requests time: ", str(time.clock() - t))
 
-            if self.r.status_code != 200:
+            if r.status_code != 200:
                 return False
 
             with open(save_path_file, 'wb') as flux:
-                flux.write(self.r.content)
+                flux.write(r.content)
 
-            time.sleep(0.1)
+            time.sleep(self.break_time)
             return True
 
-        except Exception as exception:
-            self.print_v(str(exception))
-            return False
-
-    def async_separated_download_pictures(self, url_list, save_path_file_list):
-
-        async def get(url):
-            """
-            Make an async requests and returns the byte response content
-            Args:
-                url (string): url of the file
-
-            Returns:
-                response.read()(byte): content of the webpage
-                or None if there is an error.
-            """
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url) as response:
-                    if response.status == 200:
-                        return await response.read()
-                    self.print_v(response.status)
-                    return None
-
-        async def save(path, content):
-            """
-            Save the content in the path asynchronously
-
-            Args:
-                path (string): path of the saving location
-                content (byte): byte content that will be saved
-
-            Return:
-                results (list): list of booleans, True if no error or if the content is None, False else
-            """
-
-            if content == None:
-                return False
-            try:
-                async with aiof.open(path, 'wb') as afp:
-                    await afp.write(content)
-                    await afp.flush()
-                return True
-            except:
-                return False
-
-        if len(url_list) != len(save_path_file_list):
-            return None
-        try:
-            loop = asyncio.get_event_loop()
-            self.print_v("lauching gets")
-            results = loop.run_until_complete(asyncio.gather(*[get(url) for url in url_list]))
-            self.print("launching saving")
-            results = loop.run_until_complete(asyncio.gather(*[save(save_path_file_list[i], results[i]) for i in range(len(url_list))]))
         except Exception as e:
-            self.print_v("Impossible to make the async download, an error occurred: ", str(e))
-            return [ False for _ in range(len(url_list))]
-
-        return results
+            self.print_v(str(e))
+            return False
 
     def async_download_pictures(self, url_list, save_path_file_list):
         """ Async download files from the url_list and save it to save_path_file_list.
@@ -247,7 +237,7 @@ class EngineMangas(Engine):
 
         except Exception as e:
             self.print_v("Impossible to make the async download, an error occurred: ", str(e))
-            return [ False for _ in range(len(url_list))]
+            return [False for _ in range(len(url_list))]
 
     # RENAMING ------------------------------------------------------------------------------------
     def lexicographical_list_converter(self, name_list, sep="_"):
@@ -337,6 +327,23 @@ class EngineMangas(Engine):
         return name_with_extension_list
 
     def rename_file_from_list(self, folder_directory, name_list, display_only=True):
+        """ Rename every files in a folder that match with a name_list
+
+            Args:
+                folder_directory (string): Path of the folder where files need to be renamed
+                name_list (string): list of files that need to be renamed
+                display_only (bool): default True.
+                    If True, just print the changes, else, execute the modificationand rename all the files in the folder
+
+            Returns:
+                bool (bool): True if no error, False else
+
+            Raises:
+                Doesn't raise an error.
+                print a warning.
+            """
+
+
         lexico_files = self.lexicographical_list_converter(name_list)
         if lexico_files is None:
             return False
@@ -406,16 +413,25 @@ class EngineMangas(Engine):
         return True
 
     # ZIP -----------------------------------------------------------------------------------------
-    # writing files to a zipfile
-    def compress_folder(self, dir_name):
+    def compress_folder(self, dir_name, ext=".cbz"):
+        """"Compress A folder in zip format. Add a zip like extension like .zip, .cbz
+        Args:
+            dir_name (string): path of the directory that will be compressed
+            ext (string): (optional) extension added to the folder name
+        Returns:
+            bool (bool): True if everything is correct, False if there is an error or if the folder is empty
+        Raises:
+            Raises nothing but print_v() errors
+        """
 
         try:
             files = os.listdir(dir_name)
             if files == []:
-                return True
+                return False
         except Exception as e:
             self.print_v("impossible to analyze ", dir_name, " folder. Maybe it's a wrong path: ", str(e))
             return False
+
         try:
             for i in range(len(files)):
                 files[i] = os.path.join(dir_name, files[i])
@@ -424,11 +440,12 @@ class EngineMangas(Engine):
             return False
 
         try:
-            zip_file = zipfile.ZipFile(dir_name + '.zip', 'w')
+            zip_file = zipfile.ZipFile(dir_name + ext, 'w')
             with zip_file:
                 # writing each file one by one
                 for file in files:
                     zip_file.write(file)
+            return True
         except Exception as e:
             self.print_v("impossible to compress ", dir_name, " folder", str(e))
             return False
