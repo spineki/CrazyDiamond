@@ -39,10 +39,4 @@ import requests
 
 e = EngineLelscan()
 # r = e.download_volume_from_manga_name("jojo", 114, "E:\PycharmProject\CrazyDiamond\dl\JoJo_s_Bizarre_Adventure\JoJo_s_Bizarre_Adventure_V114", display_only=False)
-pp = pprint.PrettyPrinter(indent=4)
-
-r = e.get_all_available_manga_list()
-pp.pprint(r)
-r = e.find_manga_by_name("World")
-pp.pprint(r)
-
+e.download_volume_from_manga_name("shingeki", 125, display_only=False)
