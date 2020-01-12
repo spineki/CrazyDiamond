@@ -429,12 +429,34 @@ class EngineMangas(Engine):
         first_manga = manga_list[0]
         self.print_v(str(first_manga))
 
-        results = self.get_list_volume_from_manga_url(first_manga["link"])
+        results = self.download_volume_from_manga_url(first_manga["link"], number, folder_path, display_only)
 
-        if results is None:
+        return results
+
+    def download_volume_from_manga_url(self, url, number, folder_path=None, display_only=True):
+        """
+            Download a single volume just with the url of a manga
+            Args:
+                url (string): url of the manga
+                number (string): number of the volume to be downloaded (maybe rename it to volume)
+                folder_path (string): where to save the chapter. Default, dl
+                display_only (bool) : True if the function is just used to verify if the manga exist, False to directly download
+
+            Returns:
+                bool (bool): False if the manga cannot be downloaded, list of bool if the donwload pass th esaync part
+
+            Raises:
+                None, but print_v() problems.
+
+        """
+
+        volumes= self.get_list_volume_from_manga_url(url)
+        if volumes is None:
             return False
 
-        volume_list = results["chapter_list"]
+        self.print_v(str(volumes))
+
+        volume_list = volumes["chapter_list"]
         if volume_list == []:
             return False
 
@@ -448,12 +470,19 @@ class EngineMangas(Engine):
         if not found:
             return False
 
-        self.print_v("manga found ", found_volume)
+        self.print_v("manga found ", str(found_volume))
 
         if display_only:
             return True
 
-        results = self.async_download_chapter(found_volume["link"], folder_path=folder_path)
+        folder_name = found_volume["title"] + "_V" + str(found_volume["num"])
+        if folder_path is None:
+            folder_path = self.dl_directory
+        manga_directory = os.path.join(folder_path, volumes["title"])
+        volume_directory = os.path.join(manga_directory, folder_name)
+        volume_directory = self.purify_name(volume_directory)
+
+        results = self.async_download_chapter(found_volume["link"], folder_path=volume_directory)
 
         return results
 
@@ -495,7 +524,6 @@ class EngineMangas(Engine):
                 self.download_chapter(chapter["link"], volume_directory)
 
         return True
-
 
 
     # RENAMING ------------------------------------------------------------------------------------
