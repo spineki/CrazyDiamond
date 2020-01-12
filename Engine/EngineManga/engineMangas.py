@@ -1,4 +1,3 @@
-
 import os
 from abc import abstractmethod
 import bs4

@@ -1,8 +1,6 @@
 from Engine.EngineManga.engineMangas import EngineMangas
 import json
-import time
 import os
-from tqdm import tqdm
 
 
 class EngineLelscan(EngineMangas):
