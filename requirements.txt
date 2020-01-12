@@ -3,7 +3,7 @@ lxml==4.4.2
 Pillow==6.2.1
 pyTelegramBotAPI==3.6.6
 requests==2.22.0
-aiohttp
-cchardet
-aiofile
+aiohttp==3.6.2
+cchardet==2.1.5
+aiofiles==0.4.0
 # tqdm==4.38.0
