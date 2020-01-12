@@ -1,0 +1,1 @@
+to launch a test, type __python -m pytest --ignore=envs/__

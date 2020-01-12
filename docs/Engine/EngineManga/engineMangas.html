@@ -1,0 +1,1050 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.2" />
+<title>Engine.EngineManga.engineMangas API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Engine.EngineManga.engineMangas</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from Engine.engine import Engine
+import bs4
+import os
+import requests
+import urllib.request
+import math
+
+
+class EngineMangas(Engine):
+    &#34;&#34;&#34;
+    The super Class `EngineMangas` is not designed to be instanciated, but to be inherited from.
+
+    It binds every engine that deals with mangas.
+        The functions defined here perform web and I/O tasks.
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        &#34;&#34;&#34;
+        Attributes:
+            category (string): category of the Engine; (here, manga).
+            Make it easier for the core to sort engines by category.
+        &#34;&#34;&#34;
+        super().__init__()
+        self.category = &#34;Manga&#34;
+
+    def download_picture(self, url, save_path_file):
+        &#34;&#34;&#34; Download a binary file.
+        Here we use urllib, that seems to be a lot faster than requests on some manga websites.
+        However, it&#39;s less secure.
+        Args:
+            url (string): url of the file that need to be downloaded.
+            save_path_file (string): where to save the file after the download.
+
+        Returns:
+            bool (bool): True, if the download was a sucess, False instead.
+
+        Raises:
+            if an error occured, print the exception to the log with self.print_v().
+
+        Examples:
+            &gt;&gt;&gt; engineMangas = EngineMangas()
+            &gt;&gt;&gt; engineMangas.download_picture(&#34;www.your_picture.png&#34;, &#34;C:Users/your/path/to/file.png&#34;)
+        &#34;&#34;&#34;
+
+        try:
+            r = urllib.request.urlopen(url)
+
+            with open(save_path_file, &#34;wb&#34;) as flux:
+
+                flux.write(r.read())
+            return True
+
+        except Exception as exception:
+            self.print_v(str(exception))
+            return False
+
+    def safe_download_picture(self, url, save_path_file):
+        &#34;&#34;&#34; Download a binary file.
+        Here we use requests, that seems to be safer than urllib
+        Args:
+            url (string): url of the file that need to be downloaded.
+            save_path_file (string): where to save the file after the download.
+
+        Returns:
+            bool (bool): True, if the download was a sucess, False instead.
+
+        Raises:
+            if an error occured, print the exception to the log with self.print_v().
+
+        Examples:
+            &gt;&gt;&gt; engineMangas = EngineMangas()
+            &gt;&gt;&gt; engineMangas.safe_download_picture(&#34;www.your_picture.png&#34;, &#34;C:Users/your/path/to/file.png&#34;)
+        &#34;&#34;&#34;
+
+        try:
+            r = requests.get(url, stream=False, headers={&#39;Connection&#39;: &#39;close&#39;})  # maybe speed up requests
+            with open(save_path_file, &#34;wb&#34;) as flux:
+                flux.write(r.content)  # instead of r.content()
+            return True
+
+        except Exception as exception:
+            self.print_v(str(exception))
+            return False
+
+    def get_soup(self, url):
+        &#34;&#34;&#34;Creates a soup from an url with lxml parser. Returns a soup object if possible. None else
+        Args:
+            url (string): url of the webpage that will be turned into a soup
+
+        Returns:
+            soup (soup): A beautifulSoup soup obejct of the page
+            None (None): if there is an error
+
+        Raises:
+            Doesn&#39;t raise an error but return None if there is a dl or soup creation.
+            print_v() the error
+        &#34;&#34;&#34;
+
+        self.print_v(&#34;Trying to get the web page&#34;,  url)
+        try:
+            r = requests.get(url)
+            if r.status_code == 200:
+                soup = bs4.BeautifulSoup(r.content, features=&#34;lxml&#34;)
+                return soup
+        except Exception as e:
+            try:
+                self.print_v(&#34;Error: &#34;, str(e), &#34;with error code &#34;, r.status_code)
+            except Exception as _:  # the r value doesn&#39;t exist yet
+                self.print_v(&#34;Error: &#34;, str(e), &#34;. Impossible to get a status code from the resquests&#34;)
+
+    def save_html(self, url, path):
+        &#34;&#34;&#34;Save the html from a webpage using requests library
+        Args:
+            url (string): url of the webpage that will be saved
+            path (string): where to save the html page
+
+        Returns:
+            bool (bool): True if no error, False else
+        Raises:
+            Doesn&#39;t raise an error but return None if there is a dl or soup creation.
+            print_v() the error
+        &#34;&#34;&#34;
+        try:
+            soup = self.get_soup(url)
+            with open(path, &#34;w&#34;, encoding=&#34;utf8&#34;) as flux:
+                for line in soup.prettify():
+                    flux.write(line)
+        except Exception as e:
+            self.print_v(&#34;An error occured while saving the webpage from this url: &#34;, url, &#34; see: &#34;, str(e))
+
+    def lexicographical_list_converter(self, name_list, sep=&#34;_&#34;):
+        &#34;&#34;&#34; Returns a list of name where number are adjusted with lexicographical order
+
+        Args:
+            name_list (list): List of all the names that need to be changed
+            sep (string): The default separator used to detect numbers
+
+        Returns:
+            name_with_extension_list (list): List of all names rewritten with lexicographical order
+            None (None): Returns None if error
+
+        Raises:
+            Doesn&#39;t raise an error.
+            print a warning with self.print_v() and return None
+
+        Example:
+            &gt;&gt;&gt; e.lexicographical_list_converter([&#34;a_50_1.jpg&#34;, &#34;a_1_8.png&#34;, &#34;a_300_30.bmp&#34;])
+            &gt;&gt;&gt; [&#39;a_050_01.jpg&#39;, &#39;a_001_08.png&#39;, &#39;a_300_30.bmp&#39;]
+        &#34;&#34;&#34;
+
+        try:
+            # First we separate the name from it&#39;s extension
+            split_name_list = [file.rsplit(&#34;.&#34;, 1) for file in name_list]
+            # Then, we separate every part of the names according to the chosen separator
+            split_radical_on_sep_list = [split_name[0].split(sep) for split_name in split_name_list]
+
+            # We check if every name has the same &#39;structure&#39;
+            reference_size = len(split_radical_on_sep_list[0])
+            print(split_radical_on_sep_list)
+            for split_radical in split_radical_on_sep_list:
+                if len(split_radical) != reference_size:
+                    self.print_v(&#34;All the names in name_list must have the same format: &#34;)
+                    return None
+
+        except Exception as e:
+            self.print_v(&#34;The name_list variable as a problem: &#34;, str(e))
+            return None
+
+        try:
+            # We select the first element of the list that will be used to know where digits are.
+            index_list = []
+            reference_name = split_radical_on_sep_list[0]
+            for i in range(len(reference_name)):
+                if reference_name[i].isdigit():
+                    index_list.append(i)
+                # we can also deal with float
+        except Exception as e:
+            self.print_v(&#34;Error while extracting numbers from the names,&#34;
+                         &#34;perhaps there is an unsupported float: &#34;, str(e))
+            return None
+
+        try:
+            # We now have a list of all indexes where there are numbers
+            # we need to get the max number corresponding to all indexes
+            max_list = []
+            for index in index_list:
+                # list of all number of all split name at the given index
+                number_at_index_list = [int(split_radical[index]) for split_radical in split_radical_on_sep_list]
+                max_list.append(max(number_at_index_list))
+
+            # for all indexes that are number, we add 0 to get a constant size.
+            for i in range(len(index_list)):
+                index = index_list[i]
+                max_number = max_list[i]
+                # we get the size of the max number: faster than len(str(max_number))
+                max_size = int(math.log10(max_number)) + 1
+                for split_radical in split_radical_on_sep_list:
+                    split_radical[index] = &#34;0&#34; * (max_size - len(split_radical[index])) + split_radical[index]
+        except Exception as e:
+            self.print_v(&#34;Error while adding zero to the names: &#34;, str(e))
+            return None
+
+        try:
+            # Finally, we reconstruct the names by adding the separator and the extension
+            name_with_extension_list = []
+            for i in range(len(split_name_list)):
+                radical = sep.join(split_radical_on_sep_list[i])
+                # We add the extension at the end of the radical
+                name_with_extension = radical + &#34;.&#34; + split_name_list[i][-1]
+                name_with_extension_list.append(name_with_extension)
+        except Exception as e:
+            self.print_v(&#34;Error while dealing with the extensions, maybe a file has no extensions?: &#34;, str(e))
+            return None
+
+        return name_with_extension_list
+
+    def rename_file_from_folder_lexico(self, folder_directory, display_only=True):
+        &#34;&#34;&#34; Rename every files in a folder to get a lexicographical order list of files
+
+        Args:
+            folder_directory (string): Path of the folder where files need to be renamed
+            display_only (bool): default True.
+                If True, just print the changes, else, execute the modificationand rename all the files in the folder
+
+        Returns:
+            bool (bool): True if no error, False else
+
+        Raises:
+            Doesn&#39;t raise an error.
+            print a warning.
+        &#34;&#34;&#34;
+
+        try:
+
+            files = os.listdir(folder_directory)
+            if files == []:
+                return True
+        except Exception as e:
+            self.print_v(&#34;impossible to analyze &#34;, folder_directory, &#34; folder. Maybe it&#39;s a wrong path: &#34;, str(e))
+            return False
+
+        lexico_files = self.lexicographical_list_converter(files)
+        if lexico_files is None:
+            return False
+
+        try:
+            for i in range(len(files)):
+                old_file = files[i]
+                new_file = lexico_files[i]
+                old_path = os.path.join(folder_directory, old_file)
+                new_path = os.path.join(folder_directory, new_file)
+                if display_only:
+                    print(old_path, &#34; -&gt; &#34;, new_path)
+                else:
+                    if old_file != new_file:
+                        os.rename(old_path, new_path)
+
+        except Exception as e:
+            print(&#34;impossible to rename the files: &#34;, str(e))
+            return False
+
+        return True</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Engine.EngineManga.engineMangas.EngineMangas"><code class="flex name class">
+<span>class <span class="ident">EngineMangas</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>The super Class <a title="Engine.EngineManga.engineMangas.EngineMangas" href="#Engine.EngineManga.engineMangas.EngineMangas"><code>EngineMangas</code></a> is not designed to be instanciated, but to be inherited from.</p>
+<p>It binds every engine that deals with mangas.
+The functions defined here perform web and I/O tasks.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>category</code></strong> :&ensp;<code>string</code></dt>
+<dd>category of the Engine; (here, manga).</dd>
+</dl>
+<p>Make it easier for the core to sort engines by category.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class EngineMangas(Engine):
+    &#34;&#34;&#34;
+    The super Class `EngineMangas` is not designed to be instanciated, but to be inherited from.
+
+    It binds every engine that deals with mangas.
+        The functions defined here perform web and I/O tasks.
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        &#34;&#34;&#34;
+        Attributes:
+            category (string): category of the Engine; (here, manga).
+            Make it easier for the core to sort engines by category.
+        &#34;&#34;&#34;
+        super().__init__()
+        self.category = &#34;Manga&#34;
+
+    def download_picture(self, url, save_path_file):
+        &#34;&#34;&#34; Download a binary file.
+        Here we use urllib, that seems to be a lot faster than requests on some manga websites.
+        However, it&#39;s less secure.
+        Args:
+            url (string): url of the file that need to be downloaded.
+            save_path_file (string): where to save the file after the download.
+
+        Returns:
+            bool (bool): True, if the download was a sucess, False instead.
+
+        Raises:
+            if an error occured, print the exception to the log with self.print_v().
+
+        Examples:
+            &gt;&gt;&gt; engineMangas = EngineMangas()
+            &gt;&gt;&gt; engineMangas.download_picture(&#34;www.your_picture.png&#34;, &#34;C:Users/your/path/to/file.png&#34;)
+        &#34;&#34;&#34;
+
+        try:
+            r = urllib.request.urlopen(url)
+
+            with open(save_path_file, &#34;wb&#34;) as flux:
+
+                flux.write(r.read())
+            return True
+
+        except Exception as exception:
+            self.print_v(str(exception))
+            return False
+
+    def safe_download_picture(self, url, save_path_file):
+        &#34;&#34;&#34; Download a binary file.
+        Here we use requests, that seems to be safer than urllib
+        Args:
+            url (string): url of the file that need to be downloaded.
+            save_path_file (string): where to save the file after the download.
+
+        Returns:
+            bool (bool): True, if the download was a sucess, False instead.
+
+        Raises:
+            if an error occured, print the exception to the log with self.print_v().
+
+        Examples:
+            &gt;&gt;&gt; engineMangas = EngineMangas()
+            &gt;&gt;&gt; engineMangas.safe_download_picture(&#34;www.your_picture.png&#34;, &#34;C:Users/your/path/to/file.png&#34;)
+        &#34;&#34;&#34;
+
+        try:
+            r = requests.get(url, stream=False, headers={&#39;Connection&#39;: &#39;close&#39;})  # maybe speed up requests
+            with open(save_path_file, &#34;wb&#34;) as flux:
+                flux.write(r.content)  # instead of r.content()
+            return True
+
+        except Exception as exception:
+            self.print_v(str(exception))
+            return False
+
+    def get_soup(self, url):
+        &#34;&#34;&#34;Creates a soup from an url with lxml parser. Returns a soup object if possible. None else
+        Args:
+            url (string): url of the webpage that will be turned into a soup
+
+        Returns:
+            soup (soup): A beautifulSoup soup obejct of the page
+            None (None): if there is an error
+
+        Raises:
+            Doesn&#39;t raise an error but return None if there is a dl or soup creation.
+            print_v() the error
+        &#34;&#34;&#34;
+
+        self.print_v(&#34;Trying to get the web page&#34;,  url)
+        try:
+            r = requests.get(url)
+            if r.status_code == 200:
+                soup = bs4.BeautifulSoup(r.content, features=&#34;lxml&#34;)
+                return soup
+        except Exception as e:
+            try:
+                self.print_v(&#34;Error: &#34;, str(e), &#34;with error code &#34;, r.status_code)
+            except Exception as _:  # the r value doesn&#39;t exist yet
+                self.print_v(&#34;Error: &#34;, str(e), &#34;. Impossible to get a status code from the resquests&#34;)
+
+    def save_html(self, url, path):
+        &#34;&#34;&#34;Save the html from a webpage using requests library
+        Args:
+            url (string): url of the webpage that will be saved
+            path (string): where to save the html page
+
+        Returns:
+            bool (bool): True if no error, False else
+        Raises:
+            Doesn&#39;t raise an error but return None if there is a dl or soup creation.
+            print_v() the error
+        &#34;&#34;&#34;
+        try:
+            soup = self.get_soup(url)
+            with open(path, &#34;w&#34;, encoding=&#34;utf8&#34;) as flux:
+                for line in soup.prettify():
+                    flux.write(line)
+        except Exception as e:
+            self.print_v(&#34;An error occured while saving the webpage from this url: &#34;, url, &#34; see: &#34;, str(e))
+
+    def lexicographical_list_converter(self, name_list, sep=&#34;_&#34;):
+        &#34;&#34;&#34; Returns a list of name where number are adjusted with lexicographical order
+
+        Args:
+            name_list (list): List of all the names that need to be changed
+            sep (string): The default separator used to detect numbers
+
+        Returns:
+            name_with_extension_list (list): List of all names rewritten with lexicographical order
+            None (None): Returns None if error
+
+        Raises:
+            Doesn&#39;t raise an error.
+            print a warning with self.print_v() and return None
+
+        Example:
+            &gt;&gt;&gt; e.lexicographical_list_converter([&#34;a_50_1.jpg&#34;, &#34;a_1_8.png&#34;, &#34;a_300_30.bmp&#34;])
+            &gt;&gt;&gt; [&#39;a_050_01.jpg&#39;, &#39;a_001_08.png&#39;, &#39;a_300_30.bmp&#39;]
+        &#34;&#34;&#34;
+
+        try:
+            # First we separate the name from it&#39;s extension
+            split_name_list = [file.rsplit(&#34;.&#34;, 1) for file in name_list]
+            # Then, we separate every part of the names according to the chosen separator
+            split_radical_on_sep_list = [split_name[0].split(sep) for split_name in split_name_list]
+
+            # We check if every name has the same &#39;structure&#39;
+            reference_size = len(split_radical_on_sep_list[0])
+            print(split_radical_on_sep_list)
+            for split_radical in split_radical_on_sep_list:
+                if len(split_radical) != reference_size:
+                    self.print_v(&#34;All the names in name_list must have the same format: &#34;)
+                    return None
+
+        except Exception as e:
+            self.print_v(&#34;The name_list variable as a problem: &#34;, str(e))
+            return None
+
+        try:
+            # We select the first element of the list that will be used to know where digits are.
+            index_list = []
+            reference_name = split_radical_on_sep_list[0]
+            for i in range(len(reference_name)):
+                if reference_name[i].isdigit():
+                    index_list.append(i)
+                # we can also deal with float
+        except Exception as e:
+            self.print_v(&#34;Error while extracting numbers from the names,&#34;
+                         &#34;perhaps there is an unsupported float: &#34;, str(e))
+            return None
+
+        try:
+            # We now have a list of all indexes where there are numbers
+            # we need to get the max number corresponding to all indexes
+            max_list = []
+            for index in index_list:
+                # list of all number of all split name at the given index
+                number_at_index_list = [int(split_radical[index]) for split_radical in split_radical_on_sep_list]
+                max_list.append(max(number_at_index_list))
+
+            # for all indexes that are number, we add 0 to get a constant size.
+            for i in range(len(index_list)):
+                index = index_list[i]
+                max_number = max_list[i]
+                # we get the size of the max number: faster than len(str(max_number))
+                max_size = int(math.log10(max_number)) + 1
+                for split_radical in split_radical_on_sep_list:
+                    split_radical[index] = &#34;0&#34; * (max_size - len(split_radical[index])) + split_radical[index]
+        except Exception as e:
+            self.print_v(&#34;Error while adding zero to the names: &#34;, str(e))
+            return None
+
+        try:
+            # Finally, we reconstruct the names by adding the separator and the extension
+            name_with_extension_list = []
+            for i in range(len(split_name_list)):
+                radical = sep.join(split_radical_on_sep_list[i])
+                # We add the extension at the end of the radical
+                name_with_extension = radical + &#34;.&#34; + split_name_list[i][-1]
+                name_with_extension_list.append(name_with_extension)
+        except Exception as e:
+            self.print_v(&#34;Error while dealing with the extensions, maybe a file has no extensions?: &#34;, str(e))
+            return None
+
+        return name_with_extension_list
+
+    def rename_file_from_folder_lexico(self, folder_directory, display_only=True):
+        &#34;&#34;&#34; Rename every files in a folder to get a lexicographical order list of files
+
+        Args:
+            folder_directory (string): Path of the folder where files need to be renamed
+            display_only (bool): default True.
+                If True, just print the changes, else, execute the modificationand rename all the files in the folder
+
+        Returns:
+            bool (bool): True if no error, False else
+
+        Raises:
+            Doesn&#39;t raise an error.
+            print a warning.
+        &#34;&#34;&#34;
+
+        try:
+
+            files = os.listdir(folder_directory)
+            if files == []:
+                return True
+        except Exception as e:
+            self.print_v(&#34;impossible to analyze &#34;, folder_directory, &#34; folder. Maybe it&#39;s a wrong path: &#34;, str(e))
+            return False
+
+        lexico_files = self.lexicographical_list_converter(files)
+        if lexico_files is None:
+            return False
+
+        try:
+            for i in range(len(files)):
+                old_file = files[i]
+                new_file = lexico_files[i]
+                old_path = os.path.join(folder_directory, old_file)
+                new_path = os.path.join(folder_directory, new_file)
+                if display_only:
+                    print(old_path, &#34; -&gt; &#34;, new_path)
+                else:
+                    if old_file != new_file:
+                        os.rename(old_path, new_path)
+
+        except Exception as e:
+            print(&#34;impossible to rename the files: &#34;, str(e))
+            return False
+
+        return True</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="Engine.engine.Engine" href="../engine.html#Engine.engine.Engine">Engine</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="Engine.EngineManga.lelScan.EngineLelscan" href="lelScan.html#Engine.EngineManga.lelScan.EngineLelscan">EngineLelscan</a></li>
+<li><a title="Engine.EngineManga.scansManga.EngineScansMangas" href="scansManga.html#Engine.EngineManga.scansManga.EngineScansMangas">EngineScansMangas</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="Engine.EngineManga.engineMangas.EngineMangas.download_picture"><code class="name flex">
+<span>def <span class="ident">download_picture</span></span>(<span>self, url, save_path_file)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Download a binary file.
+Here we use urllib, that seems to be a lot faster than requests on some manga websites.
+However, it's less secure.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong> :&ensp;<code>string</code></dt>
+<dd>url of the file that need to be downloaded.</dd>
+<dt><strong><code>save_path_file</code></strong> :&ensp;<code>string</code></dt>
+<dd>where to save the file after the download.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bool</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True, if the download was a sucess, False instead.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<p>if an error occured, print the exception to the log with self.print_v().</p>
+<h2 id="examples">Examples</h2>
+<pre><code>&gt;&gt;&gt; engineMangas = EngineMangas()
+&gt;&gt;&gt; engineMangas.download_picture("www.your_picture.png", "C:Users/your/path/to/file.png")
+</code></pre></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def download_picture(self, url, save_path_file):
+    &#34;&#34;&#34; Download a binary file.
+    Here we use urllib, that seems to be a lot faster than requests on some manga websites.
+    However, it&#39;s less secure.
+    Args:
+        url (string): url of the file that need to be downloaded.
+        save_path_file (string): where to save the file after the download.
+
+    Returns:
+        bool (bool): True, if the download was a sucess, False instead.
+
+    Raises:
+        if an error occured, print the exception to the log with self.print_v().
+
+    Examples:
+        &gt;&gt;&gt; engineMangas = EngineMangas()
+        &gt;&gt;&gt; engineMangas.download_picture(&#34;www.your_picture.png&#34;, &#34;C:Users/your/path/to/file.png&#34;)
+    &#34;&#34;&#34;
+
+    try:
+        r = urllib.request.urlopen(url)
+
+        with open(save_path_file, &#34;wb&#34;) as flux:
+
+            flux.write(r.read())
+        return True
+
+    except Exception as exception:
+        self.print_v(str(exception))
+        return False</code></pre>
+</details>
+</dd>
+<dt id="Engine.EngineManga.engineMangas.EngineMangas.get_soup"><code class="name flex">
+<span>def <span class="ident">get_soup</span></span>(<span>self, url)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Creates a soup from an url with lxml parser. Returns a soup object if possible. None else</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong> :&ensp;<code>string</code></dt>
+<dd>url of the webpage that will be turned into a soup</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>soup</code></strong> :&ensp;<code>soup</code></dt>
+<dd>A beautifulSoup soup obejct of the page</dd>
+<dt><strong><code>None</code></strong> :&ensp;<code>None</code></dt>
+<dd>if there is an error</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt>Doesn't raise an error but return None if there is a dl or soup creation.</dt>
+<dt><code>print_v</code>() <code>the</code> <code>error</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_soup(self, url):
+    &#34;&#34;&#34;Creates a soup from an url with lxml parser. Returns a soup object if possible. None else
+    Args:
+        url (string): url of the webpage that will be turned into a soup
+
+    Returns:
+        soup (soup): A beautifulSoup soup obejct of the page
+        None (None): if there is an error
+
+    Raises:
+        Doesn&#39;t raise an error but return None if there is a dl or soup creation.
+        print_v() the error
+    &#34;&#34;&#34;
+
+    self.print_v(&#34;Trying to get the web page&#34;,  url)
+    try:
+        r = requests.get(url)
+        if r.status_code == 200:
+            soup = bs4.BeautifulSoup(r.content, features=&#34;lxml&#34;)
+            return soup
+    except Exception as e:
+        try:
+            self.print_v(&#34;Error: &#34;, str(e), &#34;with error code &#34;, r.status_code)
+        except Exception as _:  # the r value doesn&#39;t exist yet
+            self.print_v(&#34;Error: &#34;, str(e), &#34;. Impossible to get a status code from the resquests&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Engine.EngineManga.engineMangas.EngineMangas.lexicographical_list_converter"><code class="name flex">
+<span>def <span class="ident">lexicographical_list_converter</span></span>(<span>self, name_list, sep='_')</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns a list of name where number are adjusted with lexicographical order</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of all the names that need to be changed</dd>
+<dt><strong><code>sep</code></strong> :&ensp;<code>string</code></dt>
+<dd>The default separator used to detect numbers</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>name_with_extension_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of all names rewritten with lexicographical order</dd>
+<dt><strong><code>None</code></strong> :&ensp;<code>None</code></dt>
+<dd>Returns None if error</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt>Doesn't raise an error.</dt>
+<dt><code>print</code> <code>a</code> <code>warning</code> <code>with</code> <code>self.print_v</code>() <code>and</code> <code>return</code> <code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="example">Example</h2>
+<pre><code>&gt;&gt;&gt; e.lexicographical_list_converter(["a_50_1.jpg", "a_1_8.png", "a_300_30.bmp"])
+&gt;&gt;&gt; ['a_050_01.jpg', 'a_001_08.png', 'a_300_30.bmp']
+</code></pre></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def lexicographical_list_converter(self, name_list, sep=&#34;_&#34;):
+    &#34;&#34;&#34; Returns a list of name where number are adjusted with lexicographical order
+
+    Args:
+        name_list (list): List of all the names that need to be changed
+        sep (string): The default separator used to detect numbers
+
+    Returns:
+        name_with_extension_list (list): List of all names rewritten with lexicographical order
+        None (None): Returns None if error
+
+    Raises:
+        Doesn&#39;t raise an error.
+        print a warning with self.print_v() and return None
+
+    Example:
+        &gt;&gt;&gt; e.lexicographical_list_converter([&#34;a_50_1.jpg&#34;, &#34;a_1_8.png&#34;, &#34;a_300_30.bmp&#34;])
+        &gt;&gt;&gt; [&#39;a_050_01.jpg&#39;, &#39;a_001_08.png&#39;, &#39;a_300_30.bmp&#39;]
+    &#34;&#34;&#34;
+
+    try:
+        # First we separate the name from it&#39;s extension
+        split_name_list = [file.rsplit(&#34;.&#34;, 1) for file in name_list]
+        # Then, we separate every part of the names according to the chosen separator
+        split_radical_on_sep_list = [split_name[0].split(sep) for split_name in split_name_list]
+
+        # We check if every name has the same &#39;structure&#39;
+        reference_size = len(split_radical_on_sep_list[0])
+        print(split_radical_on_sep_list)
+        for split_radical in split_radical_on_sep_list:
+            if len(split_radical) != reference_size:
+                self.print_v(&#34;All the names in name_list must have the same format: &#34;)
+                return None
+
+    except Exception as e:
+        self.print_v(&#34;The name_list variable as a problem: &#34;, str(e))
+        return None
+
+    try:
+        # We select the first element of the list that will be used to know where digits are.
+        index_list = []
+        reference_name = split_radical_on_sep_list[0]
+        for i in range(len(reference_name)):
+            if reference_name[i].isdigit():
+                index_list.append(i)
+            # we can also deal with float
+    except Exception as e:
+        self.print_v(&#34;Error while extracting numbers from the names,&#34;
+                     &#34;perhaps there is an unsupported float: &#34;, str(e))
+        return None
+
+    try:
+        # We now have a list of all indexes where there are numbers
+        # we need to get the max number corresponding to all indexes
+        max_list = []
+        for index in index_list:
+            # list of all number of all split name at the given index
+            number_at_index_list = [int(split_radical[index]) for split_radical in split_radical_on_sep_list]
+            max_list.append(max(number_at_index_list))
+
+        # for all indexes that are number, we add 0 to get a constant size.
+        for i in range(len(index_list)):
+            index = index_list[i]
+            max_number = max_list[i]
+            # we get the size of the max number: faster than len(str(max_number))
+            max_size = int(math.log10(max_number)) + 1
+            for split_radical in split_radical_on_sep_list:
+                split_radical[index] = &#34;0&#34; * (max_size - len(split_radical[index])) + split_radical[index]
+    except Exception as e:
+        self.print_v(&#34;Error while adding zero to the names: &#34;, str(e))
+        return None
+
+    try:
+        # Finally, we reconstruct the names by adding the separator and the extension
+        name_with_extension_list = []
+        for i in range(len(split_name_list)):
+            radical = sep.join(split_radical_on_sep_list[i])
+            # We add the extension at the end of the radical
+            name_with_extension = radical + &#34;.&#34; + split_name_list[i][-1]
+            name_with_extension_list.append(name_with_extension)
+    except Exception as e:
+        self.print_v(&#34;Error while dealing with the extensions, maybe a file has no extensions?: &#34;, str(e))
+        return None
+
+    return name_with_extension_list</code></pre>
+</details>
+</dd>
+<dt id="Engine.EngineManga.engineMangas.EngineMangas.rename_file_from_folder_lexico"><code class="name flex">
+<span>def <span class="ident">rename_file_from_folder_lexico</span></span>(<span>self, folder_directory, display_only=True)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Rename every files in a folder to get a lexicographical order list of files</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>folder_directory</code></strong> :&ensp;<code>string</code></dt>
+<dd>Path of the folder where files need to be renamed</dd>
+<dt><strong><code>display_only</code></strong> :&ensp;<code>bool</code></dt>
+<dd>default True.
+If True, just print the changes, else, execute the modificationand rename all the files in the folder</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bool</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True if no error, False else</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<p>Doesn't raise an error.
+print a warning.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rename_file_from_folder_lexico(self, folder_directory, display_only=True):
+    &#34;&#34;&#34; Rename every files in a folder to get a lexicographical order list of files
+
+    Args:
+        folder_directory (string): Path of the folder where files need to be renamed
+        display_only (bool): default True.
+            If True, just print the changes, else, execute the modificationand rename all the files in the folder
+
+    Returns:
+        bool (bool): True if no error, False else
+
+    Raises:
+        Doesn&#39;t raise an error.
+        print a warning.
+    &#34;&#34;&#34;
+
+    try:
+
+        files = os.listdir(folder_directory)
+        if files == []:
+            return True
+    except Exception as e:
+        self.print_v(&#34;impossible to analyze &#34;, folder_directory, &#34; folder. Maybe it&#39;s a wrong path: &#34;, str(e))
+        return False
+
+    lexico_files = self.lexicographical_list_converter(files)
+    if lexico_files is None:
+        return False
+
+    try:
+        for i in range(len(files)):
+            old_file = files[i]
+            new_file = lexico_files[i]
+            old_path = os.path.join(folder_directory, old_file)
+            new_path = os.path.join(folder_directory, new_file)
+            if display_only:
+                print(old_path, &#34; -&gt; &#34;, new_path)
+            else:
+                if old_file != new_file:
+                    os.rename(old_path, new_path)
+
+    except Exception as e:
+        print(&#34;impossible to rename the files: &#34;, str(e))
+        return False
+
+    return True</code></pre>
+</details>
+</dd>
+<dt id="Engine.EngineManga.engineMangas.EngineMangas.safe_download_picture"><code class="name flex">
+<span>def <span class="ident">safe_download_picture</span></span>(<span>self, url, save_path_file)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Download a binary file.
+Here we use requests, that seems to be safer than urllib</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong> :&ensp;<code>string</code></dt>
+<dd>url of the file that need to be downloaded.</dd>
+<dt><strong><code>save_path_file</code></strong> :&ensp;<code>string</code></dt>
+<dd>where to save the file after the download.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bool</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True, if the download was a sucess, False instead.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<p>if an error occured, print the exception to the log with self.print_v().</p>
+<h2 id="examples">Examples</h2>
+<pre><code>&gt;&gt;&gt; engineMangas = EngineMangas()
+&gt;&gt;&gt; engineMangas.safe_download_picture("www.your_picture.png", "C:Users/your/path/to/file.png")
+</code></pre></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def safe_download_picture(self, url, save_path_file):
+    &#34;&#34;&#34; Download a binary file.
+    Here we use requests, that seems to be safer than urllib
+    Args:
+        url (string): url of the file that need to be downloaded.
+        save_path_file (string): where to save the file after the download.
+
+    Returns:
+        bool (bool): True, if the download was a sucess, False instead.
+
+    Raises:
+        if an error occured, print the exception to the log with self.print_v().
+
+    Examples:
+        &gt;&gt;&gt; engineMangas = EngineMangas()
+        &gt;&gt;&gt; engineMangas.safe_download_picture(&#34;www.your_picture.png&#34;, &#34;C:Users/your/path/to/file.png&#34;)
+    &#34;&#34;&#34;
+
+    try:
+        r = requests.get(url, stream=False, headers={&#39;Connection&#39;: &#39;close&#39;})  # maybe speed up requests
+        with open(save_path_file, &#34;wb&#34;) as flux:
+            flux.write(r.content)  # instead of r.content()
+        return True
+
+    except Exception as exception:
+        self.print_v(str(exception))
+        return False</code></pre>
+</details>
+</dd>
+<dt id="Engine.EngineManga.engineMangas.EngineMangas.save_html"><code class="name flex">
+<span>def <span class="ident">save_html</span></span>(<span>self, url, path)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Save the html from a webpage using requests library</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>url</code></strong> :&ensp;<code>string</code></dt>
+<dd>url of the webpage that will be saved</dd>
+<dt><strong><code>path</code></strong> :&ensp;<code>string</code></dt>
+<dd>where to save the html page</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bool</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True if no error, False else</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt>Doesn't raise an error but return None if there is a dl or soup creation.</dt>
+<dt><code>print_v</code>() <code>the</code> <code>error</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_html(self, url, path):
+    &#34;&#34;&#34;Save the html from a webpage using requests library
+    Args:
+        url (string): url of the webpage that will be saved
+        path (string): where to save the html page
+
+    Returns:
+        bool (bool): True if no error, False else
+    Raises:
+        Doesn&#39;t raise an error but return None if there is a dl or soup creation.
+        print_v() the error
+    &#34;&#34;&#34;
+    try:
+        soup = self.get_soup(url)
+        with open(path, &#34;w&#34;, encoding=&#34;utf8&#34;) as flux:
+            for line in soup.prettify():
+                flux.write(line)
+    except Exception as e:
+        self.print_v(&#34;An error occured while saving the webpage from this url: &#34;, url, &#34; see: &#34;, str(e))</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="Engine.engine.Engine" href="../engine.html#Engine.engine.Engine">Engine</a></b></code>:
+<ul class="hlist">
+<li><code><a title="Engine.engine.Engine.get_json_file" href="../engine.html#Engine.engine.Engine.get_json_file">get_json_file</a></code></li>
+<li><code><a title="Engine.engine.Engine.get_logs" href="../engine.html#Engine.engine.Engine.get_logs">get_logs</a></code></li>
+<li><code><a title="Engine.engine.Engine.make_directory" href="../engine.html#Engine.engine.Engine.make_directory">make_directory</a></code></li>
+<li><code><a title="Engine.engine.Engine.print_v" href="../engine.html#Engine.engine.Engine.print_v">print_v</a></code></li>
+<li><code><a title="Engine.engine.Engine.purify_name" href="../engine.html#Engine.engine.Engine.purify_name">purify_name</a></code></li>
+<li><code><a title="Engine.engine.Engine.react_to_keyword" href="../engine.html#Engine.engine.Engine.react_to_keyword">react_to_keyword</a></code></li>
+<li><code><a title="Engine.engine.Engine.save_json_file" href="../engine.html#Engine.engine.Engine.save_json_file">save_json_file</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Engine.EngineManga" href="index.html">Engine.EngineManga</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Engine.EngineManga.engineMangas.EngineMangas" href="#Engine.EngineManga.engineMangas.EngineMangas">EngineMangas</a></code></h4>
+<ul class="">
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.download_picture" href="#Engine.EngineManga.engineMangas.EngineMangas.download_picture">download_picture</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.get_soup" href="#Engine.EngineManga.engineMangas.EngineMangas.get_soup">get_soup</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.lexicographical_list_converter" href="#Engine.EngineManga.engineMangas.EngineMangas.lexicographical_list_converter">lexicographical_list_converter</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.rename_file_from_folder_lexico" href="#Engine.EngineManga.engineMangas.EngineMangas.rename_file_from_folder_lexico">rename_file_from_folder_lexico</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.safe_download_picture" href="#Engine.EngineManga.engineMangas.EngineMangas.safe_download_picture">safe_download_picture</a></code></li>
+<li><code><a title="Engine.EngineManga.engineMangas.EngineMangas.save_html" href="#Engine.EngineManga.engineMangas.EngineMangas.save_html">save_html</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

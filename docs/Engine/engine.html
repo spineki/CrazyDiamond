@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.2" />
+<title>Engine.engine API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Engine.engine</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import json
+import os
+from os.path import dirname
+
+
+class Engine:
+    &#34;&#34;&#34; The super Class `Engine` is not designed to be instanciated, but to be inherited from.
+        It handles basic generic function that allow log gestion, writting, loading json, printing...
+        &#34;&#34;&#34;
+
+    def __init__(self):
+        self.reactive_keyword = []
+        self.verbose = True
+        self.log = []
+        self.id = -1
+        self.name = &#34;default Engine&#34;
+        self.current_folder = dirname(__file__)
+        self.dl_directory = os.path.join(dirname(self.current_folder), &#34;dl&#34;)
+        self.callback = lambda x: None
+        print(&#34;Engine created&#34;)
+
+    def react_to_keyword(self, keyword):
+        &#34;&#34;&#34; Verify if an engine is supposed to react to the given keyword
+        Args:
+            keyword (string): keyword that will be verified
+        Returns:
+            bool (bool): True if the keyword is in engine list of reactive keyword, False else
+        Raises:
+            None (none): None
+         &#34;&#34;&#34;
+        for k in self.reactive_keyword:
+            if k in keyword:
+                return True
+        return False
+
+    def print_v(self, *text):
+        &#34;&#34;&#34; Prints to the terminal the text if self.verbose is True. Keeps in engine logs memory the text
+
+        Args:
+            *text (list): texts that can be juxtaposed, or given as a list, and that need to be displayed
+        Return:
+            None (None):
+
+        Examples:
+            &gt;&gt;&gt; e = Engine()
+            &gt;&gt;&gt; e.print_v(&#34;hi&#34;, &#34;I am&#34;, &#34;a test&#34;)
+            &gt;&gt;&gt; ouput: &#34;hi I am a test&#34;
+            &gt;&gt;&gt; e.verbose = False
+            &gt;&gt;&gt; e.print_v(&#34;another test&#34;)
+            &gt;&gt;&gt; output: None
+            &gt;&gt;&gt; e.get_logs()
+            &gt;&gt;&gt; ouput: &#34;hi I am a test&#34;, &#34;another test&#34;
+        &#34;&#34;&#34;
+
+        self.log.append(&#34; &#34;.join(text))
+        if self.verbose:
+            print(*text)
+
+    def get_logs(self, sep=&#34; \n &#34;):
+        &#34;&#34;&#34; Gets the logs saved with print_v in a prettified string
+
+        Args:
+            sep (string): separator used between each log
+
+        Returns:
+            logi (string): prettified logs
+        &#34;&#34;&#34;
+
+        logi = sep.join(self.log)
+        return logi
+
+    def get_json_file(self, file_path):
+        &#34;&#34;&#34; Retrieves json file using json library
+        Args:
+            file_path (string): Path to the json path with the .json extension.
+        Returns:
+            data (dict): a json object of the file
+            None (None): If there is an error, returns None
+        Raises:
+            Raises nothing but print_v() the error
+        &#34;&#34;&#34;
+
+        try:
+            with open(file_path, &#34;r&#34;, encoding=&#34;utf8&#34;) as flux:
+                data = json.load(flux)
+            return data
+        except Exception as e:
+            self.print_v(&#34;impossible to load json file &#34;, file_path, &#34; : &#34;, str(e))
+            return None
+
+    def save_json_file(self, data, file_path):
+        &#34;&#34;&#34; Saves json file using json library
+        Args:
+            data (string): Data that need to be saved in file_path
+            file_path (string): Path to the json path with the .json extension.
+        Returns:
+            bool (bool): True if no error, False else
+        Raises:
+            Raises nothing but print_v() the error
+        &#34;&#34;&#34;
+
+        try:
+            with open(file_path, &#34;w&#34;, encoding=&#34;utf8&#34;) as flux:
+                flux.write(json.dumps(data, indent=4))
+            return True
+
+        except Exception as e:
+            self.print_v(&#34;impossible to save in json file &#34;, file_path, &#34; : &#34;, str(e))
+            return False
+
+    def purify_name(self, name, replacement=&#34;_&#34;):
+        &#34;&#34;&#34; Purify a string from it&#39;s system forbidden characters
+        Args:
+            name (string): name that need to be purified from forbidden characters
+            replacement (string): a replacement character that will replace forbidden chars in name
+
+        Returns:
+            string (string): Purified name
+            None (None): If there is a mistake
+
+        Raises:
+            Raises nothing but print_v() the error
+        &#34;&#34;&#34;
+
+        try:
+            forbidden_char = [&#34;&lt;&#34;, &#34;&gt;&#34;, &#34;\&#34;&#34;, &#34;|&#34;, &#34;?&#34;, &#34;*&#34;, &#34; &#34;, &#34;!&#34;, &#34;&#39;&#34;]
+            return &#34;&#34;.join(letter if letter not in forbidden_char else replacement for letter in name)
+        except Exception as e:
+            self.print_v(&#34; Impossible purify &#34;, name, &#34; : &#34;, str(e))
+
+    def make_directory(self, directory_path):
+        &#34;&#34;&#34;Make a directory if it doesn&#39;t exist.
+        Args:
+            directory_path : path of the to-create directory
+        Returns:
+            bool (bool): True if no error, False else
+
+        Raises:
+            Raises nothing but print_v() the error
+        &#34;&#34;&#34;
+        try:
+            if not os.path.exists(directory_path):
+                os.makedirs(directory_path)
+            return True
+        except Exception as e:
+            self.print_v(&#34;Impossible to create directory &#34;, directory_path, &#34; : &#34;, str(e))
+            return False</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Engine.engine.Engine"><code class="flex name class">
+<span>class <span class="ident">Engine</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>The super Class <a title="Engine.engine.Engine" href="#Engine.engine.Engine"><code>Engine</code></a> is not designed to be instanciated, but to be inherited from.
+It handles basic generic function that allow log gestion, writting, loading json, printing&hellip;</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Engine:
+    &#34;&#34;&#34; The super Class `Engine` is not designed to be instanciated, but to be inherited from.
+        It handles basic generic function that allow log gestion, writting, loading json, printing...
+        &#34;&#34;&#34;
+
+    def __init__(self):
+        self.reactive_keyword = []
+        self.verbose = True
+        self.log = []
+        self.id = -1
+        self.name = &#34;default Engine&#34;
+        self.current_folder = dirname(__file__)
+        self.dl_directory = os.path.join(dirname(self.current_folder), &#34;dl&#34;)
+        self.callback = lambda x: None
+        print(&#34;Engine created&#34;)
+
+    def react_to_keyword(self, keyword):
+        &#34;&#34;&#34; Verify if an engine is supposed to react to the given keyword
+        Args:
+            keyword (string): keyword that will be verified
+        Returns:
+            bool (bool): True if the keyword is in engine list of reactive keyword, False else
+        Raises:
+            None (none): None
+         &#34;&#34;&#34;
+        for k in self.reactive_keyword:
+            if k in keyword:
+                return True
+        return False
+
+    def print_v(self, *text):
+        &#34;&#34;&#34; Prints to the terminal the text if self.verbose is True. Keeps in engine logs memory the text
+
+        Args:
+            *text (list): texts that can be juxtaposed, or given as a list, and that need to be displayed
+        Return:
+            None (None):
+
+        Examples:
+            &gt;&gt;&gt; e = Engine()
+            &gt;&gt;&gt; e.print_v(&#34;hi&#34;, &#34;I am&#34;, &#34;a test&#34;)
+            &gt;&gt;&gt; ouput: &#34;hi I am a test&#34;
+            &gt;&gt;&gt; e.verbose = False
+            &gt;&gt;&gt; e.print_v(&#34;another test&#34;)
+            &gt;&gt;&gt; output: None
+            &gt;&gt;&gt; e.get_logs()
+            &gt;&gt;&gt; ouput: &#34;hi I am a test&#34;, &#34;another test&#34;
+        &#34;&#34;&#34;
+
+        self.log.append(&#34; &#34;.join(text))
+        if self.verbose:
+            print(*text)
+
+    def get_logs(self, sep=&#34; \n &#34;):
+        &#34;&#34;&#34; Gets the logs saved with print_v in a prettified string
+
+        Args:
+            sep (string): separator used between each log
+
+        Returns:
+            logi (string): prettified logs
+        &#34;&#34;&#34;
+
+        logi = sep.join(self.log)
+        return logi
+
+    def get_json_file(self, file_path):
+        &#34;&#34;&#34; Retrieves json file using json library
+        Args:
+            file_path (string): Path to the json path with the .json extension.
+        Returns:
+            data (dict): a json object of the file
+            None (None): If there is an error, returns None
+        Raises:
+            Raises nothing but print_v() the error
+        &#34;&#34;&#34;
+
+        try:
+            with open(file_path, &#34;r&#34;, encoding=&#34;utf8&#34;) as flux:
+                data = json.load(flux)
+            return data
+        except Exception as e:
+            self.print_v(&#34;impossible to load json file &#34;, file_path, &#34; : &#34;, str(e))
+            return None
+
+    def save_json_file(self, data, file_path):
+        &#34;&#34;&#34; Saves json file using json library
+        Args:
+            data (string): Data that need to be saved in file_path
+            file_path (string): Path to the json path with the .json extension.
+        Returns:
+            bool (bool): True if no error, False else
+        Raises:
+            Raises nothing but print_v() the error
+        &#34;&#34;&#34;
+
+        try:
+            with open(file_path, &#34;w&#34;, encoding=&#34;utf8&#34;) as flux:
+                flux.write(json.dumps(data, indent=4))
+            return True
+
+        except Exception as e:
+            self.print_v(&#34;impossible to save in json file &#34;, file_path, &#34; : &#34;, str(e))
+            return False
+
+    def purify_name(self, name, replacement=&#34;_&#34;):
+        &#34;&#34;&#34; Purify a string from it&#39;s system forbidden characters
+        Args:
+            name (string): name that need to be purified from forbidden characters
+            replacement (string): a replacement character that will replace forbidden chars in name
+
+        Returns:
+            string (string): Purified name
+            None (None): If there is a mistake
+
+        Raises:
+            Raises nothing but print_v() the error
+        &#34;&#34;&#34;
+
+        try:
+            forbidden_char = [&#34;&lt;&#34;, &#34;&gt;&#34;, &#34;\&#34;&#34;, &#34;|&#34;, &#34;?&#34;, &#34;*&#34;, &#34; &#34;, &#34;!&#34;, &#34;&#39;&#34;]
+            return &#34;&#34;.join(letter if letter not in forbidden_char else replacement for letter in name)
+        except Exception as e:
+            self.print_v(&#34; Impossible purify &#34;, name, &#34; : &#34;, str(e))
+
+    def make_directory(self, directory_path):
+        &#34;&#34;&#34;Make a directory if it doesn&#39;t exist.
+        Args:
+            directory_path : path of the to-create directory
+        Returns:
+            bool (bool): True if no error, False else
+
+        Raises:
+            Raises nothing but print_v() the error
+        &#34;&#34;&#34;
+        try:
+            if not os.path.exists(directory_path):
+                os.makedirs(directory_path)
+            return True
+        except Exception as e:
+            self.print_v(&#34;Impossible to create directory &#34;, directory_path, &#34; : &#34;, str(e))
+            return False</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="Engine.EngineManga.engineMangas.EngineMangas" href="EngineManga/engineMangas.html#Engine.EngineManga.engineMangas.EngineMangas">EngineMangas</a></li>
+<li><a title="Engine.EngineTest.engineTests.EngineTests" href="EngineTest/engineTests.html#Engine.EngineTest.engineTests.EngineTests">EngineTests</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="Engine.engine.Engine.get_json_file"><code class="name flex">
+<span>def <span class="ident">get_json_file</span></span>(<span>self, file_path)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Retrieves json file using json library</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>file_path</code></strong> :&ensp;<code>string</code></dt>
+<dd>Path to the json path with the .json extension.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>a json object of the file</dd>
+<dt><strong><code>None</code></strong> :&ensp;<code>None</code></dt>
+<dd>If there is an error, returns None</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Raises</code> <code>nothing</code> <code>but</code> <code>print_v</code>() <code>the</code> <code>error</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_json_file(self, file_path):
+    &#34;&#34;&#34; Retrieves json file using json library
+    Args:
+        file_path (string): Path to the json path with the .json extension.
+    Returns:
+        data (dict): a json object of the file
+        None (None): If there is an error, returns None
+    Raises:
+        Raises nothing but print_v() the error
+    &#34;&#34;&#34;
+
+    try:
+        with open(file_path, &#34;r&#34;, encoding=&#34;utf8&#34;) as flux:
+            data = json.load(flux)
+        return data
+    except Exception as e:
+        self.print_v(&#34;impossible to load json file &#34;, file_path, &#34; : &#34;, str(e))
+        return None</code></pre>
+</details>
+</dd>
+<dt id="Engine.engine.Engine.get_logs"><code class="name flex">
+<span>def <span class="ident">get_logs</span></span>(<span>self, sep=' \n ')</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Gets the logs saved with print_v in a prettified string</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>sep</code></strong> :&ensp;<code>string</code></dt>
+<dd>separator used between each log</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>logi</code></strong> :&ensp;<code>string</code></dt>
+<dd>prettified logs</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_logs(self, sep=&#34; \n &#34;):
+    &#34;&#34;&#34; Gets the logs saved with print_v in a prettified string
+
+    Args:
+        sep (string): separator used between each log
+
+    Returns:
+        logi (string): prettified logs
+    &#34;&#34;&#34;
+
+    logi = sep.join(self.log)
+    return logi</code></pre>
+</details>
+</dd>
+<dt id="Engine.engine.Engine.make_directory"><code class="name flex">
+<span>def <span class="ident">make_directory</span></span>(<span>self, directory_path)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Make a directory if it doesn't exist.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>directory_path</code></strong> :&ensp;<code>path</code> of <code>the</code> <code>to</code>-<code>create</code> <code>directory</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bool</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True if no error, False else</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Raises</code> <code>nothing</code> <code>but</code> <code>print_v</code>() <code>the</code> <code>error</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_directory(self, directory_path):
+    &#34;&#34;&#34;Make a directory if it doesn&#39;t exist.
+    Args:
+        directory_path : path of the to-create directory
+    Returns:
+        bool (bool): True if no error, False else
+
+    Raises:
+        Raises nothing but print_v() the error
+    &#34;&#34;&#34;
+    try:
+        if not os.path.exists(directory_path):
+            os.makedirs(directory_path)
+        return True
+    except Exception as e:
+        self.print_v(&#34;Impossible to create directory &#34;, directory_path, &#34; : &#34;, str(e))
+        return False</code></pre>
+</details>
+</dd>
+<dt id="Engine.engine.Engine.print_v"><code class="name flex">
+<span>def <span class="ident">print_v</span></span>(<span>self, *text)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Prints to the terminal the text if self.verbose is True. Keeps in engine logs memory the text</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>*text</code></strong> :&ensp;<code>list</code></dt>
+<dd>texts that can be juxtaposed, or given as a list, and that need to be displayed</dd>
+</dl>
+<h2 id="return">Return</h2>
+<p>None (None):</p>
+<h2 id="examples">Examples</h2>
+<pre><code>&gt;&gt;&gt; e = Engine()
+&gt;&gt;&gt; e.print_v("hi", "I am", "a test")
+&gt;&gt;&gt; ouput: "hi I am a test"
+&gt;&gt;&gt; e.verbose = False
+&gt;&gt;&gt; e.print_v("another test")
+&gt;&gt;&gt; output: None
+&gt;&gt;&gt; e.get_logs()
+&gt;&gt;&gt; ouput: "hi I am a test", "another test"
+</code></pre></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_v(self, *text):
+    &#34;&#34;&#34; Prints to the terminal the text if self.verbose is True. Keeps in engine logs memory the text
+
+    Args:
+        *text (list): texts that can be juxtaposed, or given as a list, and that need to be displayed
+    Return:
+        None (None):
+
+    Examples:
+        &gt;&gt;&gt; e = Engine()
+        &gt;&gt;&gt; e.print_v(&#34;hi&#34;, &#34;I am&#34;, &#34;a test&#34;)
+        &gt;&gt;&gt; ouput: &#34;hi I am a test&#34;
+        &gt;&gt;&gt; e.verbose = False
+        &gt;&gt;&gt; e.print_v(&#34;another test&#34;)
+        &gt;&gt;&gt; output: None
+        &gt;&gt;&gt; e.get_logs()
+        &gt;&gt;&gt; ouput: &#34;hi I am a test&#34;, &#34;another test&#34;
+    &#34;&#34;&#34;
+
+    self.log.append(&#34; &#34;.join(text))
+    if self.verbose:
+        print(*text)</code></pre>
+</details>
+</dd>
+<dt id="Engine.engine.Engine.purify_name"><code class="name flex">
+<span>def <span class="ident">purify_name</span></span>(<span>self, name, replacement='_')</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Purify a string from it's system forbidden characters</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>string</code></dt>
+<dd>name that need to be purified from forbidden characters</dd>
+<dt><strong><code>replacement</code></strong> :&ensp;<code>string</code></dt>
+<dd>a replacement character that will replace forbidden chars in name</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>string</code></strong> :&ensp;<code>string</code></dt>
+<dd>Purified name</dd>
+<dt><strong><code>None</code></strong> :&ensp;<code>None</code></dt>
+<dd>If there is a mistake</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Raises</code> <code>nothing</code> <code>but</code> <code>print_v</code>() <code>the</code> <code>error</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def purify_name(self, name, replacement=&#34;_&#34;):
+    &#34;&#34;&#34; Purify a string from it&#39;s system forbidden characters
+    Args:
+        name (string): name that need to be purified from forbidden characters
+        replacement (string): a replacement character that will replace forbidden chars in name
+
+    Returns:
+        string (string): Purified name
+        None (None): If there is a mistake
+
+    Raises:
+        Raises nothing but print_v() the error
+    &#34;&#34;&#34;
+
+    try:
+        forbidden_char = [&#34;&lt;&#34;, &#34;&gt;&#34;, &#34;\&#34;&#34;, &#34;|&#34;, &#34;?&#34;, &#34;*&#34;, &#34; &#34;, &#34;!&#34;, &#34;&#39;&#34;]
+        return &#34;&#34;.join(letter if letter not in forbidden_char else replacement for letter in name)
+    except Exception as e:
+        self.print_v(&#34; Impossible purify &#34;, name, &#34; : &#34;, str(e))</code></pre>
+</details>
+</dd>
+<dt id="Engine.engine.Engine.react_to_keyword"><code class="name flex">
+<span>def <span class="ident">react_to_keyword</span></span>(<span>self, keyword)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Verify if an engine is supposed to react to the given keyword</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>keyword</code></strong> :&ensp;<code>string</code></dt>
+<dd>keyword that will be verified</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bool</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True if the keyword is in engine list of reactive keyword, False else</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><strong><code>None</code></strong> :&ensp;<code>none</code></dt>
+<dd>None</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def react_to_keyword(self, keyword):
+    &#34;&#34;&#34; Verify if an engine is supposed to react to the given keyword
+    Args:
+        keyword (string): keyword that will be verified
+    Returns:
+        bool (bool): True if the keyword is in engine list of reactive keyword, False else
+    Raises:
+        None (none): None
+     &#34;&#34;&#34;
+    for k in self.reactive_keyword:
+        if k in keyword:
+            return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="Engine.engine.Engine.save_json_file"><code class="name flex">
+<span>def <span class="ident">save_json_file</span></span>(<span>self, data, file_path)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Saves json file using json library</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>string</code></dt>
+<dd>Data that need to be saved in file_path</dd>
+<dt><strong><code>file_path</code></strong> :&ensp;<code>string</code></dt>
+<dd>Path to the json path with the .json extension.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bool</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True if no error, False else</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>Raises</code> <code>nothing</code> <code>but</code> <code>print_v</code>() <code>the</code> <code>error</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_json_file(self, data, file_path):
+    &#34;&#34;&#34; Saves json file using json library
+    Args:
+        data (string): Data that need to be saved in file_path
+        file_path (string): Path to the json path with the .json extension.
+    Returns:
+        bool (bool): True if no error, False else
+    Raises:
+        Raises nothing but print_v() the error
+    &#34;&#34;&#34;
+
+    try:
+        with open(file_path, &#34;w&#34;, encoding=&#34;utf8&#34;) as flux:
+            flux.write(json.dumps(data, indent=4))
+        return True
+
+    except Exception as e:
+        self.print_v(&#34;impossible to save in json file &#34;, file_path, &#34; : &#34;, str(e))
+        return False</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Engine" href="index.html">Engine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Engine.engine.Engine" href="#Engine.engine.Engine">Engine</a></code></h4>
+<ul class="two-column">
+<li><code><a title="Engine.engine.Engine.get_json_file" href="#Engine.engine.Engine.get_json_file">get_json_file</a></code></li>
+<li><code><a title="Engine.engine.Engine.get_logs" href="#Engine.engine.Engine.get_logs">get_logs</a></code></li>
+<li><code><a title="Engine.engine.Engine.make_directory" href="#Engine.engine.Engine.make_directory">make_directory</a></code></li>
+<li><code><a title="Engine.engine.Engine.print_v" href="#Engine.engine.Engine.print_v">print_v</a></code></li>
+<li><code><a title="Engine.engine.Engine.purify_name" href="#Engine.engine.Engine.purify_name">purify_name</a></code></li>
+<li><code><a title="Engine.engine.Engine.react_to_keyword" href="#Engine.engine.Engine.react_to_keyword">react_to_keyword</a></code></li>
+<li><code><a title="Engine.engine.Engine.save_json_file" href="#Engine.engine.Engine.save_json_file">save_json_file</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

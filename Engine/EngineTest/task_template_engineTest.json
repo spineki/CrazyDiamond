@@ -1,6 +1,23 @@
 [
     {
-        "keyword": null,
-        "value": null
+        "keyword": "a",
+        "description": "Ici un description à la zob",
+        "value": null,
+        "type": "string",
+        "default": null
+    },
+    {
+        "keyword": "b",
+        "description": "Ici la seconde description de la variable",
+        "value": null,
+        "type": "string",
+        "default": null
+    },
+    {
+        "keyword": "c",
+        "description": "Ici la dernière description",
+        "value": null,
+        "type": "string",
+        "default": null
     }
 ]
