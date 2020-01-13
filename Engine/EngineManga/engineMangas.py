@@ -485,6 +485,37 @@ class EngineMangas(Engine):
 
         return results
 
+    def download_last_volume_from_manga_name(self, name, folder_path=None, display_only=True):
+        """
+                Download a single volume just with the name of a manga
+                Args:
+                    name (string): name of the manga
+                    number (string): number of the volume to be downloaded (maybe rename it to volume)
+                    folder_path (string): where to save the chapter. Default, dl
+                    display_only (bool) : True if the function is just used to verify if the manga exist, False to directly download
+
+                Returns:
+                    bool (bool): False if the manga cannot be downloaded, list of bool if the donwload pass th esaync part
+
+                Raises:
+                    None, but print_v() problems.
+
+                """
+
+        manga_list = self.find_manga_by_name(name)
+        if manga_list is None:
+            return False
+        first_manga = manga_list[0]
+        infos_manga = self.get_list_volume_from_manga_name(first_manga["title"])
+        chapter_list = infos_manga["chapter_list"]
+        last_chapter_title = chapter_list[0]["title"]
+        manga_link = first_manga["link"]
+        last_chapter_num = chapter_list[0]["num"]
+        self.print_v("last chapter found: " + last_chapter_title + " : N°" + str(last_chapter_num))
+        results = self.download_volume_from_manga_url(manga_link, last_chapter_num, folder_path, display_only)
+
+        return results
+
     def download_manga(self, url, folder_path=None, async_mode=False):
         """ Download all images from the manga main page, rename them (purification) and download them
         ARGS:

@@ -25,6 +25,7 @@ Example:
  """
 
 # python -m pytest --ignore=envs
+# virtualenv --clear envs
 # done
 # engine
 # engineMangas
