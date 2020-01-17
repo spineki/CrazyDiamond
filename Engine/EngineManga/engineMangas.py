@@ -17,8 +17,7 @@ class EngineMangas(Engine):
     The super Class `EngineMangas` is not designed to be instanciated, but to be inherited from.
 
     It binds every engine that deals with mangas.
-        The functions defined here perform web and I/O tasks.
-
+        The functions defined here performs web and I/O tasks.
     """
 
     def __init__(self):
@@ -528,7 +527,6 @@ class EngineMangas(Engine):
 
         return results
 
-    # Todo: add folder renaming, recursively, thus, updating the default args from download anga import
     def download_manga(self, url, folder_path=None, async_mode=False):
         """ Download all images from the manga main page, rename them (purification) and download them
         ARGS:
@@ -567,7 +565,6 @@ class EngineMangas(Engine):
                 self.download_chapter(chapter["link"], volume_directory)
 
         return True
-
 
     # RENAMING ------------------------------------------------------------------------------------
     def lexicographical_list_converter(self, name_list, sep="_"):
