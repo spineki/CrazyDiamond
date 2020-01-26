@@ -45,3 +45,12 @@ class EngineMusics(Engine):
                 self.print_v("Error: ", str(e), "with error code ", r.status_code)
             except Exception as _:  # the r value doesn't exist yet
                 self.print_v("Error: ", str(e), ". Impossible to get a status code from the resquests")
+
+    def download_music_from_name(self, name, folder_path=None, format = "ogg"):
+        results = self.find_music_by_name(name)
+        if results is None:
+            return False
+        music_chosen = results[0]
+
+        success = self.download_music_from_url(music_chosen["link"], folder_path, format)
+        return success

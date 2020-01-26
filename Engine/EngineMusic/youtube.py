@@ -39,15 +39,6 @@ class EngineYoutube(EngineMusics):
             return None
         return results
 
-    def download_music_from_name(self, name, folder_path=None, format = "ogg"):
-        results = self.find_music_by_name(name)
-        if results is None:
-            return False
-        music_chosen = results[0]
-
-        success = self.download_music_from_url(music_chosen["link"], folder_path, format)
-        return success
-
     def download_music_from_url(self, url, folder_path=None, format = "ogg"):
 
         if format == "ogg":
@@ -78,4 +69,24 @@ class EngineYoutube(EngineMusics):
                         If the error is still here, please ask the developper for some help. The error is:""" + str(e))
             return True
 
+    def download_video_from_url(self, url, folder_path=None, format = "avi"):
 
+        if folder_path is None:
+            folder_path = self.dl_directory
+
+        try:
+            # TODO: possibilité d'ajouter un username et un password!!!
+            ydl_opts = {
+                'verbose': True,  # like this  # format,vebrose,ottmpl
+                'outtmpl': os.path.join(folder_path, "%(title)s.%(ext)s"),  # how can i find
+                'format': "bestvideo[height<=1080]+bestaudio",
+            }
+
+            ydl = youtube_dl.YoutubeDL(ydl_opts)
+            ydl.download([url])
+
+        except Exception as e:
+            traceback.print_exc()
+            self.print_v("""Impossible to download the video. Upgrade youtube_dl with 'pip install --upgrade youtube_dl'.
+                        If the error is still here, please ask the developper for some help. The error is:""" + str(e))
+            return True

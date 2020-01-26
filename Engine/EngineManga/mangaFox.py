@@ -19,7 +19,7 @@ class EngineMangaFox(EngineMangas):
     # INFO  ---------------------------------------------------------------------------------------
     def get_all_available_manga_list(self):
         """ Returns the list of all mangas available on the mangaFox website (after an online search)
-        TODO
+
         Args:
             None (None): None
 
