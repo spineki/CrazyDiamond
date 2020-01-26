@@ -42,6 +42,9 @@ e = EngineYoutube()
 e.download_music_from_url("https://www.youtube.com/watch?v=isZhOCyajFI")
 
 
+# soup.find_all("div", {"class":"chapter_number"})[10].find("a")
+
+
 # On peut remplacer if a == [] par if not a:
 
 

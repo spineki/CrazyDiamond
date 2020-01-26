@@ -39,6 +39,15 @@ class EngineYoutube(EngineMusics):
             return None
         return results
 
+    def download_music_from_name(self, name, folder_path=None, format = "ogg"):
+        results = self.find_music_by_name(name)
+        if results is None:
+            return False
+        music_chosen = results[0]
+
+        success = self.download_music_from_url(music_chosen["link"], folder_path, format)
+        return success
+
     def download_music_from_url(self, url, folder_path=None, format = "ogg"):
 
         if format == "ogg":
