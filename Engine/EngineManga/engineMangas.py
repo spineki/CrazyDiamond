@@ -494,8 +494,8 @@ class EngineMangas(Engine):
         volume_directory = os.path.join(manga_directory, folder_name)
         volume_directory = self.purify_name(volume_directory)
 
-        results = self.async_download_chapter(found_volume["link"], folder_path = volume_directory)
-        self.rename_file_from_folder_lexico(volume_directory, display_only = False)
+        results = self.async_download_chapter(found_volume["link"], folder_path = volume_directory, rename_auto=True)
+        #self.rename_file_from_folder_lexico(volume_directory, display_only = False)
         return results
 
     def download_range_chapters_from_name(self, name, first, last, volume_name, folder_path=None, compress=True):
