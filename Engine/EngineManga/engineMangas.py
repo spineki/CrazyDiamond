@@ -360,6 +360,8 @@ class EngineMangas(Engine):
             TODO
         """
 
+        self.print_v("async_download_chapter")
+
         if folder_path is None:
             folder_path = self.dl_directory
 
@@ -437,7 +439,7 @@ class EngineMangas(Engine):
         if manga_list is None:
             return False
         first_manga = manga_list[0]
-        self.print_v(str(first_manga))
+        self.print_v("download_volume_fom_manga: first manga: " + str(first_manga))
 
         results = self.download_volume_from_manga_url(first_manga["link"], number, folder_path, display_only)
 
@@ -460,7 +462,7 @@ class EngineMangas(Engine):
 
         """
 
-        volumes= self.get_list_volume_from_manga_url(url)
+        volumes = self.get_list_volume_from_manga_url(url)
         if volumes is None:
             return False
 
@@ -492,7 +494,65 @@ class EngineMangas(Engine):
         volume_directory = os.path.join(manga_directory, folder_name)
         volume_directory = self.purify_name(volume_directory)
 
-        results = self.async_download_chapter(found_volume["link"], folder_path=volume_directory)
+        results = self.async_download_chapter(found_volume["link"], folder_path = volume_directory)
+        self.rename_file_from_folder_lexico(volume_directory, display_only = False)
+        return results
+
+    def download_range_chapters_from_name(self, name, first, last, volume_name, folder_path=None, compress=True):
+        """
+        WIP TODO
+        Download a range of chapters, from first to last included in a folder volume_name. You need to add the number of the volume
+        Args:
+            name (string): name of the manga
+            first (int): number of the first chapter
+            last (int): number of the last chapter, included
+            volume_name (string): name of the volume, where chapters will be mixed
+            folder_path (string): where to save the chapter. Default, dl
+
+        Returns:
+            bool (bool): False if the manga cannot be downloaded, list of bool if the donwload pass the async part
+
+        Raises:
+            None, but print_v() problems.
+
+        """
+
+        manga_list = self.find_manga_by_name(name)
+        if manga_list is None:
+            return False
+        first_manga = manga_list[0]
+        url = first_manga["link"]
+
+        volumes = self.get_list_volume_from_manga_url(url)
+        if volumes is None:
+            return False
+
+        volume_list = volumes["chapter_list"]
+        if volume_list == []:
+            return False
+
+
+        results = []
+        if folder_path is None:
+            folder_path = self.dl_directory
+        manga_directory = os.path.join(folder_path, volumes["title"])
+        folder_name = volume_name  # chosen by the reader
+        volume_directory = os.path.join(manga_directory, folder_name)
+        volume_directory = self.purify_name(volume_directory)
+
+        for chap_number in range(first, last + 1):
+
+            for volume in volume_list:
+                if volume["num"] == chap_number:
+                    found_volume = volume
+
+                    results.append(self.async_download_chapter(found_volume["link"], folder_path=volume_directory))
+
+                    break
+        self.rename_file_from_folder_lexico(volume_directory, display_only=False)
+
+        if compress:
+            self.compress_folder(volume_directory)
 
         return results
 
@@ -708,7 +768,7 @@ class EngineMangas(Engine):
             Doesn't raise an error.
             print a warning.
         """
-
+        self.print_v("rename_file_from_folder_lexico")
         try:
             files = os.listdir(folder_directory)
             if files == []:
@@ -731,7 +791,10 @@ class EngineMangas(Engine):
                     print(old_path, " -> ", new_path)
                 else:
                     if old_file != new_file:
-                        os.rename(old_path, new_path)
+                        try:
+                            os.rename(old_path, new_path)
+                        except Exception as e:
+                            print("impossible to rename ", old_path, " to ", new_path + ":" + str(e))
 
         except Exception as e:
             print("impossible to rename the files: ", str(e))

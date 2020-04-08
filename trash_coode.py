@@ -1,7 +1,8 @@
 from Engine.EngineManga.engineMangas import EngineMangas
 from Engine.EngineManga.scansManga import EngineScansMangas
 from Engine.EngineManga.lelScan import EngineLelscan
-from Engine.EngineMusic.youtube import EngineYoutube
+from Engine.EngineManga.scanOP import EngineScanOP
+#from Engine.EngineMusic.youtube import EngineYoutube
 
 import time
 import aiohttp
@@ -36,10 +37,13 @@ import requests
 
 # You must initialize logging, otherwise you'll not see debug output.
 
-e = EngineYoutube()
+e = EngineScansMangas()
 # r = e.download_volume_from_manga_name("jojo", 114, "E:\PycharmProject\CrazyDiamond\dl\JoJo_s_Bizarre_Adventure\JoJo_s_Bizarre_Adventure_V114", display_only=False)
 # e.download_volume_from_manga_name("shingeki", 125, display_only=False)
-e.download_music_from_url("https://www.youtube.com/watch?v=isZhOCyajFI")
+
+#e.download_manga("https://scan-op.com/manga/kimetsu-no-yaiba", async_mode=True)
+# e.download_range_chapters_from_name("jojo",351, 357, "Berserk Tome 40")
+e.download_volume_from_manga_name("shingeki", 128, display_only=False)
 
 
 # soup.find_all("div", {"class":"chapter_number"})[10].find("a")
