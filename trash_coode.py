@@ -48,6 +48,10 @@ import requests
 
 # soup.find_all("div", {"class":"chapter_number"})[10].find("a")
 engines = [EngineScansMangas(), EngineLelscan(), EngineLelscan()]
+
+r = engines[0].find_manga_by_name("stone")
+engines[0].download_manga('https://scans-mangas.com/lecture-en-ligne/dr-stone/')
+exit()
 def mini_switch(name, num_chapter):
     link_found = False
     link = ""

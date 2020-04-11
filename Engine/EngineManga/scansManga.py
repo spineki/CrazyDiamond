@@ -188,7 +188,13 @@ class EngineScansMangas(EngineMangas):
                 name = page["alt"]
                 index = name.find("Page")
                 num = int(name[index + len("Page"):])
-                pages.append({"link": self.url_root + page["data-src"], "num": num})
+                if page["data-src"][:8] == "https://":
+                    link = page["data-src"]
+                else:
+                    link = self.url_root + page["data-src"]
+
+                pages.append({"link": link, "num": num})
+
         except Exception as e:
             self.print_v("Impossible to get the 'alt' or 'Page' or 'link' tag in the page ", url, ": ", str(e))
             return None
