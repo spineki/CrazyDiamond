@@ -15,6 +15,7 @@ class EngineScansMangas(EngineMangas):
         self.current_folder = os.path.dirname(__file__)
         self.list_manga_path = os.path.join(self.current_folder, "scans_mangas_list_manga.json")
         self.url_search = "https://scans-mangas.com/mangas/"
+        self.url_root = "https://scans-mangas.com"
 
     # INFO  ---------------------------------------------------------------------------------------
     def get_all_available_manga_list(self):
@@ -150,6 +151,7 @@ class EngineScansMangas(EngineMangas):
         Examples:
             Todo
         """
+        self.print_v("get_info_from_chapter_url")
 
         soup = self.get_soup(url)
         if soup is None:
@@ -186,7 +188,13 @@ class EngineScansMangas(EngineMangas):
                 name = page["alt"]
                 index = name.find("Page")
                 num = int(name[index + len("Page"):])
-                pages.append({"link": page["data-src"], "num": num})
+                if page["data-src"][:8] == "https://":
+                    link = page["data-src"]
+                else:
+                    link = self.url_root + page["data-src"]
+
+                pages.append({"link": link, "num": num})
+
         except Exception as e:
             self.print_v("Impossible to get the 'alt' or 'Page' or 'link' tag in the page ", url, ": ", str(e))
             return None

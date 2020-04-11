@@ -17,7 +17,7 @@ class EngineMangas(Engine):
     The super Class `EngineMangas` is not designed to be instanciated, but to be inherited from.
 
     It binds every engine that deals with mangas.
-        The functions defined here perform web and I/O tasks.
+        The functions defined here performs web and I/O tasks.
     """
 
     def __init__(self):
@@ -105,7 +105,6 @@ class EngineMangas(Engine):
         if list_manga is None:
             list_manga = []
 
-
         for manga in list_manga:
             if name.lower() in manga["title"].lower():
                 found = True
@@ -116,7 +115,7 @@ class EngineMangas(Engine):
             self.print_v("searching online " + name)
             # update the list
             list_manga = self.get_all_available_manga_list()
-            if list_manga == None:
+            if list_manga is None:
                 return None
             # save the list in the file
             self.save_json_file(list_manga, self.list_manga_path)
@@ -124,7 +123,7 @@ class EngineMangas(Engine):
                 if name.lower() in manga["title"].lower():
                     results.append(manga)
 
-        if results == []:
+        if not results:
             return None
         return results
 
@@ -172,7 +171,6 @@ class EngineMangas(Engine):
     @abstractmethod
     def get_info_from_chapter_url(self, url):
         pass
-
 
     # DOWNLOAD ------------------------------------------------------------------------------------
     def download_picture(self, url, save_path_file):
@@ -228,7 +226,7 @@ class EngineMangas(Engine):
         try:
             t = time.clock()
             url = url.strip()
-            r = requests.get(url, stream = False,  headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})  # maybe speed up requests
+            r = requests.get(url, stream=False,  headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})  # maybe speed up requests
             self.print_v("requests time: ", str(time.clock() - t))
 
             if r.status_code != 200:
@@ -346,7 +344,7 @@ class EngineMangas(Engine):
 
         return True
 
-    def async_download_chapter(self, url, folder_path=None):
+    def async_download_chapter(self, url, folder_path=None, rename_auto = True):
         """ Download all images from the manga chapter page, rename them (purification) and download them
         ARGS:
             url (str): url of the given chapter.
@@ -361,6 +359,8 @@ class EngineMangas(Engine):
         Examples:
             TODO
         """
+
+        self.print_v("async_download_chapter")
 
         if folder_path is None:
             folder_path = self.dl_directory
@@ -383,6 +383,7 @@ class EngineMangas(Engine):
 
         url_list = []
         save_path_file_list = []
+        file_name_list = []
         for page in pages:
             link = page["link"]
             number = page["num"]
@@ -390,10 +391,10 @@ class EngineMangas(Engine):
 
             file_name = manga_title + "_" + str(chapter_num) + "_" + str(number) + "." + extension
             file_name = self.purify_name(file_name)
+            file_name_list.append(file_name)
             save_name = os.path.join(folder_path, file_name)
 
             # here, we finally download the picture
-
             url_list.append(link)
             save_path_file_list.append(save_name)
 
@@ -402,6 +403,18 @@ class EngineMangas(Engine):
         results = self.async_download_pictures(url_list, save_path_file_list)
         for elem in results:
             if elem == False:
+                return False
+
+        # here everything were perfect. We can rename mangas.
+
+        if rename_auto:
+            print("road to rename")
+            print(folder_path)
+            print(file_name_list)
+            success = self.rename_file_from_list(folder_path, file_name_list, display_only=False)
+
+            if not success:
+                self.print_v("impossible to rename files in "  + folder_path)
                 return False
         return True
 
@@ -426,7 +439,7 @@ class EngineMangas(Engine):
         if manga_list is None:
             return False
         first_manga = manga_list[0]
-        self.print_v(str(first_manga))
+        self.print_v("download_volume_fom_manga: first manga: " + str(first_manga))
 
         results = self.download_volume_from_manga_url(first_manga["link"], number, folder_path, display_only)
 
@@ -449,7 +462,7 @@ class EngineMangas(Engine):
 
         """
 
-        volumes= self.get_list_volume_from_manga_url(url)
+        volumes = self.get_list_volume_from_manga_url(url)
         if volumes is None:
             return False
 
@@ -481,26 +494,84 @@ class EngineMangas(Engine):
         volume_directory = os.path.join(manga_directory, folder_name)
         volume_directory = self.purify_name(volume_directory)
 
-        results = self.async_download_chapter(found_volume["link"], folder_path=volume_directory)
+        results = self.async_download_chapter(found_volume["link"], folder_path = volume_directory, rename_auto=True)
+        #self.rename_file_from_folder_lexico(volume_directory, display_only = False)
+        return results
+
+    def download_range_chapters_from_name(self, name, first, last, volume_name, folder_path=None, compress=True):
+        """
+        WIP TODO
+        Download a range of chapters, from first to last included in a folder volume_name. You need to add the number of the volume
+        Args:
+            name (string): name of the manga
+            first (int): number of the first chapter
+            last (int): number of the last chapter, included
+            volume_name (string): name of the volume, where chapters will be mixed
+            folder_path (string): where to save the chapter. Default, dl
+
+        Returns:
+            bool (bool): False if the manga cannot be downloaded, list of bool if the donwload pass the async part
+
+        Raises:
+            None, but print_v() problems.
+
+        """
+
+        manga_list = self.find_manga_by_name(name)
+        if manga_list is None:
+            return False
+        first_manga = manga_list[0]
+        url = first_manga["link"]
+
+        volumes = self.get_list_volume_from_manga_url(url)
+        if volumes is None:
+            return False
+
+        volume_list = volumes["chapter_list"]
+        if volume_list == []:
+            return False
+
+
+        results = []
+        if folder_path is None:
+            folder_path = self.dl_directory
+        manga_directory = os.path.join(folder_path, volumes["title"])
+        folder_name = volume_name  # chosen by the reader
+        volume_directory = os.path.join(manga_directory, folder_name)
+        volume_directory = self.purify_name(volume_directory)
+
+        for chap_number in range(first, last + 1):
+
+            for volume in volume_list:
+                if volume["num"] == chap_number:
+                    found_volume = volume
+
+                    results.append(self.async_download_chapter(found_volume["link"], folder_path=volume_directory))
+
+                    break
+        self.rename_file_from_folder_lexico(volume_directory, display_only=False)
+
+        if compress:
+            self.compress_folder(volume_directory)
 
         return results
 
     def download_last_volume_from_manga_name(self, name, folder_path=None, display_only=True):
         """
-                Download a single volume just with the name of a manga
-                Args:
-                    name (string): name of the manga
-                    number (string): number of the volume to be downloaded (maybe rename it to volume)
-                    folder_path (string): where to save the chapter. Default, dl
-                    display_only (bool) : True if the function is just used to verify if the manga exist, False to directly download
+            Download a single volume just with the name of a manga
+            Args:
+                name (string): name of the manga
+                number (string): number of the volume to be downloaded (maybe rename it to volume)
+                folder_path (string): where to save the chapter. Default, dl
+                display_only (bool) : True if the function is just used to verify if the manga exist, False to directly download
 
-                Returns:
-                    bool (bool): False if the manga cannot be downloaded, list of bool if the donwload pass th esaync part
+            Returns:
+                bool (bool): False if the manga cannot be downloaded, list of bool if the donwload pass th esaync part
 
-                Raises:
-                    None, but print_v() problems.
+            Raises:
+                None, but print_v() problems.
 
-                """
+        """
 
         manga_list = self.find_manga_by_name(name)
         if manga_list is None:
@@ -554,7 +625,6 @@ class EngineMangas(Engine):
                 self.download_chapter(chapter["link"], volume_directory)
 
         return True
-
 
     # RENAMING ------------------------------------------------------------------------------------
     def lexicographical_list_converter(self, name_list, sep="_"):
@@ -648,7 +718,7 @@ class EngineMangas(Engine):
 
             Args:
                 folder_directory (string): Path of the folder where files need to be renamed
-                name_list (string): list of files that need to be renamed
+                name_list (list): list of files that need to be renamed
                 display_only (bool): default True.
                     If True, just print the changes, else, execute the modificationand rename all the files in the folder
 
@@ -698,7 +768,7 @@ class EngineMangas(Engine):
             Doesn't raise an error.
             print a warning.
         """
-
+        self.print_v("rename_file_from_folder_lexico")
         try:
             files = os.listdir(folder_directory)
             if files == []:
@@ -721,7 +791,10 @@ class EngineMangas(Engine):
                     print(old_path, " -> ", new_path)
                 else:
                     if old_file != new_file:
-                        os.rename(old_path, new_path)
+                        try:
+                            os.rename(old_path, new_path)
+                        except Exception as e:
+                            print("impossible to rename ", old_path, " to ", new_path + ":" + str(e))
 
         except Exception as e:
             print("impossible to rename the files: ", str(e))
