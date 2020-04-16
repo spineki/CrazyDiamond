@@ -255,7 +255,7 @@ class EngineMangas(Engine):
                 Raises:
                     if an error occured, print the exception to the log with self.print_v().
         """
-        self.print_v(url_list, save_path_file_list)
+        self.print_v( "async_download_pictures ", " ".join(url_list), " ".join(save_path_file_list))
 
         async def get_and_save(url, path):
             try:
@@ -309,6 +309,8 @@ class EngineMangas(Engine):
             EngineMangas().download_chapter("https://urlofmyfavoritemanga", "C://Users/JONHDOE/folder/" )
         """
 
+        self.print_v("download_chapter...")
+
         if folder_path is None:
             folder_path = self.dl_directory
 
@@ -344,7 +346,7 @@ class EngineMangas(Engine):
 
         return True
 
-    def async_download_chapter(self, url, folder_path=None, rename_auto = True, create_subFolder = True):
+    def async_download_chapter(self, url, folder_path=None, rename_auto = True, create_subFolder = False):
         """ Download all images from the manga chapter page, rename them (purification) and download them
             If create_subFolder is True, the files will be stored in a subFolder with the name found on the website
 
@@ -422,7 +424,7 @@ class EngineMangas(Engine):
 
         if rename_auto:
             self.print_v("Renaming in..." + folder_path)
-            self.print_v(file_name_list)
+            self.print_v("".join(file_name_list))
             success = self.rename_file_from_list(folder_path, file_name_list, display_only=False)
 
             if not success:
@@ -430,7 +432,7 @@ class EngineMangas(Engine):
                 return False
         return True
 
-    def download_volume_from_manga_name(self, name, number, folder_path=None, volume_name= None, rename_auto = True, compress = False, display_only=True):
+    def download_volume_from_manga_name(self, name, number, folder_path=None, volume_name= None, rename_auto=True, compress=None, display_only=True):
         """
         Download a single volume just with the name of a manga
         Args:
@@ -440,6 +442,7 @@ class EngineMangas(Engine):
             volume_name (string): Renaming the volume if necessary
             rename_auto (bool): decides if the files should be renamed by adding 0: 1,2,9,11 -> 01,02,09,11
             display_only (bool) : True if the function is just used to verify if the manga exist, False to directly download
+            compress (string) : extension of the compress file (with the dot)
 
         Returns:
             bool (bool): False if the manga cannot be downloaded, list of bool if the donwload pass th esaync part
@@ -448,7 +451,7 @@ class EngineMangas(Engine):
             None, but print_v() problems.
 
         """
-
+        self.print_v("download_volume_from_manga_name...")
         manga_list = self.find_manga_by_name(name)
         if manga_list is None:
             return False
@@ -466,7 +469,7 @@ class EngineMangas(Engine):
 
         return results
 
-    def download_volume_from_manga_url(self, url, number, folder_path=None, volume_name=None,rename_auto = True, display_only=True, compress = False):
+    def download_volume_from_manga_url(self, url, number, folder_path=None, volume_name=None, rename_auto=True, display_only=True, compress = None):
         """
             Download a single volume just with the url of a manga
             Args:
@@ -474,7 +477,7 @@ class EngineMangas(Engine):
                 number (string): number of the volume to be downloaded (maybe rename it to volume)
                 folder_path (string): where to save the chapter. Default, dl
                 display_only (bool) : True if the function is just used to verify if the manga exist, False to directly download
-
+                compress (string) : extension of the compress file (with the dot)
             Returns:
                 bool (bool): False if the manga cannot be downloaded, list of bool if the donwload pass th esaync part
 
@@ -483,6 +486,7 @@ class EngineMangas(Engine):
 
         """
 
+        self.print_v("download_volume_from_manga_url...")
         volumes = self.get_list_volume_from_manga_url(url)
         if volumes is None:
             return False
@@ -506,11 +510,14 @@ class EngineMangas(Engine):
         self.print_v("manga found ", str(found_volume))
 
         if display_only:
+            print("If you want to really make it, launch this function again with display_only = False")
             return True
+
         if volume_name is None:
-            folder_name = found_volume["title"] + "_V" + str(found_volume["num"])
+            folder_name = found_volume["title"] + "_" + str(found_volume["num"])
         else:
             folder_name = volume_name
+
         if folder_path is None:
             folder_path = self.dl_directory
         manga_directory = os.path.join(folder_path, volumes["title"])
@@ -518,16 +525,26 @@ class EngineMangas(Engine):
         volume_directory = self.purify_name(volume_directory)
 
         self.print_v("trying to download volume from manga url \n" + folder_name + "\n" + volume_directory)
-        results = self.async_download_chapter(found_volume["link"], folder_path = volume_directory, rename_auto=True)
-        #self.rename_file_from_folder_lexico(volume_directory, display_only = False)
+        results = self.async_download_chapter(found_volume["link"], folder_path = volume_directory, rename_auto=rename_auto)
+
         if compress:
-            self.compress_folder(volume_directory)
+            self.compress_folder(volume_directory,ext=compress)
 
         return results
 
-    def download_range_chapters_from_name(self, name, first, last, volume_name, folder_path=None, compress=True):
+    def download_range_chapters_from_name(self, name, first, last, volume_name, folder_path=None, compress=None):
+
+        self.print_v("download_range_chapters_from_url...")
+        manga_list = self.find_manga_by_name(name)
+        if manga_list is None:
+            return False
+        first_manga = manga_list[0]
+        url = first_manga["link"]
+
+        return self.download_range_chapters_from_url(url, first, last, volume_name, folder_path, compress)
+
+    def download_range_chapters_from_url(self, url, first, last, volume_name, folder_path=None, compress=None):
         """
-        WIP TODO
         Download a range of chapters, from first to last included in a folder volume_name. You need to add the number of the volume
         Args:
             name (string): name of the manga
@@ -535,21 +552,16 @@ class EngineMangas(Engine):
             last (int): number of the last chapter, included
             volume_name (string): name of the volume, where chapters will be mixed
             folder_path (string): where to save the chapter. Default, dl
+            compress (string) : extension of the compress file (with the dot)
 
         Returns:
-            bool (bool): False if the manga cannot be downloaded, list of bool if the donwload pass the async part
+            bool (bool): False if the manga cannot be downloaded, list of bool if the download pass the async part
 
         Raises:
             None, but print_v() problems.
-
         """
 
-        manga_list = self.find_manga_by_name(name)
-        if manga_list is None:
-            return False
-        first_manga = manga_list[0]
-        url = first_manga["link"]
-
+        self.print_v("download_range_chapters_from_url...")
         volumes = self.get_list_volume_from_manga_url(url)
         if volumes is None:
             return False
@@ -562,6 +574,7 @@ class EngineMangas(Engine):
         results = []
         if folder_path is None:
             folder_path = self.dl_directory
+
         manga_directory = os.path.join(folder_path, volumes["title"])
         folder_name = volume_name  # chosen by the reader
         volume_directory = os.path.join(manga_directory, folder_name)
@@ -572,14 +585,13 @@ class EngineMangas(Engine):
             for volume in volume_list:
                 if volume["num"] == chap_number:
                     found_volume = volume
-
                     results.append(self.async_download_chapter(found_volume["link"], folder_path=volume_directory))
-
                     break
+
         self.rename_file_from_folder_lexico(volume_directory, display_only=False)
 
         if compress:
-            self.compress_folder(volume_directory)
+            self.compress_folder(volume_directory, compress)
 
         return results
 
@@ -600,10 +612,12 @@ class EngineMangas(Engine):
 
         """
 
+        self.print_v("download_last_volume_from_manga_name...")
         manga_list = self.find_manga_by_name(name)
         if manga_list is None:
             return False
         first_manga = manga_list[0]
+
         infos_manga = self.get_list_volume_from_manga_name(first_manga["title"])
         chapter_list = infos_manga["chapter_list"]
         last_chapter_title = chapter_list[0]["title"]
@@ -614,8 +628,9 @@ class EngineMangas(Engine):
 
         return results
 
-    def download_manga_from_url(self, url, folder_path=None, async_mode=False):
+    def download_whole_manga_from_url(self, url, folder_path=None, async_mode=False):
         """ Download all images from the manga main page, rename them (purification) and download them
+        TODO: REWORK THIS FUNCTION
         ARGS:
             url (str): url of the given manga.
             selection (list): list of manga that will be downloaded
@@ -627,9 +642,8 @@ class EngineMangas(Engine):
         Raises:
             Doesn't raise an error.
 
-        Examples:
-            TODO
         """
+        self.print_v("download_whole_manga_from_url")
         # We gather main manga page info
         results_presentation_page = self.get_list_volume_from_manga_url(url)
         if results_presentation_page is None:
@@ -639,7 +653,7 @@ class EngineMangas(Engine):
 
         for chapter in chapters:
 
-            folder_name = results_presentation_page["title"] + "_V" + str(chapter["num"])
+            folder_name = results_presentation_page["title"] + "_" + str(chapter["num"])
             if folder_path is None:
                 folder_path = self.dl_directory
             manga_directory = os.path.join(folder_path, results_presentation_page["title"])
@@ -653,11 +667,12 @@ class EngineMangas(Engine):
 
         return True
 
-    def download_manga_from_name(self, name, folder_path = None, async_mode=False):
+    def download_whole_manga_from_name(self, name, folder_path = None, async_mode=False):
+        self.print_v("download_whole_manga_from_name...")
         mangas = self.find_manga_by_name(name)
         first_manga = mangas[0]
         url = first_manga["link"]
-        return self.download_manga_from_url(url, folder_path, async_mode)
+        return self.download_whole_manga_from_url(url, folder_path, async_mode)
 
     # RENAMING ------------------------------------------------------------------------------------
     def lexicographical_list_converter(self, name_list, sep="_"):
@@ -836,7 +851,17 @@ class EngineMangas(Engine):
         return True
 
     # ZIP -----------------------------------------------------------------------------------------
-    def compress_folder(self, dir_name, ext=".cbz"):
+
+    def compress_folder(self, folder_path, ext=".cbz"):
+        self.print_v("compress_folder...")
+        if ext == ".cbz" or ext == ".zip":
+            return self.compress_CBZ(folder_path, ext)
+        elif ext == ".pdf":
+            return self.compress_PDF(folder_path)
+        else:
+            print("I cannot deal with " + ext + " files")
+
+    def compress_CBZ(self, folder_path, ext=".cbz"):
         """"Compress A folder in zip format. Add a zip like extension like .zip, .cbz
         Args:
             dir_name (string): path of the directory that will be compressed
@@ -846,34 +871,34 @@ class EngineMangas(Engine):
         Raises:
             Raises nothing but print_v() errors
         """
-
+        self.print_v("compress_CBZ...")
         try:
-            files = os.listdir(dir_name)
+            files = os.listdir(folder_path)
             if files == []:
                 return False
         except Exception as e:
-            self.print_v("impossible to analyze ", dir_name, " folder. Maybe it's a wrong path: ", str(e))
+            self.print_v("impossible to analyze ", folder_path, " folder. Maybe it's a wrong path: ", str(e))
             return False
 
         try:
             for i in range(len(files)):
-                files[i] = os.path.join(dir_name, files[i])
+                files[i] = os.path.join(folder_path, files[i])
         except Exception as e:
             self.print_v("error while joining names ", str(e))
             return False
 
         try:
-            zip_file = zipfile.ZipFile(dir_name + ext, 'w')
+            zip_file = zipfile.ZipFile(folder_path + ext, 'w')
             with zip_file:
                 # writing each file one by one
                 for file in files:
                     zip_file.write(file)
             return True
         except Exception as e:
-            self.print_v("impossible to compress ", dir_name, " folder", str(e))
+            self.print_v("impossible to compress ", folder_path, " folder", str(e))
             return False
 
-    def convert_pictures_pdf(self, dir_name):
+    def compress_PDF(self, folder_path):
         """"Create a pdf of all pictures in a folder
         Args:
             dir_name (string): path of the directory that will be compressed
@@ -883,31 +908,28 @@ class EngineMangas(Engine):
             Raises nothing but print_v() errors
         """
 
+        self.print_v("compress_PDF...")
         try:
-            files = os.listdir(dir_name)
+            files = os.listdir(folder_path)
             if files == []:
                 return False
         except Exception as e:
-            self.print_v("impossible to analyze ", dir_name, " folder. Maybe it's a wrong path: ", str(e))
+            self.print_v("impossible to analyze ", folder_path, " folder. Maybe it's a wrong path: ", str(e))
             return False
 
         try:
             for i in range(len(files)):
-                files[i] = os.path.join(dir_name, files[i])
+                files[i] = os.path.join(folder_path, files[i])
         except Exception as e:
             self.print_v("error while joining names ", str(e))
             return False
 
         try:
-            folder = os.path.dirname(dir_name)
-            with open(folder, "wb") as f:
+            with open(folder_path + ".pdf", "wb") as f:
+                print("here ***********************")
                 f.write(img2pdf.convert(files))
             return True
 
         except Exception as e:
-            self.print_v("impossible to turn into a pdf ", dir_name, " folder", str(e))
+            self.print_v("impossible to turn into a pdf ", folder_path, " folder. ", str(e))
             return False
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod(verbose=True, extraglobs={'engine': EngineMangas()})

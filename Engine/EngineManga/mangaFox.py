@@ -75,8 +75,6 @@ class EngineMangaFox(EngineMangas):
                 except:
                     continue
 
-        if results == []:
-            return None
         return results
 
     def get_list_volume_from_manga_url(self, url):

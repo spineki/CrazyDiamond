@@ -43,7 +43,7 @@ class EngineScansMangas(EngineMangas):
 
         soup = self.get_soup(self.url_search)
         if soup is None:
-            return None
+            return []
         try:
             list_mangas_found = soup.find_all("div", {"class": "item red"})
             for manga in list_mangas_found:
@@ -51,8 +51,7 @@ class EngineScansMangas(EngineMangas):
         except Exception as e:
             self.print_v("Impossible to find mangas in the page. Maybe tags are broken in ", self.url_search, ": ", str(e))
 
-        if results == []:
-            return None
+
         return results
 
     def get_list_volume_from_manga_url(self, url):
