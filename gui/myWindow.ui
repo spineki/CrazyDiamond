@@ -346,6 +346,11 @@ console de sortie</string>
     </property>
     <item>
      <property name="text">
+      <string>.pdf</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
       <string>.cbz</string>
      </property>
     </item>

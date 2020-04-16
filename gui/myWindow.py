@@ -153,6 +153,7 @@ class Ui_MainWindow(object):
         self.comboBox_compress_mode.setGeometry(QtCore.QRect(500, 600, 69, 22))
         self.comboBox_compress_mode.setObjectName("comboBox_compress_mode")
         self.comboBox_compress_mode.addItem("")
+        self.comboBox_compress_mode.addItem("")
         self.listWidget_results = QtWidgets.QListWidget(self.centralwidget)
         self.listWidget_results.setGeometry(QtCore.QRect(280, 160, 431, 91))
         self.listWidget_results.setObjectName("listWidget_results")
@@ -341,7 +342,8 @@ class Ui_MainWindow(object):
 " pour le moment c\'est une\n"
 "console de sortie"))
         self.checkBox_compress.setText(_translate("MainWindow", "Compresser?"))
-        self.comboBox_compress_mode.setItemText(0, _translate("MainWindow", ".cbz"))
+        self.comboBox_compress_mode.setItemText(0, _translate("MainWindow", ".pdf"))
+        self.comboBox_compress_mode.setItemText(1, _translate("MainWindow", ".cbz"))
         self.pushButton_download.setText(_translate("MainWindow", "Télécharger"))
         self.label_console.setText(_translate("MainWindow", " Aucune erreur pour le moment"))
         self.label_6.setText(_translate("MainWindow", "Sortie console en cas d\'erreur"))

@@ -43,7 +43,7 @@ class EngineScansMangas(EngineMangas):
 
         soup = self.get_soup(self.url_search)
         if soup is None:
-            return None
+            return []
         try:
             list_mangas_found = soup.find_all("div", {"class": "item red"})
             for manga in list_mangas_found:
@@ -51,8 +51,7 @@ class EngineScansMangas(EngineMangas):
         except Exception as e:
             self.print_v("Impossible to find mangas in the page. Maybe tags are broken in ", self.url_search, ": ", str(e))
 
-        if results == []:
-            return None
+
         return results
 
     def get_list_volume_from_manga_url(self, url):
@@ -77,6 +76,8 @@ class EngineScansMangas(EngineMangas):
         """
 
         def is_float(string):
+
+
             try:
                 float(string)
                 return True
@@ -107,8 +108,19 @@ class EngineScansMangas(EngineMangas):
             result_list = []
             for page in results:
                 title = page.text.strip()
+
+                string = title
+                # get rid of , converted to dot
+                buff = []
+                for l in string:
+                    if l == ",":
+                        buff.append(".")
+                    else:
+                        buff.append(l)
+                string = "".join(buff)
+
                 # We need to handle decimal valued chapters
-                list_number = [float(s) for s in title.split() if is_float(s)]
+                list_number = [float(s) for s in string.split() if is_float(s)]
                 list_number = [int(s) if is_int(s) else s for s in list_number]
                 result_list.append({"link": page["value"], "title": title, "num": list_number[-1]})
         except Exception as e:
