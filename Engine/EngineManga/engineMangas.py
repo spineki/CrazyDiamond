@@ -9,6 +9,7 @@ import aiohttp
 import asyncio
 import aiofiles as aiof
 import zipfile
+import img2pdf
 from Engine.engine import Engine
 
 
@@ -850,4 +851,39 @@ class EngineMangas(Engine):
             return True
         except Exception as e:
             self.print_v("impossible to compress ", dir_name, " folder", str(e))
+            return False
+
+    def convert_pictures_pdf(self, dir_name):
+        """"Create a pdf of all pictures in a folder
+        Args:
+            dir_name (string): path of the directory that will be compressed
+        Returns:
+            bool (bool): True if everything is correct, False if there is an error or if the folder is empty
+        Raises:
+            Raises nothing but print_v() errors
+        """
+
+        try:
+            files = os.listdir(dir_name)
+            if files == []:
+                return False
+        except Exception as e:
+            self.print_v("impossible to analyze ", dir_name, " folder. Maybe it's a wrong path: ", str(e))
+            return False
+
+        try:
+            for i in range(len(files)):
+                files[i] = os.path.join(dir_name, files[i])
+        except Exception as e:
+            self.print_v("error while joining names ", str(e))
+            return False
+
+        try:
+            folder = os.path.dirname(dir_name)
+            with open(folder, "wb") as f:
+                f.write(img2pdf.convert(files))
+            return True
+
+        except Exception as e:
+            self.print_v("impossible to turn into a pdf ", dir_name, " folder", str(e))
             return False
