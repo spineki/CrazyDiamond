@@ -445,7 +445,7 @@ class EngineMangas(Engine):
 
         return results
 
-    def download_volume_from_manga_url(self, url, number, folder_path=None, display_only=True):
+    def download_volume_from_manga_url(self, url, number, folder_path=None, volume_name=None, display_only=True, compress = False):
         """
             Download a single volume just with the url of a manga
             Args:
@@ -486,16 +486,22 @@ class EngineMangas(Engine):
 
         if display_only:
             return True
-
-        folder_name = found_volume["title"] + "_V" + str(found_volume["num"])
+        if volume_name is None:
+            folder_name = found_volume["title"] + "_V" + str(found_volume["num"])
+        else:
+            folder_name = volume_name
         if folder_path is None:
             folder_path = self.dl_directory
         manga_directory = os.path.join(folder_path, volumes["title"])
         volume_directory = os.path.join(manga_directory, folder_name)
         volume_directory = self.purify_name(volume_directory)
 
+        self.print_v("trying to download volume from manga url \n" + folder_name + "\n" + volume_directory)
         results = self.async_download_chapter(found_volume["link"], folder_path = volume_directory, rename_auto=True)
         #self.rename_file_from_folder_lexico(volume_directory, display_only = False)
+        if compress:
+            self.compress_folder(volume_directory)
+
         return results
 
     def download_range_chapters_from_name(self, name, first, last, volume_name, folder_path=None, compress=True):

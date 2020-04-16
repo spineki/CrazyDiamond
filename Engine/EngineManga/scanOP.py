@@ -19,7 +19,6 @@ class EngineScanOP(EngineMangas):
         self.url_picture = "http://funquizzes.fun/uploads/manga/"
 
 
-
     # INFO  ---------------------------------------------------------------------------------------
     def get_all_available_manga_list(self):
         """Returns the list of all mangas available on the lelscan website (after an online search)
