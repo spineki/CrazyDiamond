@@ -9,9 +9,9 @@ class EngineMangaFox(EngineMangas):
 
     def __init__(self):
         super().__init__()
-        self.reactive_keyword = ["scans-mangas"]
+        self.reactive_keyword = ["mangafox"]
         self.break_time = 0.1
-        self.name = "ScansManga"
+        self.name = "MangaFox"
         self.current_folder = os.path.dirname(__file__)
         self.list_manga_path = os.path.join(self.current_folder, "manag_fox_list_manga.json")
         self.url_search = "https://ww3.mangafox.online/alphabet/"

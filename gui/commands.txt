@@ -1,0 +1,2 @@
+pyuic5 myWindow.ui -o MyWindow.py
+from PySide2 import QtCore, QtGui, QtWidgets
