@@ -12,7 +12,7 @@ class EngineLelscan(EngineMangas):
         super().__init__()
         self.reactive_keyword = ["lelscan"]
         self.break_time = 0.1
-        self.name = "EngineLelscan"
+        self.name = "Lelscan"
         self.current_folder = os.path.dirname(__file__)
         self.list_manga_path = os.path.join(self.current_folder, "lelscan_list_manga.json")
         # https://lelscan-vf.com/uploads/manga/dr-stone/chapters/125/01.png bellow
