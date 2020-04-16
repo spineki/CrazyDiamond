@@ -87,7 +87,7 @@ class EngineMangas(Engine):
             results (list): A list of dict with the following keys
             {
             title (string): Name of the manga
-            link (string): url of th emanga main page
+            link (string): url of the manga main page
             }
 
             None if no manga corresponds to the the name searched
@@ -587,7 +587,7 @@ class EngineMangas(Engine):
 
         return results
 
-    def download_manga(self, url, folder_path=None, async_mode=False):
+    def download_manga_from_url(self, url, folder_path=None, async_mode=False):
         """ Download all images from the manga main page, rename them (purification) and download them
         ARGS:
             url (str): url of the given manga.
@@ -625,6 +625,12 @@ class EngineMangas(Engine):
                 self.download_chapter(chapter["link"], volume_directory)
 
         return True
+
+    def download_manga_from_name(self, name, folder_path = None, async_mode=False):
+        mangas = self.find_manga_by_name(name)
+        first_manga = mangas[0]
+        url = first_manga["link"]
+        return self.download_manga_from_url(url, folder_path, async_mode)
 
     # RENAMING ------------------------------------------------------------------------------------
     def lexicographical_list_converter(self, name_list, sep="_"):
