@@ -35,6 +35,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.checkBox_compress.stateChanged.connect(self.activateCompress)
         self.spinBox_volume.valueChanged.connect(self.namingVolume)
         self.pushButton_download.clicked.connect(self.download)
+        self.pushButton_download_all.clicked.connect(self.download_all)
 
     def auto_analyze(self):
         self.listWidget_results.clear()
@@ -107,7 +108,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         compress = self.checkBox_compress.checkState()
         output_name = self.lineEdit_output_name.text()
 
+        if self.currentEngine is None: # temporary
+            print("pas de manga sélectionné")
+            return
 
+        engine = None
+        for e in self.engines:
+
+            if e.name == self.currentEngine:
+                engine = e
+                break
+
+        manga_url = self.lineEdit_url.text()
+        engine.download_manga_from_url(manga_url, async_mode=True)
 
     def download(self):
 
@@ -126,9 +139,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         engine = None
         for e in self.engines:
-
             if e.name == self.currentEngine:
                 engine = e
+                break
 
         if self.checkBox_range.checkState(): # if range of chapter mode
             print("range mode")
@@ -144,10 +157,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.set_output_consol("Download of " + manga_name + str(volume_number) + " finished")
             print(result)
-
-
-
-
 
 
 
