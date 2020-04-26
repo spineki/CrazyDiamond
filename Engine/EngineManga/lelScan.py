@@ -1,6 +1,7 @@
 from Engine.EngineManga.engineMangas import EngineMangas
 import json
 import os
+import sys
 
 
 class EngineLelscan(EngineMangas):
@@ -13,13 +14,19 @@ class EngineLelscan(EngineMangas):
         self.reactive_keyword = ["lelscan"]
         self.break_time = 0.1
         self.name = "Lelscan"
-        self.current_folder = os.path.dirname(__file__)
+        #self.current_folder = os.path.dirname(__file__)
+        if getattr(sys, 'frozen', False):
+            self.print_v("frozen mode")
+            self.current_folder = os.path.dirname(sys.executable)
+        else:
+            self.current_folder = os.path.dirname(os.path.abspath(__file__))
         self.list_manga_path = os.path.join(self.current_folder, "lelscan_list_manga.json")
         # https://lelscan-vf.com/uploads/manga/dr-stone/chapters/125/01.png bellow
         self.url_picture = "https://lelscan-vf.com/uploads/manga/"
         # https://lelscan-vf.com/manga/tales-of-demons-and-gods bellow
         self.url_manga = "https://www.lelscan-vf.com/manga/"
         self.url_search = "https://lelscan-vf.com/search"
+        self.print_v(self.name + "created in " + self.current_folder)
 
     # INFO  ---------------------------------------------------------------------------------------
     def get_all_available_manga_list(self):

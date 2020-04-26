@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 from os.path import dirname
 
 
@@ -14,10 +15,21 @@ class Engine:
         self.log = []
         self.id = -1
         self.name = "default Engine"
-        self.current_folder = dirname(__file__)
-        self.dl_directory = os.path.join(dirname(self.current_folder), "dl")
+        #self.current_folder = dirname(__file__)
+        # dealing with bundled application
+
+        if getattr(sys, 'frozen', False):
+            self.print_v("frozen mode")
+            self.current_folder = os.path.dirname(sys.executable)
+            self.dl_directory = os.path.join(self.current_folder, "dl")
+        else:
+            self.current_folder = os.path.dirname(os.path.abspath(__file__))
+            self.dl_directory = os.path.join(dirname(self.current_folder), "dl")
+
+
         self.callback = lambda x: None
-        print("Engine created")
+        self.print_v("Engine created in " + str(self.current_folder))
+        self.print_v("dl in " + str(self.dl_directory))
 
     def react_to_keyword(self, keyword):
         """ Verify if an engine is supposed to react to the given keyword
@@ -102,7 +114,7 @@ class Engine:
         """
 
         try:
-            with open(file_path, "w", encoding="utf8") as flux:
+            with open(file_path, "w+", encoding="utf8") as flux:
                 flux.write(json.dumps(data, indent=4))
             return True
 

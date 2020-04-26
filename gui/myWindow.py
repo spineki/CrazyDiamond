@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'myWindow.ui'
+# Form implementation generated from reading ui file 'gui/myWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.0
 #
@@ -13,7 +13,7 @@ from PySide2 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1103, 912)
+        MainWindow.resize(1148, 912)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
@@ -297,9 +297,24 @@ class Ui_MainWindow(object):
         self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_4.setObjectName("line_4")
+        self.listWidget_volumes = QtWidgets.QListWidget(self.centralwidget)
+        self.listWidget_volumes.setGeometry(QtCore.QRect(10, 160, 251, 431))
+        self.listWidget_volumes.setObjectName("listWidget_volumes")
+        self.horizontalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
+        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(10, 130, 181, 21))
+        self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.label_12 = QtWidgets.QLabel(self.horizontalLayoutWidget_2)
+        self.label_12.setObjectName("label_12")
+        self.horizontalLayout_2.addWidget(self.label_12)
+        self.label_nb_vol_available = QtWidgets.QLabel(self.horizontalLayoutWidget_2)
+        self.label_nb_vol_available.setObjectName("label_nb_vol_available")
+        self.horizontalLayout_2.addWidget(self.label_nb_vol_available)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1103, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1148, 21))
         self.menubar.setObjectName("menubar")
         self.menu = QtWidgets.QMenu(self.menubar)
         self.menu.setObjectName("menu")
@@ -348,6 +363,8 @@ class Ui_MainWindow(object):
         self.label_console.setText(_translate("MainWindow", " Aucune erreur pour le moment"))
         self.label_6.setText(_translate("MainWindow", "Sortie console en cas d\'erreur"))
         self.pushButton_download_all.setText(_translate("MainWindow", "Je veux tout télécharger"))
+        self.label_12.setText(_translate("MainWindow", "Nombre de volume/chapters dispo:"))
+        self.label_nb_vol_available.setText(_translate("MainWindow", "0"))
         self.menu.setTitle(_translate("MainWindow", "menu"))
         self.action_d.setText(_translate("MainWindow", "aide"))
         self.actionencore_un.setText(_translate("MainWindow", "paramètres"))

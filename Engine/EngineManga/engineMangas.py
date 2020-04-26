@@ -575,6 +575,8 @@ class EngineMangas(Engine):
         if folder_path is None:
             folder_path = self.dl_directory
 
+        self.print_v('using the dl folder ' + folder_path)
+
         manga_directory = os.path.join(folder_path, volumes["title"])
         folder_name = volume_name  # chosen by the reader
         volume_directory = os.path.join(manga_directory, folder_name)

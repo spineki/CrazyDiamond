@@ -1,6 +1,7 @@
 from Engine.EngineManga.engineMangas import EngineMangas
 import os
 import json
+import sys
 
 class EngineScanOP(EngineMangas):
     """
@@ -12,11 +13,18 @@ class EngineScanOP(EngineMangas):
         self.reactive_keyword = ["scan-op"]
         self.break_time = 0.1
         self.name = "Scan-OP"
-        self.current_folder = os.path.dirname(__file__)
+        #self.current_folder = os.path.dirname(__file__)
+        if getattr(sys, 'frozen', False):
+            self.print_v("frozen mode")
+            self.current_folder = os.path.dirname(sys.executable)
+        else:
+            self.current_folder = os.path.dirname(os.path.abspath(__file__))
         self.list_manga_path = os.path.join(self.current_folder, "scans_op_list_manga.json")
         self.url_search = "https://scan-op.com/search"
         self.url_manga = "https://scan-op.com/manga/"
         self.url_picture = "http://funquizzes.fun/uploads/manga/"
+
+
 
 
     # INFO  ---------------------------------------------------------------------------------------

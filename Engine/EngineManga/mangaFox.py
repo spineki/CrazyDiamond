@@ -1,5 +1,6 @@
 from Engine.EngineManga.engineMangas import EngineMangas
 import os
+import sys
 
 
 class EngineMangaFox(EngineMangas):
@@ -12,11 +13,17 @@ class EngineMangaFox(EngineMangas):
         self.reactive_keyword = ["mangafox"]
         self.break_time = 0.1
         self.name = "MangaFox"
-        self.current_folder = os.path.dirname(__file__)
-        self.list_manga_path = os.path.join(self.current_folder, "manag_fox_list_manga.json")
+        #self.current_folder = os.path.dirname(__file__)
+        if getattr(sys, 'frozen', False):
+            self.print_v("frozen mode")
+            self.current_folder = os.path.dirname(sys.executable)
+        else:
+            self.current_folder = os.path.dirname(os.path.abspath(__file__))
+        self.list_manga_path = os.path.join(self.current_folder, "manga_fox_list_manga.json")
         self.url_search = "https://ww3.mangafox.online/alphabet/"
+        self.print_v(self.name + "created in " + self.current_folder)
 
-    # INFO  ---------------------------------------------------------------------------------------
+        # INFO  ---------------------------------------------------------------------------------------
     def get_all_available_manga_list(self):
         """ Returns the list of all mangas available on the mangaFox website (after an online search)
 

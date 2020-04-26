@@ -1,12 +1,10 @@
 import sys
-from PySide2.QtGui import *
-from PySide2.QtCore import *
 from PySide2.QtWidgets import *
 from gui.myWindow import Ui_MainWindow
 
 # import engines: better create a proper core class and deal with it outside
 from Engine.EngineManga.scanOP import EngineScanOP
-from Engine.EngineManga.mangaFox import EngineMangaFox
+# from Engine.EngineManga.mangaFox import EngineMangaFox
 from Engine.EngineManga.lelScan import EngineLelscan
 from Engine.EngineManga.scansManga import EngineScansMangas
 
@@ -18,6 +16,12 @@ class resultWidget(QListWidgetItem):
         self.engine_name = engine_name
         self.manga_name = manga_name
         self.link= link
+
+class volumeWidget(QListWidgetItem):
+    def __init__(self, text, link, volume):
+        super().__init__(text)
+        self.link = link
+        self.volume = volume
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -55,7 +59,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                     engine_name,
                                     info_manga["link"],
                                     info_manga["title"])
-                # item = QListWidgetItem(info_manga["title"] + "|" +  info_manga["link"])
                 self.listWidget_results.addItem(item)
 
         self.listWidget_results.currentItemChanged.connect(self.autoFill)
@@ -65,8 +68,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.currentEngine = current_item.engine_name
         self.lineEdit_url.setText(current_item.link)
         self.lineEdit_manga_name.setText(current_item.manga_name)
+
+        result = self.get_engine_by_name(current_item.engine_name).get_list_volume_from_manga_url(current_item.link)
+        chapter_list=result["chapter_list"]
+        self.label_nb_vol_available.setText(str(len(chapter_list)))
+
+        self.listWidget_volumes.clear()
+        for chapter in chapter_list:
+            item = volumeWidget( str(chapter["num"]) + ": titre: " +  chapter["title"],
+                                    chapter["link"],
+                                    chapter["num"])
+            self.listWidget_volumes.addItem(item)
+
+        self.listWidget_volumes.currentItemChanged.connect(self.fillVolume)
+
+    def fillVolume(self):
+        current_item = self.listWidget_volumes.currentItem()
+        self.spinBox_volume.setValue(int(current_item.volume))
+
+
         self.namingVolume()
-        # now we have a dictionnary
+
 
     def namingVolume(self):
         name = self.lineEdit_manga_name.text()
@@ -121,6 +143,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         manga_url = self.lineEdit_url.text()
         engine.download_manga_from_url(manga_url, async_mode=True)
+
+    def get_engine_by_name(self, name):
+        for e in self.engines:
+            if e.name == name:
+                return e
+        return None
 
     def download(self):
 

@@ -1,5 +1,6 @@
 from Engine.EngineManga.engineMangas import EngineMangas
 import os
+import sys
 
 
 class EngineScansMangas(EngineMangas):
@@ -12,12 +13,18 @@ class EngineScansMangas(EngineMangas):
         self.reactive_keyword = ["scans-mangas"]
         self.break_time = 0.1
         self.name = "ScansManga"
-        self.current_folder = os.path.dirname(__file__)
+        # self.current_folder = os.path.dirname(__file__)
+        if getattr(sys, 'frozen', False):
+            self.print_v("frozen mode")
+            self.current_folder = os.path.dirname(sys.executable)
+        else:
+            self.current_folder = os.path.dirname(os.path.abspath(__file__))
         self.list_manga_path = os.path.join(self.current_folder, "scans_mangas_list_manga.json")
         self.url_search = "https://scans-mangas.com/mangas/"
         self.url_root = "https://scans-mangas.com"
+        self.print_v(self.name + "created in " + self.current_folder)
 
-    # INFO  ---------------------------------------------------------------------------------------
+        # INFO  ---------------------------------------------------------------------------------------
     def get_all_available_manga_list(self):
         """ Returns the list of all mangas available on the scansmanga website (after an online search)
 
