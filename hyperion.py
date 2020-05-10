@@ -1,6 +1,9 @@
 import sys
+from core import Core
 from PySide2.QtWidgets import *
 from gui.myWindow import Ui_MainWindow
+
+
 
 # import engines: better create a proper core class and deal with it outside
 from Engine.EngineManga.scanOP import EngineScanOP
@@ -10,7 +13,9 @@ from Engine.EngineManga.scansManga import EngineScansMangas
 
 
 class resultWidget(QListWidgetItem):
-
+    """
+    class for the line where result of search are displayed
+    """
     def __init__(self, text, engine_name, link, manga_name):
         super().__init__(text)
         self.engine_name = engine_name
@@ -18,6 +23,9 @@ class resultWidget(QListWidgetItem):
         self.link= link
 
 class volumeWidget(QListWidgetItem):
+    """
+    class of lines where volume found are displayed
+    """
     def __init__(self, text, link, volume):
         super().__init__(text)
         self.link = link
@@ -28,10 +36,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
+        self.startCore()
         self.setupEngines()
         self.assignWidgets()
         self.startingState()
         self.show()
+
+    def startCore(self):
+        self.core = Core()
 
     def assignWidgets(self):
         self.pushButton_analyse_auto.clicked.connect(self.auto_analyze)
@@ -85,10 +97,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def fillVolume(self):
         current_item = self.listWidget_volumes.currentItem()
         self.spinBox_volume.setValue(int(current_item.volume))
-
-
         self.namingVolume()
-
 
     def namingVolume(self):
         name = self.lineEdit_manga_name.text()
@@ -175,14 +184,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 engine = e
                 break
 
+
+
         if self.checkBox_range.checkState(): # if range of chapter mode
-            print("range mode")
-            result = engine.download_range_chapters_from_name(manga_name, first_chap, last_chap, output_name, compress = compress_ext)
-            print(result)
+            self.core.add_new_Task(function = engine.download_range_chapters_from_name,
+                                   args = (manga_name, first_chap, last_chap, output_name),
+                                   kwargs = {"compress": compress_ext})
         else:
             # normal mode, only for a single chapter
-            print("single volume")
-            result = engine.download_volume_from_manga_url(manga_url, volume_number, volume_name=output_name, display_only=False, compress = compress_ext)
+
+            self.core.add_new_Task(function=engine.download_volume_from_manga_url,
+                                   args=(manga_url, volume_number),
+                                   kwargs={"volume_name":output_name, "display_only":False, "compress": compress_ext})
+
+            result = True # TODO: temporary, get the result from the thread (callback??)
             if result == False:
                 self.set_output_consol("Your volume is not on the website\n try another one or some pictures are missing\n Verify in the download folder")
             elif result == None:
@@ -190,6 +205,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 self.set_output_consol("Download of " + manga_name + str(volume_number) + " finished")
             print(result)
+
+
 
 
 
