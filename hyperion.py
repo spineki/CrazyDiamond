@@ -1,4 +1,7 @@
 import sys
+
+from PySide2.QtGui import QColor
+
 from core import Core
 from PySide2.QtWidgets import *
 from gui.myWindow import Ui_MainWindow
@@ -31,6 +34,19 @@ class volumeWidget(QListWidgetItem):
         self.link = link
         self.volume = volume
 
+class itemQueueWidget(QListWidgetItem):
+    def __init__(self, manga_name, engine_name, number_string, subtext):
+        self.text = "Vol. " + number_string +  "--\""+manga_name + "\""+ " from " + engine_name
+        self.subtext= subtext
+        super().__init__(self.text + " \n" + subtext)
+
+    def modifyText(self, text):
+        self.text = text
+        self.setText(self.text + " \n" + self.subtext)
+
+    def modifySubtext(self, subText):
+        self.subtext = subText
+        self.setText(self.text + " \n" + self.subtext)
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -99,6 +115,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.spinBox_volume.setValue(int(current_item.volume))
         self.namingVolume()
 
+    def fillQueue(self, manga_name, engine_name, number_string, subtext = "waiting..."):
+
+        item = itemQueueWidget(manga_name, engine_name, number_string, subtext)
+        self.listWidget_queue.addItem(item)
+
     def namingVolume(self):
         name = self.lineEdit_manga_name.text()
         number = self.spinBox_volume.value()
@@ -150,6 +171,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 engine = e
                 break
 
+        self.fillQueue(manga_name, engine.name, str("all!"))
         manga_url = self.lineEdit_url.text()
         engine.download_manga_from_url(manga_url, async_mode=True)
 
@@ -187,27 +209,42 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
         if self.checkBox_range.checkState(): # if range of chapter mode
+            # graphical
+            self.fillQueue(manga_name, engine.name, str(first_chap) + "_"+ str(last_chap))
             self.core.add_new_Task(function = engine.download_range_chapters_from_name,
                                    args = (manga_name, first_chap, last_chap, output_name),
-                                   kwargs = {"compress": compress_ext})
+                                   kwargs = {"compress": compress_ext},
+                                   startCallback=self.startCallback,
+                                   callback=self.callback,
+                                   endCallback=self.endCallback)
         else:
             # normal mode, only for a single chapter
-
+            #graphical
+            self.fillQueue(manga_name, engine.name, str(volume_number))
             self.core.add_new_Task(function=engine.download_volume_from_manga_url,
                                    args=(manga_url, volume_number),
-                                   kwargs={"volume_name":output_name, "display_only":False, "compress": compress_ext})
-
-            result = True # TODO: temporary, get the result from the thread (callback??)
-            if result == False:
-                self.set_output_consol("Your volume is not on the website\n try another one or some pictures are missing\n Verify in the download folder")
-            elif result == None:
-                self.set_output_consol("An error occured")
-            else:
-                self.set_output_consol("Download of " + manga_name + str(volume_number) + " finished")
-            print(result)
+                                   kwargs={"volume_name":output_name, "display_only":False, "compress": compress_ext},
+                                   startCallback=self.startCallback,
+                                   callback=self.callback,
+                                   endCallback=self.endCallback)
 
 
+    def startCallback(self, args = None, kwargs={}):
+        self.listWidget_queue.item(0).modifySubtext("downloading!")
+        self.listWidget_queue.item(0).setBackgroundColor(QColor(119,181,254))
+        self.set_output_consol("Download of " + self.listWidget_queue.item(0).text)
 
+    def callback(self, args=None, kwargs={}):
+        pass
+
+    def endCallback(self, args=None, kwargs={}):
+        if args is None:
+            self.set_output_consol("An error occured")
+        elif args == False:
+            self.set_output_consol("Your volume is not on the website\n try another one or some pictures are missing\n Verify in the download folder")
+        else:
+            self.set_output_consol("Download finished")
+        self.listWidget_queue.takeItem(0)
 
 
 if __name__ == '__main__':

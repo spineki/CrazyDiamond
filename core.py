@@ -12,16 +12,16 @@ class Core:
         threading.Thread(target=self.pooling, daemon=True).start()
 
 
-    def add_new_Task(self, function, args= None, kwargs = {}):
-        self.task_queue.put((function, args, kwargs))
-        print("size: ", self.task_queue.qsize())
+    def add_new_Task(self, function, args= None, kwargs = {}, startCallback=lambda x: None, callback=lambda x: None, endCallback=lambda x: None):
+        self.task_queue.put((function, args, kwargs, startCallback, callback, endCallback))
 
     def pooling(self):
         while True:
             time.sleep(0.250)
-            print(self.task_queue)
-            function, args, kwargs = self.task_queue.get()
+            function, args, kwargs, startCallback, callback, endCallback = self.task_queue.get()
+            startCallback(args)
             result = function(*args, **kwargs)
+            endCallback(result)
 
 
 

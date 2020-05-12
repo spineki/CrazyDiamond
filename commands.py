@@ -1,7 +1,10 @@
 import subprocess
 
-
 subprocess.run(["pyside2-uic" , "gui/myWindow.ui", "-o" ,"gui/myWindow.py"])
+
+# pyside2-designer
+
+
 """
         engine = None
         for e in self.engines:

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1148</width>
+    <width>1183</width>
     <height>912</height>
    </rect>
   </property>
@@ -94,16 +94,6 @@ color: rgb(255, 255, 255)</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QWidget" name="widget_queue" native="true">
-    <property name="geometry">
-     <rect>
-      <x>900</x>
-      <y>50</y>
-      <width>191</width>
-      <height>551</height>
-     </rect>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -306,21 +296,6 @@ dans un même volume</string>
       </widget>
      </item>
     </layout>
-   </widget>
-   <widget class="QLabel" name="label_11">
-    <property name="geometry">
-     <rect>
-      <x>910</x>
-      <y>19</y>
-      <width>171</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Queue: pas encore implémentée
- pour le moment c'est une
-console de sortie</string>
-    </property>
    </widget>
    <widget class="QCheckBox" name="checkBox_compress">
     <property name="geometry">
@@ -827,13 +802,36 @@ color: rgb(255,255,255);</string>
      </item>
     </layout>
    </widget>
+   <widget class="QListWidget" name="listWidget_queue">
+    <property name="geometry">
+     <rect>
+      <x>895</x>
+      <y>161</y>
+      <width>271</width>
+      <height>431</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>900</x>
+      <y>140</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Queue</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1148</width>
+     <width>1183</width>
      <height>21</height>
     </rect>
    </property>

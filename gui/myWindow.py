@@ -20,7 +20,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1148, 912)
+        MainWindow.resize(1183, 912)
         self.action_d = QAction(MainWindow)
         self.action_d.setObjectName(u"action_d")
         self.actionencore_un = QAction(MainWindow)
@@ -66,9 +66,6 @@ class Ui_MainWindow(object):
         self.label_image.setGeometry(QRect(260, 490, 151, 51))
         self.label_image.setScaledContents(False)
         self.label_image.setAlignment(Qt.AlignCenter)
-        self.widget_queue = QWidget(self.centralwidget)
-        self.widget_queue.setObjectName(u"widget_queue")
-        self.widget_queue.setGeometry(QRect(900, 50, 191, 551))
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(280, 130, 301, 16))
@@ -193,9 +190,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.spinBox_volume)
 
-        self.label_11 = QLabel(self.centralwidget)
-        self.label_11.setObjectName(u"label_11")
-        self.label_11.setGeometry(QRect(910, 19, 171, 41))
         self.checkBox_compress = QCheckBox(self.centralwidget)
         self.checkBox_compress.setObjectName(u"checkBox_compress")
         self.checkBox_compress.setGeometry(QRect(410, 600, 121, 17))
@@ -318,10 +312,16 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addWidget(self.label_nb_vol_available)
 
+        self.listWidget_queue = QListWidget(self.centralwidget)
+        self.listWidget_queue.setObjectName(u"listWidget_queue")
+        self.listWidget_queue.setGeometry(QRect(895, 161, 271, 431))
+        self.label_13 = QLabel(self.centralwidget)
+        self.label_13.setObjectName(u"label_13")
+        self.label_13.setGeometry(QRect(900, 140, 47, 13))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1148, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1183, 21))
         self.menu = QMenu(self.menubar)
         self.menu.setObjectName(u"menu")
         MainWindow.setMenuBar(self.menubar)
@@ -359,9 +359,6 @@ class Ui_MainWindow(object):
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Dossier d'enregistrement: par d\u00e9faut, dans le dossier dl d'Hyp\u00e9rion", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Nom du fichier de sortie (automatique, mais vous pouvez le modifier)", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Num\u00e9ro du volume", None))
-        self.label_11.setText(QCoreApplication.translate("MainWindow", u"Queue: pas encore impl\u00e9ment\u00e9e\n"
-" pour le moment c'est une\n"
-"console de sortie", None))
         self.checkBox_compress.setText(QCoreApplication.translate("MainWindow", u"Compresser?", None))
         self.comboBox_compress_mode.setItemText(0, QCoreApplication.translate("MainWindow", u".pdf", None))
         self.comboBox_compress_mode.setItemText(1, QCoreApplication.translate("MainWindow", u".cbz", None))
@@ -372,6 +369,7 @@ class Ui_MainWindow(object):
         self.pushButton_download_all.setText(QCoreApplication.translate("MainWindow", u"Je veux tout t\u00e9l\u00e9charger", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"Nombre de volume/chapters dispo:", None))
         self.label_nb_vol_available.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.label_13.setText(QCoreApplication.translate("MainWindow", u"Queue", None))
         self.menu.setTitle(QCoreApplication.translate("MainWindow", u"menu", None))
     # retranslateUi
 
