@@ -23,6 +23,22 @@ Example:
 
  """
 
+def f(a,b, c, d="valeurD"):
+    print(a,b,c, d)
+
+def startFunction(function, args=None, kwargs={}):
+    print("args: ", args)
+    function(*args, **kwargs)
+
+def test():
+    startFunction( f, [3,4,5], {"d": "zarma"} )
+
+test()
+
+
+
+
+
 # python -m pytest --ignore=envs
 # virtualenv --clear envs
 # done
@@ -45,7 +61,7 @@ import requests
 # e.download_range_chapters_from_name("jojo",351, 357, "Berserk Tome 40")
 #e.download_volume_from_manga_name("shingeki", 128, display_only=False)
 
-
+"""
 # soup.find_all("div", {"class":"chapter_number"})[10].find("a")
 engines = [EngineScansMangas(), EngineLelscan(), EngineScanOP()]
 
@@ -71,8 +87,8 @@ def mini_switch(name, num_chapter):
             e.download_volume_from_manga_name(name, num_chapter, display_only=False)
             break
 
-
-mini_switch("shingeki", 128)
+"""
+#mini_switch("shingeki", 128)
 
 # On peut remplacer if a == [] par if not a:
 

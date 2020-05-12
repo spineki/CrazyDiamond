@@ -285,7 +285,8 @@ class EngineMangas(Engine):
             return False
 
         try:
-            loop = asyncio.get_event_loop()
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop) # TODO, verify if the new thread can be avoided to be create
             results = loop.run_until_complete(asyncio.gather(*[get_and_save(url_list[i].strip(), save_path_file_list[i]) for i in range(len(url_list))]))
             return results
 
