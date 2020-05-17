@@ -30,9 +30,10 @@ class EngineMangas(Engine):
         super().__init__()
         self.category = "Manga"
         self.break_time = 0.1
+        self.session = None
 
     # GET -----------------------------------------------------------------------------------------
-    def get_soup(self, url):
+    def get_soup(self, url, cookies={}):
         """Creates a soup from an url with lxml parser. Returns a soup object if possible. None else
         Args:
             url (string): url of the webpage that will be turned into a soup
@@ -48,7 +49,11 @@ class EngineMangas(Engine):
 
         self.print_v("Trying to get the web page",  url)
         try:
-            r = requests.get(url)
+
+            if self.session is None:
+                self.session = requests.Session()
+
+            r = self.session.get(url, cookies=cookies)
             if r.status_code == 200:
                 soup = bs4.BeautifulSoup(r.content, features="lxml")
                 return soup

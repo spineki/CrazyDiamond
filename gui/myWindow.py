@@ -101,12 +101,14 @@ class Ui_MainWindow(object):
 
         self.spinBox_chap_start = QSpinBox(self.gridLayoutWidget)
         self.spinBox_chap_start.setObjectName(u"spinBox_chap_start")
+        self.spinBox_chap_start.setMaximum(99999)
         self.spinBox_chap_start.setValue(1)
 
         self.gridLayout.addWidget(self.spinBox_chap_start, 1, 1, 1, 1)
 
         self.spinBox_chap_end = QSpinBox(self.gridLayoutWidget)
         self.spinBox_chap_end.setObjectName(u"spinBox_chap_end")
+        self.spinBox_chap_end.setMaximum(99999)
         self.spinBox_chap_end.setValue(1)
 
         self.gridLayout.addWidget(self.spinBox_chap_end, 1, 3, 1, 1)
@@ -186,6 +188,7 @@ class Ui_MainWindow(object):
 
         self.spinBox_volume = QSpinBox(self.verticalLayoutWidget_3)
         self.spinBox_volume.setObjectName(u"spinBox_volume")
+        self.spinBox_volume.setMaximum(99999)
         self.spinBox_volume.setValue(1)
 
         self.verticalLayout_3.addWidget(self.spinBox_volume)
