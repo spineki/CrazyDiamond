@@ -93,11 +93,7 @@ class EngineMangas(Engine):
             name (string): name of the required manga
 
         Returns:
-            results (list): A list of dict with the following keys
-            {
-            title (string): Name of the manga
-            link (string): url of the manga main page
-            }
+            results (list): A list of dict manga objects
 
             empty list if no manga corresponds to the the name searched
         """
@@ -114,7 +110,7 @@ class EngineMangas(Engine):
             list_manga = []
 
         for manga in list_manga:
-            if name.lower() in manga["title"].lower():
+            if name.lower() in manga.name.lower():
                 found = True
                 results.append(manga)
 
@@ -130,7 +126,7 @@ class EngineMangas(Engine):
             # save the list in the file
             self.save_json_file(list_manga, self.list_manga_path)
             for manga in list_manga:
-                if name.lower() in manga["title"].lower():
+                if name.lower() in manga.name.lower():
                     results.append(manga)
 
         return results
@@ -143,16 +139,11 @@ class EngineMangas(Engine):
             name (string): name of the manga
 
         Returns:
-             A dict with the following keys
-             {
-            title (string): Title of the manga
-            synopsis (string): synopsis of the manga
-            chapter_list (dict): A dictionnary with the following keys
+            A dict with the following keys
             {
-            title (string): title of the chapter
-            link (string): link of the url of the chapter
-            num (float or int): number of the chapter
-            }
+                title (string): Title of the manga
+                synopsis (string): synopsis of the manga
+                chapter_list (dict): A list of chapters objects
             }
             None (None): None if there is an error
         """
@@ -162,7 +153,7 @@ class EngineMangas(Engine):
             return None
 
         chosen_manga = results[0]
-        url = chosen_manga["link"]
+        url = chosen_manga.link
 
         list_volume = self.get_list_volume_from_manga_url(url)
         return list_volume
