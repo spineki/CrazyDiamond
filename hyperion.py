@@ -98,7 +98,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.lineEdit_manga_name.setText(current_item.manga_name)
 
         retrieved_manga = self.get_engine_by_name(current_item.engine_name).get_list_volume_from_manga_url(current_item.link)
-        chapter_list=retrieved_manga.volumes_list
+        chapter_list = retrieved_manga.volumes_list
         self.label_nb_vol_available.setText(str(len(chapter_list)))
 
         self.listWidget_volumes.clear()
@@ -144,6 +144,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.currentEngine = None
         # self.engines = [EngineScanOP(), EngineScansMangas(), EngineLelscan()] # EngineMangaFox()
         self.engines = [EngineScanOP()]
+
     def startingState(self):
         self.activateRange()
         self.activateCompress()

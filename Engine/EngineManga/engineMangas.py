@@ -562,7 +562,6 @@ class EngineMangas(Engine):
             Download a single volume just with the name of a manga
             Args:
                 name (string): name of the manga
-                number (string): number of the volume to be downloaded (maybe rename it to volume)
                 folder_path (string): where to save the chapter. Default, dl
                 display_only (bool) : True if the function is just used to verify if the manga exist, False to directly download
 
@@ -699,7 +698,6 @@ class EngineMangas(Engine):
         TODO: REWORK THIS FUNCTION
         ARGS:
             url (str): url of the given manga.
-            selection (list): list of manga that will be downloaded
             folder_path (string): default, default dl path. Path of the folder where images are downloaded.
 
         Returns:
@@ -743,7 +741,7 @@ class EngineMangas(Engine):
 
 
     # RENAMING ------------------------------------------------------------------------------------
-    def lexicographical_list_converter(self, name_list, sep="_") -> List[Union[str, Any]]:
+    def lexicographical_list_converter(self, name_list, sep="_") -> Union[List[Union[str, Any]], None]:
         """ Returns a list of name where number are adjusted with lexicographical order
 
         Args:
@@ -759,8 +757,8 @@ class EngineMangas(Engine):
             print a warning with self.print_v() and return None
 
         Example:
-            >>> e.lexicographical_list_converter(["a_50_1.jpg", "a_1_8.png", "a_300_30.bmp"])
-            >>> ['a_050_01.jpg', 'a_001_08.png', 'a_300_30.bmp']
+            e.lexicographical_list_converter(["a_50_1.jpg", "a_1_8.png", "a_300_30.bmp"])
+            ['a_050_01.jpg', 'a_001_08.png', 'a_300_30.bmp']
         """
 
         try:
@@ -933,7 +931,7 @@ class EngineMangas(Engine):
     def compress_CBZ(self, folder_path: str, ext=".cbz") -> bool:
         """"Compress A folder in zip format. Add a zip like extension like .zip, .cbz
         Args:
-            dir_name (string): path of the directory that will be compressed
+            folder_path (string): path of the directory that will be compressed
             ext (string): (optional) extension added to the folder name
         Returns:
             bool (bool): True if everything is correct, False if there is an error or if the folder is empty
@@ -970,7 +968,7 @@ class EngineMangas(Engine):
     def compress_PDF(self, folder_path: str) -> bool:
         """"Create a pdf of all pictures in a folder
         Args:
-            dir_name (string): path of the directory that will be compressed
+            folder_path (string): path of the directory that will be compressed
         Returns:
             bool (bool): True if everything is correct, False if there is an error or if the folder is empty
         Raises:

@@ -151,8 +151,8 @@ class EngineScanOP(EngineMangas):
             return None
 
         # if the chapter is missing, quits
-        if not self.verify_missing_chapter(soup):
-            return None
+        # if not self.verify_missing_chapter(soup):
+        #     return None
 
         try:  # Some blank pages can still pass
             manga_title = soup.find("img", {"class": "scan-page"})["alt"].split(":")[0].strip()
