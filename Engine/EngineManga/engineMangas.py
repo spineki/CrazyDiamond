@@ -156,7 +156,7 @@ class EngineMangas(Engine):
 
         return results
 
-    def get_list_volume_from_manga_name(self, name: str) -> Optional[List[Chapter]]:
+    def get_list_volume_from_manga_name(self, name: str) -> Optional[Manga]:
         """
         Gets the list of all volumes from a manga name (analyze the first manga found)
 
@@ -192,6 +192,7 @@ class EngineMangas(Engine):
         pass
 
     # DOWNLOAD ------------------------------------------------------------------------------------
+    # picture -----
     def download_picture(self, url: str, save_path_file: str) -> bool:
         """ Download a binary file.
         Here we use urllib, that seems to be a lot faster than requests on some manga websites.
@@ -310,6 +311,7 @@ class EngineMangas(Engine):
             self.print_v("Impossible to make the async download, an error occurred: ", str(e))
             return [False for _ in range(len(url_list))]
 
+    # chapter -----
     def download_chapter(self, url: str, folder_path=None) -> bool:
         """ Download all images from the manga chapter page, rename them (purification) and download them in the folder_path
         ARGS:
@@ -363,7 +365,7 @@ class EngineMangas(Engine):
 
         return True
 
-    def async_download_chapter(self, url: str, folder_path=None, rename_auto = True, create_subFolder = False) -> bool:
+    def async_download_chapter(self, url: str, folder_path=None, rename_auto=True, create_subFolder=False) -> bool:
         """ Download all images from the manga chapter page, rename them (purification) and download them
             If create_subFolder is True, the files will be stored in a subFolder with the name found on the website
 
@@ -449,8 +451,74 @@ class EngineMangas(Engine):
                 return False
         return True
 
+    def download_range_chapters_from_name(self, name: str, first: int, last: int,
+                                          volume_name: str, folder_path=None, compress=None)-> Union[List[bool], bool]:
+        self.print_v("download_range_chapters_from_url...")
+        manga_list = self.find_manga_by_name(name)
+        if manga_list is None:
+            return False
+        first_manga = manga_list[0]
+        url = first_manga.link
+
+        return self.download_range_chapters_from_url(url, first, last, volume_name, folder_path, compress)
+
+    def download_range_chapters_from_url(self, url: str, first: int, last: int, folder_name: str, folder_path=None, compress=None) -> Union[List[bool], bool]:
+        """
+        Download a range of chapters, from first to last included in a folder volume_name. You need to add the number of the volume
+
+        :param url:
+        :param first:
+        :param last:
+        :param folder_name:
+        :param folder_path:
+        :param compress:
+        :return:
+        """
+
+        self.print_v("download_range_chapters_from_url...")
+        retrieved_manga = self.get_list_volume_from_manga_url(url)
+        if retrieved_manga is None:
+            return False
+
+        chapters_list = retrieved_manga.get_all_chapters()
+        if chapters_list == []:
+            return False
+
+        results = []
+        if folder_path is None:
+            folder_path = self.dl_directory
+
+        self.print_v('using the dl folder ' + folder_path)
+
+        manga_directory = os.path.join(folder_path, retrieved_manga.name)
+        volume_directory = os.path.join(manga_directory, folder_name)
+        volume_directory = self.purify_name(volume_directory)
+
+        for chap_number in range(first, last + 1): # we include the last one
+            for chapter in chapters_list:
+                if chap_number == chapter.number:
+                    results.append(self.async_download_chapter(chapter.link, folder_path=volume_directory))
+                    break
+
+        self.rename_file_from_folder_lexico(volume_directory, display_only=False)
+
+        if compress:
+            self.compress_folder(volume_directory, compress)
+
+        return results
+
+    # volume -----
+    def download_volume(self, volume: Volume, folder_path: str, async_mode=False, rename_auto=True) -> bool:
+        for chapter in volume.chapters_list:
+            if async_mode:
+                self.async_download_chapter(url=chapter.link, folder_path=folder_path, rename_auto=rename_auto)
+            else:
+                self.download_chapter(url=chapter.link, folder_path=folder_path)
+
+        return True
+
     def download_volume_from_manga_name(self, name: str, number: int, folder_path=None, volume_name=None,
-                                        rename_auto=True, compress=None, display_only=True) -> bool:
+                                        rename_auto=True, compress=None, async_mode = True, display_only=True) -> bool:
         """
         Download a single volume just with the name of a manga
         Args:
@@ -483,148 +551,13 @@ class EngineMangas(Engine):
             volume_name = volume_name,
             rename_auto = rename_auto,
             display_only = display_only,
+            async_mode = async_mode,
             compress = compress)
 
         return results
 
-    def download_volume_from_manga_url(self, url:str, number:int, folder_path=None, volume_name=None,
-                                       rename_auto=True, display_only=True, compress = None) -> bool:
-        """
-            Download a single volume just with the url of a manga
-            Args:
-                url (string): url of the manga
-                number (string): number of the volume to be downloaded (maybe rename it to volume)
-                folder_path (string): where to save the chapter. Default, dl
-                display_only (bool) : True if the function is just used to verify if the manga exist, False to directly download
-                compress (string) : extension of the compress file (with the dot)
-            Returns:
-                bool (bool): False if the manga cannot be downloaded, list of bool if the donwload pass th esaync part
-
-            Raises:
-                None, but print_v() problems.
-        """
-
-        self.print_v("download_volume_from_manga_url...")
-        retrieved_manga = self.get_list_volume_from_manga_url(url)
-        if retrieved_manga is None:
-            return False
-
-        self.print_v(str(retrieved_manga.volumes_list))
-
-        volume_list = manga.volumes_list
-        if volume_list == []:
-            return False
-
-        found = False
-        found_volume: Optional[Volume] = None
-        for volume in volume_list:
-            if volume.number == number:
-                found = True
-                found_volume = volume
-
-        if not found:
-            return False
-
-        self.print_v("manga found ", str(found_volume.name))
-
-        if display_only:
-            print("If you want to really make it, launch this function again with display_only = False")
-            return True
-
-        if volume_name is None:
-            folder_name = found_volume.name + "_" + str(found_volume["num"])
-        else:
-            folder_name = volume_name
-
-        if folder_path is None:
-            folder_path = self.dl_directory
-        manga_directory = os.path.join(folder_path, volumes["title"])
-        volume_directory = os.path.join(manga_directory, folder_name)
-        volume_directory = self.purify_name(volume_directory)
-
-        self.print_v("trying to download volume from manga url \n" + folder_name + "\n" + volume_directory)
-        results = self.async_download_chapter(found_volume["link"], folder_path = volume_directory, rename_auto=rename_auto)
-
-        if compress:
-            self.compress_folder(volume_directory,ext=compress)
-
-        return results
-
-    def download_volume(self, volume: Volume, folder_path: str, async_mode=False) -> bool:
-        for chapter in volume.chapters_list:
-            if async_mode:
-                self.async_download_chapter(chapter.link, folder_path)
-            else:
-                self.download_chapter(chapter.link, folder_path)
-
-        return True
-
-    def download_range_chapters_from_name(self, name, first, last, volume_name, folder_path=None, compress=None):
-
-        self.print_v("download_range_chapters_from_url...")
-        manga_list = self.find_manga_by_name(name)
-        if manga_list is None:
-            return False
-        first_manga = manga_list[0]
-        url = first_manga["link"]
-
-        return self.download_range_chapters_from_url(url, first, last, volume_name, folder_path, compress)
-
-    def download_range_chapters_from_url(self, url, first, last, volume_name, folder_path=None, compress=None):
-        """
-        Download a range of chapters, from first to last included in a folder volume_name. You need to add the number of the volume
-        Args:
-            name (string): name of the manga
-            first (int): number of the first chapter
-            last (int): number of the last chapter, included
-            volume_name (string): name of the volume, where chapters will be mixed
-            folder_path (string): where to save the chapter. Default, dl
-            compress (string) : extension of the compress file (with the dot)
-
-        Returns:
-            bool (bool): False if the manga cannot be downloaded, list of bool if the download pass the async part
-
-        Raises:
-            None, but print_v() problems.
-        """
-
-        self.print_v("download_range_chapters_from_url...")
-        volumes = self.get_list_volume_from_manga_url(url)
-        if volumes is None:
-            return False
-
-        volume_list = volumes["chapter_list"]
-        if volume_list == []:
-            return False
-
-
-        results = []
-        if folder_path is None:
-            folder_path = self.dl_directory
-
-        self.print_v('using the dl folder ' + folder_path)
-
-        manga_directory = os.path.join(folder_path, volumes["title"])
-        folder_name = volume_name  # chosen by the reader
-        volume_directory = os.path.join(manga_directory, folder_name)
-        volume_directory = self.purify_name(volume_directory)
-
-        for chap_number in range(first, last + 1):
-
-            for volume in volume_list:
-                if volume["num"] == chap_number:
-                    found_volume = volume
-                    results.append(self.async_download_chapter(found_volume["link"], folder_path=volume_directory))
-                    break
-
-        self.rename_file_from_folder_lexico(volume_directory, display_only=False)
-
-        if compress:
-            self.compress_folder(volume_directory, compress)
-
-        return results
-
-    def download_last_volume_from_manga_name(self, name, folder_path=None, display_only=True):
+    def download_last_volume_from_manga_name(self, name: str, folder_path=None, volume_name=None,rename_auto=True,
+                                             compress=".cbz", async_mode=True, display_only=True) -> bool:
         """
             Download a single volume just with the name of a manga
             Args:
@@ -647,15 +580,119 @@ class EngineMangas(Engine):
             return False
         first_manga = manga_list[0]
 
-        infos_manga = self.get_list_volume_from_manga_name(first_manga["title"])
-        chapter_list = infos_manga["chapter_list"]
-        last_chapter_title = chapter_list[0]["title"]
-        manga_link = first_manga["link"]
-        last_chapter_num = chapter_list[0]["num"]
-        self.print_v("last chapter found: " + last_chapter_title + " : N°" + str(last_chapter_num))
-        results = self.download_volume_from_manga_url(manga_link, last_chapter_num, folder_path, display_only)
+
+        retrieved_manga = self.get_list_volume_from_manga_url(first_manga.link)
+        volumes_list = retrieved_manga.volumes_list
+        last_Volume = volumes_list[0]
+
+        if volume_name is None:
+            folder_name = last_Volume.name + "_" + str(last_Volume.number)
+        else:
+            folder_name = volume_name
+
+        if folder_path is None:
+            folder_path = self.dl_directory
+
+        manga_directory = os.path.join(folder_path, retrieved_manga.name)
+        volume_directory = os.path.join(manga_directory, folder_name)
+        volume_directory = self.purify_name(volume_directory)
+
+
+        self.print_v("last volume found: " + str(last_Volume))
+
+        if display_only:
+            print("If you want to really make it, launch this function again with display_only = False")
+            return True
+
+        result = self.download_volume(volume = last_Volume, folder_path=volume_directory,
+                                      async_mode=async_mode, rename_auto=rename_auto)
+
+        if rename_auto:
+            self.rename_file_from_folder_lexico(folder_directory=volume_directory, display_only=False)
+
+        if compress:
+            self.compress_folder(folder_path= volume_directory, ext=compress)
+
+        return result
+
+    def download_volume_from_manga_url(self, url:str, number:int, folder_path=None, volume_name=None,
+                                       rename_auto=True, compress=None, async_mode=True, display_only=True) -> bool:
+        """
+            Download a single volume just with the url of a manga
+            Args:
+                url (string): url of the manga
+                number (string): number of the volume to be downloaded (maybe rename it to volume)
+                folder_path (string): where to save the chapter. Default, dl
+                display_only (bool) : True if the function is just used to verify if the manga exist, False to directly download
+                compress (string) : extension of the compress file (with the dot)
+            Returns:
+                bool (bool): False if the manga cannot be downloaded, list of bool if the donwload pass th esaync part
+
+            Raises:
+                None, but print_v() problems.
+        """
+
+        self.print_v("download_volume_from_manga_url...")
+        retrieved_manga = self.get_list_volume_from_manga_url(url)
+        if retrieved_manga is None:
+            return False
+
+        self.print_v(str(retrieved_manga.volumes_list))
+
+        volume_list = retrieved_manga.volumes_list
+        if volume_list == []:
+            return False
+
+        found = False
+        found_volume: Optional[Volume] = None
+        for volume in volume_list:
+            if volume.number == number:
+                found = True
+                found_volume = volume
+                break
+
+        if not found:
+            return False
+
+        self.print_v("manga found ", str(found_volume.name))
+
+        if display_only:
+            print("If you want to really make it, launch this function again with display_only = False")
+            return True
+
+        if volume_name is None:
+            folder_name = found_volume.name + "_" + str(found_volume.number)
+        else:
+            folder_name = volume_name
+
+        if folder_path is None:
+            folder_path = self.dl_directory
+        manga_directory = os.path.join(folder_path, retrieved_manga.name)
+        volume_directory = os.path.join(manga_directory, folder_name)
+        volume_directory = self.purify_name(volume_directory)
+
+        self.print_v("trying to download volume from manga url \n" + folder_name + "\n" + volume_directory)
+
+        # we avoid renaming each chapter
+        results = self.download_volume(found_volume, volume_directory, async_mode=async_mode, rename_auto=False)
+
+        # we rename then all at once
+        if rename_auto:
+            self.rename_file_from_folder_lexico(folder_directory=volume_directory, display_only=False)
+
+        if compress:
+            self.compress_folder(folder_path= volume_directory, ext=compress)
 
         return results
+
+    # manga -----
+    def download_whole_manga_from_name(self, name: str, folder_path=None, async_mode=False) -> bool:
+        self.print_v("download_whole_manga_from_name...")
+        mangas = self.find_manga_by_name(name)
+        first_manga = mangas[0]
+        url = first_manga.link
+        return self.download_whole_manga_from_url(url = url, folder_path=folder_path, async_mode=async_mode)
+
 
     def download_whole_manga_from_url(self, url: str, folder_path=None, async_mode=False) -> bool:
         """ Download all images from the manga main page, rename them (purification) and download them
@@ -692,24 +729,18 @@ class EngineMangas(Engine):
             chapter_directory = self.purify_name(chapter_directory)
 
             if async_mode:
-                self.async_download_chapter(chapter.link, chapter_directory)
+                self.async_download_chapter(url=chapter.link, folder_path=chapter_directory)
             else:
-                self.download_chapter(chapter.link, chapter_directory)
+                self.download_chapter(url=chapter.link, folder_path=chapter_directory)
 
         volumes: List[Volume] = retrieved_manga.volumes_list
         for volume in volumes:
             folder_name = retrieved_manga.name + "_V" + str(volume.number)
             volume_directory = os.path.join(manga_directory, folder_name)
-            self.download_volume(volume=volume, folder_path= volume_directory, async_mode=async_mode)
+            self.download_volume(volume=volume, folder_path=volume_directory, async_mode=async_mode)
 
         return True
 
-    def download_whole_manga_from_name(self, name, folder_path = None, async_mode=False) -> bool:
-        self.print_v("download_whole_manga_from_name...")
-        mangas = self.find_manga_by_name(name)
-        first_manga = mangas[0]
-        url = first_manga.link
-        return self.download_whole_manga_from_url(url, folder_path, async_mode)
 
     # RENAMING ------------------------------------------------------------------------------------
     def lexicographical_list_converter(self, name_list, sep="_") -> List[Union[str, Any]]:
@@ -838,7 +869,7 @@ class EngineMangas(Engine):
 
         return True
 
-    def rename_file_from_folder_lexico(self, folder_directory: bool, display_only=True) -> bool:
+    def rename_file_from_folder_lexico(self, folder_directory: str, display_only=True) -> bool:
         """ Rename every files in a folder to get a lexicographical order list of files
 
         Args:

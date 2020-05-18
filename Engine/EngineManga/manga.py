@@ -6,15 +6,22 @@ class Page:
         self.number = number
         self.link = link
 
+    def __str__(self):
+        return "page with number{0}, link{1}".format(self.number, self.link)
+
 
 class Chapter:
-    def __init__(self, name ="", link="", number=-1, number_page=-1):
+    def __init__(self, name="", link="", number=-1, number_page=-1):
         self.name = name
         self.link = link
         self.number = number
         self.number_page = number_page
         self.manga_name = ""
         self.pages_list = []
+
+    def __str__(self):
+        return "chapter with name:{0}, link:{1}, number:{2}, number of page:{3}, related manga name:{4}"\
+            .format(self.name, self.link, self.number, self.number_page, self.manga_name)
 
     def add_page(self, page: Page) -> None:
         self.pages_list.append(page)
@@ -30,6 +37,9 @@ class Volume:
         self.link = link
         self.number = number
         self.chapters_list = []
+
+    def __str__(self):
+        return "volume with name:{0}, link:{1}, number:{2}".format(self.name, self.link, self.number)
 
     def add_chapter(self, chapter: Chapter) -> None:
         self.chapters_list.append(chapter)
@@ -50,15 +60,20 @@ class Manga:
     def __str__(self):
         return "manga with name: {0}, link: {1}, synopsis: {2}".format(self.name, self.link, self.synopsis)
 
-    def get_all_volumes(self) -> List[Volume]:
-        volumes = []
-        for v in self.volumes_list:
-            volumes.append(v)
-        for v in self.chapters_without_volumes_list:
-            volumes.append(v)
+    # GET --------------------------------------------------------------------------------------------------------------
+    def get_all_chapters(self) -> List[Chapter]:
+        chapters = []
+        # adding chapters from volumes
+        for volume in self.volumes_list:
+            for chapter in volume.chapters_list:
+                chapters.append(chapter)
 
-        return volumes
+        # adding chapters outside volume
+        chapters += self.chapters_without_volumes_list
 
+        return chapters
+
+    # ADD --------------------------------------------------------------------------------------------------------------
     def add_volume(self, volume: Volume) -> None:
         self.volumes_list.append(volume)
 
@@ -66,11 +81,10 @@ class Manga:
         for chapter in chapters_list:
             self.chapters_without_volumes_list.append(chapter)
 
-
+    # MORPH ------------------------------------------------------------------------------------------------------------
     def to_json(self) -> Dict:
         return {"name": self.name, "link": self.link}
 
     def from_json(self, data: Dict):
         self.name = data["name"]
         self.link = data["link"]
-
