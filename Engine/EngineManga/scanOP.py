@@ -2,6 +2,9 @@ from Engine.EngineManga.engineMangas import EngineMangas
 import os
 import json
 import sys
+from Engine.EngineManga.manga import Manga, Volume, Chapter, Page
+from typing import List, Optional
+
 
 class EngineScanOP(EngineMangas):
     """
@@ -13,7 +16,6 @@ class EngineScanOP(EngineMangas):
         self.reactive_keyword = ["scan-op"]
         self.break_time = 0.1
         self.name = "Scan-OP"
-        #self.current_folder = os.path.dirname(__file__)
         if getattr(sys, 'frozen', False):
             self.print_v("frozen mode")
             self.current_folder = os.path.dirname(sys.executable)
@@ -25,18 +27,14 @@ class EngineScanOP(EngineMangas):
         self.url_picture = "http://funquizzes.fun/uploads/manga/"
 
     # INFO  ---------------------------------------------------------------------------------------
-    def get_all_available_manga_list(self):
+    def get_all_available_manga_list(self) -> Optional[List[Manga]]:
         """Returns the list of all mangas available on the lelscan website (after an online search)
 
         Args:
             None (None): None
 
         Returns:
-            results (list): list of all found manga. Each element is a dict with the following keys
-            {
-            title (string): Name of the manga
-            link (string): url of the manga main page
-            }
+            results (list): list of all found manga. (Manga object)
             None (None): None if there is no manga or an error
 
         Raises:
@@ -50,42 +48,38 @@ class EngineScanOP(EngineMangas):
         if soup is None:
             return None
 
-        try:
-            list_manga = json.loads(soup.find("p").text)["suggestions"]
+        saving_mangas_list = []
 
-            for manga in list_manga:
-                title = manga["value"]
-                del manga["value"]
-                manga["title"] = title
-                manga_identifier = manga["data"]
-                del manga["data"]
-                manga["link"] = self.url_manga + manga_identifier
+        try:
+            archived_mangas_list = json.loads(soup.find("p").text)["suggestions"]
+
+            for archived_manga in archived_mangas_list:
+                saving_manga = Manga()
+
+                name = archived_manga["value"]
+                manga_identifier = archived_manga["data"]
+                url = self.url_manga + manga_identifier
+
+                saving_manga.name = name
+                saving_manga.link = url
+
+                saving_mangas_list.append(saving_manga)
 
         except Exception as e:
             self.print_v("Impossible to get the info from the ", self.url_search, " page. Maybe the site tags have change: ", str(e))
             return None
 
-        return list_manga
+        return saving_mangas_list
 
-    def get_list_volume_from_manga_url(self, url):
+    def get_list_volume_from_manga_url(self, url: str) -> Optional[Manga]:
         """
-        Gets the list of all volumes from a manga presentation page url
+        a manga object
 
         Args:
             url (string): url of the manga
 
         Returns:
-             A dict with the following keys
-             {
-            title (string): Title of the manga
-            synopsis (string): synopsis of the manga
-            chapter_list (dict): A dictionnary with the following keys
-            {
-            title (string): title of the chapter
-            link (string): link of the url of the chapter
-            num (float or int): number of the chapter
-            }
-            }
+            list of volumes (list of object Volume)
             None (None): None if there is an error
         """
         def is_float(string):
@@ -105,37 +99,43 @@ class EngineScanOP(EngineMangas):
         soup = self.get_soup(url)
         if soup is None:
             return None
+
+        retrieved_chapters_list = []
         try:
-            title = soup.find("h2", {"class": "widget-title"}).text.strip()
+            name = soup.find("h2", {"class": "widget-title"}).text.strip()
             synopsis = soup.find("div", {"class": "well"}).find("p").text
-            chapter_list = [ {"title":chap.find("em").text, "num": chap.find("a").text, "link": chap.find("a")["href"]}   for chap in soup.find_all("h5", {"class": "chapter-title-rtl"})]
-            for chapter in chapter_list:
-                list_number = [float(s) for s in chapter["num"].split() if is_float(s)]
+
+            raw_chapters_list = soup.find_all("h5", {"class": "chapter-title-rtl"})
+            for raw_chapter in raw_chapters_list:
+                retrieved_chapter = Chapter(name=raw_chapter.find("em").text,
+                                            link=raw_chapter.find("a")["href"])
+
+                number_raw_chaper = raw_chapter.find("a").text
+                list_number = [float(s) for s in number_raw_chaper.split() if is_float(s)]
                 list_number = [int(s) if is_int(s) else s for s in list_number]
-                chapter["num"] = list_number[-1]
+                retrieved_chapter.number = list_number[-1]
+
+                retrieved_chapters_list.append(retrieved_chapter)
 
         except Exception as e:
             self.print_v("Impossible to get the correct tags from the soup from the page ", url, ": ", str(e))
             return None
 
-        return { "title":title, "synopsis":synopsis, "chapter_list":chapter_list}
+        # there is no volume/chapter separation on scan op, so fill a default volume with number -1 with chapters
+        retrieved_volume = Volume()
+        retrieved_volume.add_chapters(retrieved_chapters_list)
 
-    def get_info_from_chapter_url(self, url):
+        retrieved_manga = Manga(name=name, link=url, synopsis=synopsis)
+        retrieved_manga.add_volume(retrieved_volume)
+
+        return retrieved_manga
+
+    def get_info_from_chapter_url(self, url: str) -> Optional[Chapter]:
         """Takes the url of a chapter, and returns a set of valuable infos
             Args:
                 url (string): url of the chapter
             Returns:
-                Dictionnary with the following keys
-                {
-                manga_title (string): title of the manga
-                chapter_num (int): number of the current chapter
-                max_pages (int): number of pages in the current chapter
-                pages (list): A list of dictionnary with the following keys
-                {
-                link (string): link of the picture
-                num (int): number of the picture (page)
-                }
-                }
+                chapter (Chapter): chapters
                 None (None): None if there is an error
             Raises:
                 Doesn't raise an error. print a warning with self.print_v().
@@ -154,7 +154,7 @@ class EngineScanOP(EngineMangas):
         if not self.verify_missing_chapter(soup):
             return None
 
-        try: # Some blank pages can still pass
+        try:  # Some blank pages can still pass
             manga_title = soup.find("img", {"class": "scan-page"})["alt"].split(":")[0].strip()
             list_number_page = [int(opt["value"]) for opt in soup.find_all("option") if "value" in opt.attrs]
             max_page = max(list_number_page)
@@ -173,36 +173,18 @@ class EngineScanOP(EngineMangas):
             self.print_v("Error, the number of pictures in the page doesn't match with the number of links, ", url, ": ")
             return None
 
-        pages = []
+        pages_list = []
         for i in range(len(images_link)):
-            pages.append({"link": images_link[i], "num": list_number_page[i]})
+            page = Page(number=list_number_page[i], link=images_link[i])
+            pages_list.append(page)
 
         chapter_num = url.rsplit("/", 1)[-1]
-        return {"manga_title": manga_title, "chapter_num": chapter_num, "max_pages": max_page, "pages": pages}
 
-    # DOWNLOAD ------------------------------------------------------------------------------------
-    def verify_missing_chapter(self, soup):
-        """Verify if a chapter is missing
-        Args:
-            soup (soup): Beautiful soup object containing html code of the page
+        retrieved_chapter = Chapter()
 
-        Returns:
-            bool (bool): True if the page is not empty, False else
+        retrieved_chapter.manga_name = manga_title
+        retrieved_chapter.number = chapter_num
+        retrieved_chapter.number_page = max_page
+        retrieved_chapter.add_pages(pages_list)
 
-        Raises:
-            doesn't raise an error. print_v() warnings
-        """
-        try:
-            # We search the alert tag that appears on empty pages
-            a = soup.find_all("div", {"class": "alert"})
-            if a ==[]:
-                return True
-
-            a = a[0]
-            if "Aucune page publiee" in a.text:
-                return False
-            return True
-
-        except Exception as e:
-            self.print_v("impossible to properly parse the soup", soup.prettify(), str(e))
-            return False
+        return retrieved_chapter

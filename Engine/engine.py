@@ -2,6 +2,7 @@ import json
 import os
 import sys
 from os.path import dirname
+from typing import List, Union, Any, Optional, Dict
 
 
 class Engine:
@@ -15,7 +16,7 @@ class Engine:
         self.log = []
         self.id = -1
         self.name = "default Engine"
-        #self.current_folder = dirname(__file__)
+        # self.current_folder = dirname(__file__)
         # dealing with bundled application
 
         if getattr(sys, 'frozen', False):
@@ -26,12 +27,11 @@ class Engine:
             self.current_folder = os.path.dirname(os.path.abspath(__file__))
             self.dl_directory = os.path.join(dirname(self.current_folder), "dl")
 
-
         self.callback = lambda x: None
         self.print_v("Engine created in " + str(self.current_folder))
         self.print_v("dl in " + str(self.dl_directory))
 
-    def react_to_keyword(self, keyword):
+    def react_to_keyword(self, keyword: str) -> bool:
         """ Verify if an engine is supposed to react to the given keyword
         Args:
             keyword (string): keyword that will be verified
@@ -46,28 +46,33 @@ class Engine:
         return False
 
     # LOGS ----------------------------------------------------------------------------------------
-    def print_v(self, *text):
+    def print_v(self, *text: Union[List[Any], str]):
         """ Prints to the terminal the text if self.verbose is True. Keeps in engine logs memory the text
-
         Args:
             *text (list): texts that can be juxtaposed, or given as a list, and that need to be displayed
         Return:
             None (None):
 
         Examples:
-            >>> e = Engine()
+            >>> e = Engine() # doctest: +ELLIPSIS
+            ...
             >>> e.print_v("hi", "I am", "a test")
-            >>> ouput: "hi I am a test"
+            hi; I am; a test;
             >>> e.verbose = False
+
             >>> e.print_v("another test")
             >>> output: None
             >>> e.get_logs()
-            >>> ouput: "hi I am a test", "another test"
+            "hi I am a test", "another test"
         """
 
-        self.log.append(" ".join(text))
+        buffer = ""
+        for elem in text:
+            buffer += str(elem) + "; "
+
+        self.log.append(buffer)
         if self.verbose:
-            print(*text)
+            print(buffer)
 
     def get_logs(self, sep="\n"):
         """ Gets the logs saved with print_v in a prettified string
@@ -83,7 +88,7 @@ class Engine:
         return logi
 
     # JSON ----------------------------------------------------------------------------------------
-    def get_json_file(self, file_path):
+    def get_json_file(self, file_path: str) -> Optional[Dict]:
         """ Retrieves json file using json library
         Args:
             file_path (string): Path to the json path with the .json extension.
@@ -102,7 +107,7 @@ class Engine:
             self.print_v("impossible to load json file ", file_path, " : ", str(e))
             return None
 
-    def save_json_file(self, data, file_path):
+    def save_json_file(self, data: Union[List[Any], Dict], file_path: str) -> bool:
         """ Saves json file using json library
         Args:
             data (string): Data that need to be saved in file_path
@@ -123,7 +128,7 @@ class Engine:
             return False
 
     # DIRECTORY NAME ------------------------------------------------------------------------------
-    def purify_name(self, name, replacement="_"):
+    def purify_name(self, name: str, replacement="_") -> Optional[str]:
         """ Purify a string from its system forbidden characters
         Args:
             name (string): name that need to be purified from forbidden characters
@@ -144,7 +149,7 @@ class Engine:
             self.print_v(" Impossible purify ", name, " : ", str(e))
             return None
 
-    def make_directory(self, directory_path):
+    def make_directory(self, directory_path: str) -> bool:
         """Make a directory if it doesn't exist.
         Args:
             directory_path : path of the to-create directory

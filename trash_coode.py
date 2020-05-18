@@ -11,6 +11,14 @@ import aiofiles as aiof
 import aiofiles
 
 
+e = EngineScanOP()
+mangas = e.find_manga_by_name("shinge")
+print(str(mangas[0]))
+print(e.get_list_volume_from_manga_url(mangas[0].link))
+
+
+
+
 """ hgfhksg
 Args:
 
@@ -23,7 +31,7 @@ Example:
 
  """
 
-def f(a,b, c, d="valeurD"):
+"""def f(a,b, c, d="valeurD"):
     print(a,b,c, d)
 
 def startFunction(function, args=None, kwargs={}):
@@ -33,7 +41,10 @@ def startFunction(function, args=None, kwargs={}):
 def test():
     startFunction( f, [3,4,5], {"d": "zarma"} )
 
-test()
+test()"""
+
+
+
 
 
 

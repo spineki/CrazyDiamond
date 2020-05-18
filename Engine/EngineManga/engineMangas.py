@@ -11,6 +11,8 @@ import aiofiles as aiof
 import zipfile
 import img2pdf
 from Engine.engine import Engine
+from typing import List, Optional, Union
+from Engine.EngineManga.manga import Manga, Chapter, Volume
 
 
 class EngineMangas(Engine):
@@ -22,21 +24,18 @@ class EngineMangas(Engine):
     """
 
     def __init__(self):
-        """
-        Attributes:
-            category (string): category of the Engine; (here, manga).
-            Make it easier for the core to sort engines by category.
-        """
         super().__init__()
-        self.category = "Manga"
+        self.category = "Manga"  # category (string): category of the Engine; (here, manga).
         self.break_time = 0.1
         self.session = None
+        self.list_manga_path = None
 
     # GET -----------------------------------------------------------------------------------------
-    def get_soup(self, url, cookies={}):
+    def get_soup(self, url: str, cookies=None):
         """Creates a soup from an url with lxml parser. Returns a soup object if possible. None else
         Args:
             url (string): url of the webpage that will be turned into a soup
+            cookies (dict): dictionnary of cookies
 
         Returns:
             soup (soup): A beautifulSoup soup object of the page
@@ -46,6 +45,7 @@ class EngineMangas(Engine):
             Doesn't raise an error but return None if there is a dl or soup creation.
             print_v() the error
         """
+        cookies = cookies if cookies is not None else {}
 
         self.print_v("Trying to get the web page",  url)
         try:
@@ -86,14 +86,28 @@ class EngineMangas(Engine):
         except Exception as e:
             self.print_v("An error occured while saving the webpage from this url: ", url, " see: ", str(e))
 
-    def find_manga_by_name(self, name):
-        """ Searches a 'manga' by its name in the database. If not found, makes a requests, updates the config, and searches it again
+    def save_mangas_list_json(self, mangas_list: List[Manga], file_path: str):
+        try:
+            json_info_list = []
+
+            for manga in mangas_list:
+                json_info_list.append(manga.to_json())
+
+            return self.save_json_file(json_info_list, file_path)
+
+        except Exception as e:
+            self.print_v("impossible to save in json file ", file_path, " : ", str(e))
+            return False
+
+    def find_manga_by_name(self, name: str) -> Optional[List[Manga]]:
+        """ Searches a 'manga' by its name in the database.
+        If not found, makes a requests, updates the config, and searches it again
             It returns every manga that has the name field in its title.
         Args:
             name (string): name of the required manga
 
         Returns:
-            results (list): A list of dict manga objects
+            results (list): A list of manga objects
 
             empty list if no manga corresponds to the the name searched
         """
@@ -105,8 +119,18 @@ class EngineMangas(Engine):
         found = False
 
         # first, we search the name in the database
-        list_manga = self.get_json_file(self.list_manga_path)
-        if list_manga is None:
+        raw_list_manga = self.get_json_file(self.list_manga_path)
+
+        if raw_list_manga is None:
+            list_manga = []
+
+        try:
+            list_manga = []
+            for raw_manga in raw_list_manga:
+                manga = Manga()
+                manga.from_json(raw_manga)
+                list_manga.append(manga)
+        except Exception as e:
             list_manga = []
 
         for manga in list_manga:
@@ -124,14 +148,14 @@ class EngineMangas(Engine):
                 return []
 
             # save the list in the file
-            self.save_json_file(list_manga, self.list_manga_path)
+            self.save_mangas_list_json(list_manga, self.list_manga_path)
             for manga in list_manga:
                 if name.lower() in manga.name.lower():
                     results.append(manga)
 
         return results
 
-    def get_list_volume_from_manga_name(self, name):
+    def get_list_volume_from_manga_name(self, name: str) -> Optional[List[Chapter]]:
         """
         Gets the list of all volumes from a manga name (analyze the first manga found)
 
@@ -139,12 +163,7 @@ class EngineMangas(Engine):
             name (string): name of the manga
 
         Returns:
-            A dict with the following keys
-            {
-                title (string): Title of the manga
-                synopsis (string): synopsis of the manga
-                chapter_list (dict): A list of chapters objects
-            }
+            list_volume (list): List of Volumes
             None (None): None if there is an error
         """
 
@@ -160,19 +179,19 @@ class EngineMangas(Engine):
 
     # abstract
     @abstractmethod
-    def get_all_available_manga_list(self):
+    def get_all_available_manga_list(self) -> Optional[List[Manga]]:
         pass
 
     @abstractmethod
-    def get_list_volume_from_manga_url(self, url):
+    def get_list_volume_from_manga_url(self, url: str) -> Optional[Manga]:
         pass
 
     @abstractmethod
-    def get_info_from_chapter_url(self, url):
+    def get_info_from_chapter_url(self, url: str) -> Optional[Chapter]:
         pass
 
     # DOWNLOAD ------------------------------------------------------------------------------------
-    def download_picture(self, url, save_path_file):
+    def download_picture(self, url: str, save_path_file: str) -> bool:
         """ Download a binary file.
         Here we use urllib, that seems to be a lot faster than requests on some manga websites.
         However, it's less secure.
@@ -202,7 +221,7 @@ class EngineMangas(Engine):
             self.print_v(str(exception))
             return False
 
-    def safe_download_picture(self, url, save_path_file):
+    def safe_download_picture(self, url: str, save_path_file: str) -> bool:
         """ Download a binary file.
         Here we use requests, that seems to be safer than urllib
         Args:
@@ -213,7 +232,7 @@ class EngineMangas(Engine):
             bool (bool): True, if the download was a sucess, False instead.
 
         Raises:
-            if an error occurred, print the exception to the log with self.print_v().
+            if an error occurred, prints the exception to the log with self.print_v().
 
         Examples:
             >>> EngineMangas().safe_download_picture("www.your_picture.png", "C:Users/your/path/to/file.png")
@@ -238,7 +257,7 @@ class EngineMangas(Engine):
             self.print_v(str(e))
             return False
 
-    def async_download_pictures(self, url_list, save_path_file_list):
+    def async_download_pictures(self, url_list: List[str], save_path_file_list: List[str]):
         """ Async download files from the url_list and save it to save_path_file_list.
 
                 Args:
@@ -290,7 +309,7 @@ class EngineMangas(Engine):
             self.print_v("Impossible to make the async download, an error occurred: ", str(e))
             return [False for _ in range(len(url_list))]
 
-    def download_chapter(self, url, folder_path=None):
+    def download_chapter(self, url: str, folder_path=None) -> bool:
         """ Download all images from the manga chapter page, rename them (purification) and download them in the folder_path
         ARGS:
             url (str): url of the given chapter. example "https://www.lelscan-vf.com/manga/the-promised-neverland/132"
@@ -312,8 +331,8 @@ class EngineMangas(Engine):
             folder_path = self.dl_directory
 
         # We retrieve info from the chapter
-        results_chapter_page = self.get_info_from_chapter_url(url)
-        if results_chapter_page == []:
+        retrieved_chapter = self.get_info_from_chapter_url(url)
+        if retrieved_chapter == []:
             return False
 
         # We create the download directory
@@ -322,15 +341,15 @@ class EngineMangas(Engine):
             return False
 
         # Unpacking values
-        pages = results_chapter_page["pages"]
-        chapter_num = results_chapter_page["chapter_num"]
+        pages = retrieved_chapter.pages_list
+        chapter_num = retrieved_chapter.number
         # max_pages = results_chapter_page["max_pages"]
-        manga_title = results_chapter_page["manga_title"]
+        manga_title = retrieved_chapter.manga_name
 
 
         for page in pages:
-            link = page["link"]
-            number = page["num"]
+            link = page.link
+            number = page.number
             extension = link.rsplit(".")[-1].strip()
 
             file_name = manga_title + "_" + str(chapter_num) + "_" + str(number) + "." + extension
@@ -343,7 +362,7 @@ class EngineMangas(Engine):
 
         return True
 
-    def async_download_chapter(self, url, folder_path=None, rename_auto = True, create_subFolder = False):
+    def async_download_chapter(self, url: str, folder_path=None, rename_auto = True, create_subFolder = False) -> bool:
         """ Download all images from the manga chapter page, rename them (purification) and download them
             If create_subFolder is True, the files will be stored in a subFolder with the name found on the website
 
@@ -369,15 +388,15 @@ class EngineMangas(Engine):
             folder_path = self.dl_directory
 
         # We retrieve info from the chapter
-        results_chapter_page = self.get_info_from_chapter_url(url)
-        if results_chapter_page is None:
+        retrieved_chapter = self.get_info_from_chapter_url(url)
+        if retrieved_chapter is None:
             return False
 
         # Unpacking values
-        pages = results_chapter_page["pages"]
-        chapter_num = results_chapter_page["chapter_num"]
+        pages = retrieved_chapter.pages_list
+        chapter_num = retrieved_chapter.number
         # max_pages = results_chapter_page["max_pages"]
-        manga_title = results_chapter_page["manga_title"]
+        manga_title = retrieved_chapter.manga_name
 
         # We create the download directory
         create_directory = self.make_directory(folder_path)
@@ -397,8 +416,8 @@ class EngineMangas(Engine):
         save_path_file_list = []
         file_name_list = []
         for page in pages:
-            link = page["link"]
-            number = page["num"]
+            link = page.link
+            number = page.number
             extension = link.rsplit(".")[-1].strip()
 
             file_name = manga_title + "_" + str(chapter_num) + "_" + str(number) + "." + extension
@@ -429,7 +448,8 @@ class EngineMangas(Engine):
                 return False
         return True
 
-    def download_volume_from_manga_name(self, name, number, folder_path=None, volume_name= None, rename_auto=True, compress=None, display_only=True):
+    def download_volume_from_manga_name(self, name: str, number: int, folder_path=None, volume_name=None,
+                                        rename_auto=True, compress=None, display_only=True) -> bool:
         """
         Download a single volume just with the name of a manga
         Args:
@@ -456,7 +476,7 @@ class EngineMangas(Engine):
         self.print_v("download_volume_fom_manga: first manga: " + str(first_manga))
 
         results = self.download_volume_from_manga_url(
-            url = first_manga["link"],
+            url = first_manga.link,
             number = number,
             folder_path = folder_path,
             volume_name = volume_name,
@@ -466,7 +486,8 @@ class EngineMangas(Engine):
 
         return results
 
-    def download_volume_from_manga_url(self, url, number, folder_path=None, volume_name=None, rename_auto=True, display_only=True, compress = None):
+    def download_volume_from_manga_url(self, url:str, number:int, folder_path=None, volume_name=None,
+                                       rename_auto=True, display_only=True, compress = None) -> bool:
         """
             Download a single volume just with the url of a manga
             Args:
@@ -480,38 +501,37 @@ class EngineMangas(Engine):
 
             Raises:
                 None, but print_v() problems.
-
         """
 
         self.print_v("download_volume_from_manga_url...")
-        volumes = self.get_list_volume_from_manga_url(url)
-        if volumes is None:
+        retrieved_manga = self.get_list_volume_from_manga_url(url)
+        if retrieved_manga is None:
             return False
 
-        self.print_v(str(volumes))
+        self.print_v(str(retrieved_manga.volumes_list))
 
-        volume_list = volumes["chapter_list"]
+        volume_list = manga.volumes_list
         if volume_list == []:
             return False
 
         found = False
-        found_volume = None
+        found_volume: Optional[Volume] = None
         for volume in volume_list:
-            if volume["num"] == number:
+            if volume.number == number:
                 found = True
                 found_volume = volume
 
         if not found:
             return False
 
-        self.print_v("manga found ", str(found_volume))
+        self.print_v("manga found ", str(found_volume.name))
 
         if display_only:
             print("If you want to really make it, launch this function again with display_only = False")
             return True
 
         if volume_name is None:
-            folder_name = found_volume["title"] + "_" + str(found_volume["num"])
+            folder_name = found_volume.name + "_" + str(found_volume["num"])
         else:
             folder_name = volume_name
 
