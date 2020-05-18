@@ -452,7 +452,7 @@ class EngineMangas(Engine):
         return True
 
     def download_range_chapters_from_name(self, name: str, first: int, last: int,
-                                          volume_name: str, folder_path=None, compress=None)-> Union[List[bool], bool]:
+                                          volume_name: str, folder_path=None, compress=None, rename_auto=True)-> Union[List[bool], bool]:
         self.print_v("download_range_chapters_from_url...")
         manga_list = self.find_manga_by_name(name)
         if manga_list is None:
@@ -462,7 +462,7 @@ class EngineMangas(Engine):
 
         return self.download_range_chapters_from_url(url, first, last, volume_name, folder_path, compress)
 
-    def download_range_chapters_from_url(self, url: str, first: int, last: int, folder_name: str, folder_path=None, compress=None) -> Union[List[bool], bool]:
+    def download_range_chapters_from_url(self, url: str, first: int, last: int, folder_name: str, folder_path=None, compress=None, rename_auto=True) -> Union[List[bool], bool]:
         """
         Download a range of chapters, from first to last included in a folder volume_name. You need to add the number of the volume
 
@@ -500,7 +500,9 @@ class EngineMangas(Engine):
                     results.append(self.async_download_chapter(chapter.link, folder_path=volume_directory))
                     break
 
-        self.rename_file_from_folder_lexico(volume_directory, display_only=False)
+
+        if rename_auto:
+            self.rename_file_from_folder_lexico(volume_directory, display_only=False)
 
         if compress:
             self.compress_folder(volume_directory, compress)
@@ -685,15 +687,15 @@ class EngineMangas(Engine):
         return results
 
     # manga -----
-    def download_whole_manga_from_name(self, name: str, folder_path=None, async_mode=False) -> bool:
+    def download_whole_manga_from_name(self, name: str, folder_path=None, async_mode=False, compress=True) -> bool:
         self.print_v("download_whole_manga_from_name...")
         mangas = self.find_manga_by_name(name)
         first_manga = mangas[0]
         url = first_manga.link
-        return self.download_whole_manga_from_url(url = url, folder_path=folder_path, async_mode=async_mode)
+        return self.download_whole_manga_from_url(url = url, folder_path=folder_path, async_mode=async_mode, compress=compress)
 
 
-    def download_whole_manga_from_url(self, url: str, folder_path=None, async_mode=False) -> bool:
+    def download_whole_manga_from_url(self, url: str, folder_path=None, async_mode=True, compress=True) -> bool:
         """ Download all images from the manga main page, rename them (purification) and download them
         TODO: REWORK THIS FUNCTION
         ARGS:
@@ -736,6 +738,8 @@ class EngineMangas(Engine):
             folder_name = retrieved_manga.name + "_V" + str(volume.number)
             volume_directory = os.path.join(manga_directory, folder_name)
             self.download_volume(volume=volume, folder_path=volume_directory, async_mode=async_mode)
+
+
 
         return True
 

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1183</width>
+    <width>1426</width>
     <height>912</height>
    </rect>
   </property>
@@ -47,19 +47,6 @@ color: rgb(255,255,255);</string>
      </item>
     </layout>
    </widget>
-   <widget class="QProgressBar" name="progressBar_progress">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>720</y>
-      <width>711</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="value">
-     <number>0</number>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_analyse_auto">
     <property name="geometry">
      <rect>
@@ -77,56 +64,11 @@ color: rgb(255, 255, 255)</string>
      <string>Analyse automatique</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_image">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>490</y>
-      <width>151</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="scaledContents">
-     <bool>false</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>130</y>
-      <width>301</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Sites trouvés:double-cliquez sur celui que vous voulez choisir</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>300</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>270</y>
+      <x>660</x>
+      <y>130</y>
       <width>431</width>
       <height>44</height>
      </rect>
@@ -147,8 +89,8 @@ color: rgb(255, 255, 255)</string>
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>390</y>
+      <x>660</x>
+      <y>250</y>
       <width>431</width>
       <height>51</height>
      </rect>
@@ -214,8 +156,8 @@ dans un même volume</string>
    <widget class="QWidget" name="gridLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>330</y>
+      <x>660</x>
+      <y>190</y>
       <width>431</width>
       <height>44</height>
      </rect>
@@ -236,8 +178,8 @@ dans un même volume</string>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>550</y>
+      <x>660</x>
+      <y>370</y>
       <width>431</width>
       <height>41</height>
      </rect>
@@ -258,8 +200,8 @@ dans un même volume</string>
    <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>460</y>
+      <x>660</x>
+      <y>320</y>
       <width>331</width>
       <height>41</height>
      </rect>
@@ -280,8 +222,8 @@ dans un même volume</string>
    <widget class="QWidget" name="verticalLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>460</y>
+      <x>1000</x>
+      <y>320</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -290,7 +232,7 @@ dans un même volume</string>
      <item>
       <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>Numéro du volume</string>
+        <string>Numéro</string>
        </property>
       </widget>
      </item>
@@ -309,8 +251,8 @@ dans un même volume</string>
    <widget class="QCheckBox" name="checkBox_compress">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>600</y>
+      <x>790</x>
+      <y>430</y>
       <width>121</width>
       <height>17</height>
      </rect>
@@ -322,8 +264,8 @@ dans un même volume</string>
    <widget class="QComboBox" name="comboBox_compress_mode">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>600</y>
+      <x>880</x>
+      <y>430</y>
       <width>69</width>
       <height>22</height>
      </rect>
@@ -339,21 +281,11 @@ dans un même volume</string>
      </property>
     </item>
    </widget>
-   <widget class="QListWidget" name="listWidget_results">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>160</y>
-      <width>431</width>
-      <height>91</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_download">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>660</y>
+      <x>770</x>
+      <y>510</y>
       <width>211</width>
       <height>41</height>
      </rect>
@@ -673,7 +605,7 @@ dans un même volume</string>
 color: rgb(255, 255, 255)</string>
     </property>
     <property name="text">
-     <string>Télécharger</string>
+     <string>Télécharger la selection</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_console">
@@ -706,13 +638,119 @@ color:rgb(0, 255, 0)</string>
      <string>Sortie console en cas d'erreur</string>
     </property>
    </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_4">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>130</y>
+      <width>251</width>
+      <height>631</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Chapitres disponibles</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_nb_chap_available">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listWidget_chapters"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>450</y>
+      <width>311</width>
+      <height>311</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_6">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Volumes disponibles</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_nb_vol_available">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listWidget_volumes"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_6">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>130</y>
+      <width>313</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_7">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Sites trouvés:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_nb_website_available">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>double-cliquez sur celui que vous voulez choisir</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listWidget_results"/>
+     </item>
+    </layout>
+   </widget>
    <widget class="QPushButton" name="pushButton_download_all">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>430</y>
-      <width>141</width>
-      <height>23</height>
+      <x>770</x>
+      <y>660</y>
+      <width>211</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -720,119 +758,47 @@ color:rgb(0, 255, 0)</string>
 color: rgb(255,255,255);</string>
     </property>
     <property name="text">
-     <string>Je veux tout télécharger</string>
+     <string>Télécharger tout le manga!</string>
     </property>
    </widget>
-   <widget class="Line" name="line">
+   <widget class="QPushButton" name="pushButton_download_volume">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>330</y>
-      <width>91</width>
+      <x>770</x>
+      <y>590</y>
+      <width>211</width>
       <height>41</height>
      </rect>
     </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="Line" name="line_2">
-    <property name="geometry">
-     <rect>
-      <x>810</x>
-      <y>350</y>
-      <width>3</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="Line" name="line_3">
-    <property name="geometry">
-     <rect>
-      <x>793</x>
-      <y>460</y>
-      <width>20</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="Line" name="line_4">
-    <property name="geometry">
-     <rect>
-      <x>720</x>
-      <y>570</y>
-      <width>81</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="listWidget_volumes">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>160</y>
-      <width>251</width>
-      <height>431</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>130</y>
-      <width>181</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="label_12">
-       <property name="text">
-        <string>Nombre de volume/chapters dispo:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_nb_vol_available">
-       <property name="text">
-        <string>0</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QListWidget" name="listWidget_queue">
-    <property name="geometry">
-     <rect>
-      <x>895</x>
-      <y>161</y>
-      <width>271</width>
-      <height>431</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_13">
-    <property name="geometry">
-     <rect>
-      <x>900</x>
-      <y>140</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(150, 150, 0);
+color: rgb(255,255,255);</string>
     </property>
     <property name="text">
-     <string>Queue</string>
+     <string>télécharger le volume entier</string>
     </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_7">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>130</y>
+      <width>261</width>
+      <height>741</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_8">
+     <item>
+      <widget class="QLabel" name="label_13">
+       <property name="text">
+        <string>Queue</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="listWidget_queue"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -840,7 +806,7 @@ color: rgb(255,255,255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1183</width>
+     <width>1426</width>
      <height>21</height>
     </rect>
    </property>
