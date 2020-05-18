@@ -44,13 +44,28 @@ class Manga:
         self.name = name
         self.link = link
         self.synopsis = synopsis
-        self.volumes_list = []
+        self.volumes_list: List[Volume] = []
+        self.chapters_without_volumes_list: List[Chapter] = []
 
     def __str__(self):
         return "manga with name: {0}, link: {1}, synopsis: {2}".format(self.name, self.link, self.synopsis)
 
+    def get_all_volumes(self) -> List[Volume]:
+        volumes = []
+        for v in self.volumes_list:
+            volumes.append(v)
+        for v in self.chapters_without_volumes_list:
+            volumes.append(v)
+
+        return volumes
+
     def add_volume(self, volume: Volume) -> None:
         self.volumes_list.append(volume)
+
+    def add_chapters_without_volume(self, chapters_list: List[Chapter]) -> None:
+        for chapter in chapters_list:
+            self.chapters_without_volumes_list.append(chapter)
+
 
     def to_json(self) -> Dict:
         return {"name": self.name, "link": self.link}

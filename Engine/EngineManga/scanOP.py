@@ -122,11 +122,11 @@ class EngineScanOP(EngineMangas):
             return None
 
         # there is no volume/chapter separation on scan op, so fill a default volume with number -1 with chapters
-        retrieved_volume = Volume()
-        retrieved_volume.add_chapters(retrieved_chapters_list)
+        # retrieved_volume = Volume()
+        # retrieved_volume.add_chapters(retrieved_chapters_list)
 
         retrieved_manga = Manga(name=name, link=url, synopsis=synopsis)
-        retrieved_manga.add_volume(retrieved_volume)
+        retrieved_manga.add_chapters_without_volume(retrieved_chapters_list)
 
         return retrieved_manga
 

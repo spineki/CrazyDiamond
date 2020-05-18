@@ -83,10 +83,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         for engine_name in results:
             for info_manga in results[engine_name]:
-                item = resultWidget(info_manga["title"] + " (à l'adresse) " +  info_manga["link"],
+                item = resultWidget(info_manga.name + " (à l'adresse) " +  info_manga.link,
                                     engine_name,
-                                    info_manga["link"],
-                                    info_manga["title"])
+                                    info_manga.link,
+                                    info_manga.name)
                 self.listWidget_results.addItem(item)
 
         self.listWidget_results.currentItemChanged.connect(self.autoFill)
@@ -97,8 +97,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.lineEdit_url.setText(current_item.link)
         self.lineEdit_manga_name.setText(current_item.manga_name)
 
-        result = self.get_engine_by_name(current_item.engine_name).get_list_volume_from_manga_url(current_item.link)
-        chapter_list=result["chapter_list"]
+        retrieved_manga = self.get_engine_by_name(current_item.engine_name).get_list_volume_from_manga_url(current_item.link)
+        chapter_list=retrieved_manga.volumes_list
         self.label_nb_vol_available.setText(str(len(chapter_list)))
 
         self.listWidget_volumes.clear()
@@ -142,8 +142,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def setupEngines(self):
         self.currentEngine = None
-        self.engines = [EngineScanOP(), EngineScansMangas(), EngineLelscan()] # EngineMangaFox()
-
+        # self.engines = [EngineScanOP(), EngineScansMangas(), EngineLelscan()] # EngineMangaFox()
+        self.engines = [EngineScanOP()]
     def startingState(self):
         self.activateRange()
         self.activateCompress()
@@ -227,7 +227,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                    startCallback=self.startCallback,
                                    callback=self.callback,
                                    endCallback=self.endCallback)
-
 
     def startCallback(self, args = None, kwargs={}):
         self.listWidget_queue.item(0).modifySubtext("downloading!")

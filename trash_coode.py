@@ -15,7 +15,7 @@ e = EngineScanOP()
 mangas = e.find_manga_by_name("shinge")
 print(str(mangas[0]))
 print(e.get_list_volume_from_manga_url(mangas[0].link))
-
+print()
 
 
 

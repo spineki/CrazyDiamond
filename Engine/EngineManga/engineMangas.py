@@ -10,8 +10,9 @@ import asyncio
 import aiofiles as aiof
 import zipfile
 import img2pdf
+
 from Engine.engine import Engine
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Any
 from Engine.EngineManga.manga import Manga, Chapter, Volume
 
 
@@ -174,8 +175,8 @@ class EngineMangas(Engine):
         chosen_manga = results[0]
         url = chosen_manga.link
 
-        list_volume = self.get_list_volume_from_manga_url(url)
-        return list_volume
+        retrieved_manga = self.get_list_volume_from_manga_url(url)
+        return retrieved_manga
 
     # abstract
     @abstractmethod
@@ -549,6 +550,15 @@ class EngineMangas(Engine):
 
         return results
 
+    def download_volume(self, volume: Volume, folder_path: str, async_mode=False) -> bool:
+        for chapter in volume.chapters_list:
+            if async_mode:
+                self.async_download_chapter(chapter.link, folder_path)
+            else:
+                self.download_chapter(chapter.link, folder_path)
+
+        return True
+
     def download_range_chapters_from_name(self, name, first, last, volume_name, folder_path=None, compress=None):
 
         self.print_v("download_range_chapters_from_url...")
@@ -647,7 +657,7 @@ class EngineMangas(Engine):
 
         return results
 
-    def download_whole_manga_from_url(self, url, folder_path=None, async_mode=False):
+    def download_whole_manga_from_url(self, url: str, folder_path=None, async_mode=False) -> bool:
         """ Download all images from the manga main page, rename them (purification) and download them
         TODO: REWORK THIS FUNCTION
         ARGS:
@@ -664,37 +674,45 @@ class EngineMangas(Engine):
         """
         self.print_v("download_whole_manga_from_url")
         # We gather main manga page info
-        results_presentation_page = self.get_list_volume_from_manga_url(url)
-        if results_presentation_page is None:
+        retrieved_manga: Manga = self.get_list_volume_from_manga_url(url)
+        if retrieved_manga is None:
             return False
 
-        chapters = results_presentation_page["chapter_list"]
+        if folder_path is None:
+            folder_path = self.dl_directory
 
+        # directory for all the content linked with this very manga (chapters, volumes)
+        manga_directory = os.path.join(folder_path, retrieved_manga.name)
+
+        # Download chapters not in a specified volume (a lot of website don't make a difference)
+        chapters: List[Chapter] = retrieved_manga.chapters_without_volumes_list
         for chapter in chapters:
-
-            folder_name = results_presentation_page["title"] + "_" + str(chapter["num"])
-            if folder_path is None:
-                folder_path = self.dl_directory
-            manga_directory = os.path.join(folder_path, results_presentation_page["title"])
-            volume_directory = os.path.join(manga_directory, folder_name)
-            volume_directory = self.purify_name(volume_directory)
+            folder_name = retrieved_manga.name + "_" + str(chapter.number)
+            chapter_directory = os.path.join(manga_directory, folder_name)
+            chapter_directory = self.purify_name(chapter_directory)
 
             if async_mode:
-                self.async_download_chapter(chapter["link"], volume_directory)
+                self.async_download_chapter(chapter.link, chapter_directory)
             else:
-                self.download_chapter(chapter["link"], volume_directory)
+                self.download_chapter(chapter.link, chapter_directory)
+
+        volumes: List[Volume] = retrieved_manga.volumes_list
+        for volume in volumes:
+            folder_name = retrieved_manga.name + "_V" + str(volume.number)
+            volume_directory = os.path.join(manga_directory, folder_name)
+            self.download_volume(volume=volume, folder_path= volume_directory, async_mode=async_mode)
 
         return True
 
-    def download_whole_manga_from_name(self, name, folder_path = None, async_mode=False):
+    def download_whole_manga_from_name(self, name, folder_path = None, async_mode=False) -> bool:
         self.print_v("download_whole_manga_from_name...")
         mangas = self.find_manga_by_name(name)
         first_manga = mangas[0]
-        url = first_manga["link"]
+        url = first_manga.link
         return self.download_whole_manga_from_url(url, folder_path, async_mode)
 
     # RENAMING ------------------------------------------------------------------------------------
-    def lexicographical_list_converter(self, name_list, sep="_"):
+    def lexicographical_list_converter(self, name_list, sep="_") -> List[Union[str, Any]]:
         """ Returns a list of name where number are adjusted with lexicographical order
 
         Args:
@@ -780,7 +798,7 @@ class EngineMangas(Engine):
 
         return name_with_extension_list
 
-    def rename_file_from_list(self, folder_directory, name_list, display_only=True):
+    def rename_file_from_list(self, folder_directory: str, name_list: List[str], display_only=True) -> bool:
         """ Rename every files in a folder that match with a name_list
 
             Args:
@@ -820,7 +838,7 @@ class EngineMangas(Engine):
 
         return True
 
-    def rename_file_from_folder_lexico(self, folder_directory, display_only=True):
+    def rename_file_from_folder_lexico(self, folder_directory: bool, display_only=True) -> bool:
         """ Rename every files in a folder to get a lexicographical order list of files
 
         Args:
@@ -871,7 +889,7 @@ class EngineMangas(Engine):
 
     # ZIP -----------------------------------------------------------------------------------------
 
-    def compress_folder(self, folder_path, ext=".cbz"):
+    def compress_folder(self, folder_path: str, ext=".cbz") -> bool:
         self.print_v("compress_folder...")
         if ext == ".cbz" or ext == ".zip":
             return self.compress_CBZ(folder_path, ext)
@@ -879,8 +897,9 @@ class EngineMangas(Engine):
             return self.compress_PDF(folder_path)
         else:
             print("I cannot deal with " + ext + " files")
+            return False
 
-    def compress_CBZ(self, folder_path, ext=".cbz"):
+    def compress_CBZ(self, folder_path: str, ext=".cbz") -> bool:
         """"Compress A folder in zip format. Add a zip like extension like .zip, .cbz
         Args:
             dir_name (string): path of the directory that will be compressed
@@ -917,7 +936,7 @@ class EngineMangas(Engine):
             self.print_v("impossible to compress ", folder_path, " folder", str(e))
             return False
 
-    def compress_PDF(self, folder_path):
+    def compress_PDF(self, folder_path: str) -> bool:
         """"Create a pdf of all pictures in a folder
         Args:
             dir_name (string): path of the directory that will be compressed
