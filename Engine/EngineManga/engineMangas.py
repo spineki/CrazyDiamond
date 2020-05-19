@@ -32,7 +32,7 @@ class EngineMangas(Engine):
         self.list_manga_path = None
 
     # GET -----------------------------------------------------------------------------------------
-    def get_soup(self, url: str, cookies=None):
+    def get_soup(self, url: str, cookies=None) -> bs4.BeautifulSoup:
         """Creates a soup from an url with lxml parser. Returns a soup object if possible. None else
         Args:
             url (string): url of the webpage that will be turned into a soup
@@ -66,7 +66,7 @@ class EngineMangas(Engine):
                 self.print_v("Error: ", str(e), ". Impossible to get a status code from the requests")
                 return None
 
-    def save_html(self, url, path):
+    def save_html(self, url: str, path: str) -> None:
         """Save the html from a webpage using requests library
         Args:
             url (string): url of the webpage that will be saved
@@ -156,7 +156,7 @@ class EngineMangas(Engine):
 
         return results
 
-    def get_list_volume_from_manga_name(self, name: str) -> Optional[Manga]:
+    def get_manga_info_from_name(self, name: str) -> Optional[Manga]:
         """
         Gets the list of all volumes from a manga name (analyze the first manga found)
 
@@ -175,7 +175,7 @@ class EngineMangas(Engine):
         chosen_manga = results[0]
         url = chosen_manga.link
 
-        retrieved_manga = self.get_list_volume_from_manga_url(url)
+        retrieved_manga = self.get_manga_info_from_url(url)
         return retrieved_manga
 
     # abstract
@@ -184,7 +184,7 @@ class EngineMangas(Engine):
         pass
 
     @abstractmethod
-    def get_list_volume_from_manga_url(self, url: str) -> Optional[Manga]:
+    def get_manga_info_from_url(self, url: str) -> Optional[Manga]:
         pass
 
     @abstractmethod
@@ -476,7 +476,7 @@ class EngineMangas(Engine):
         """
 
         self.print_v("download_range_chapters_from_url...")
-        retrieved_manga = self.get_list_volume_from_manga_url(url)
+        retrieved_manga = self.get_manga_info_from_url(url)
         if retrieved_manga is None:
             return False
 
@@ -582,7 +582,7 @@ class EngineMangas(Engine):
         first_manga = manga_list[0]
 
 
-        retrieved_manga = self.get_list_volume_from_manga_url(first_manga.link)
+        retrieved_manga = self.get_manga_info_from_url(first_manga.link)
         volumes_list = retrieved_manga.volumes_list
         last_Volume = volumes_list[0]
 
@@ -634,7 +634,7 @@ class EngineMangas(Engine):
         """
 
         self.print_v("download_volume_from_manga_url...")
-        retrieved_manga = self.get_list_volume_from_manga_url(url)
+        retrieved_manga = self.get_manga_info_from_url(url)
         if retrieved_manga is None:
             return False
 
@@ -687,15 +687,16 @@ class EngineMangas(Engine):
         return results
 
     # manga -----
-    def download_whole_manga_from_name(self, name: str, folder_path=None, async_mode=False, compress=True) -> bool:
+    def download_whole_manga_from_name(self, name: str, folder_path=None, async_mode=False, compress=None, rename_auto=True) -> bool:
         self.print_v("download_whole_manga_from_name...")
         mangas = self.find_manga_by_name(name)
         first_manga = mangas[0]
         url = first_manga.link
-        return self.download_whole_manga_from_url(url = url, folder_path=folder_path, async_mode=async_mode, compress=compress)
+        return self.download_whole_manga_from_url(url = url, folder_path=folder_path, async_mode=async_mode,
+                                                  compress=compress, rename_auto=rename_auto)
 
 
-    def download_whole_manga_from_url(self, url: str, folder_path=None, async_mode=True, compress=True) -> bool:
+    def download_whole_manga_from_url(self, url: str, folder_path=None, async_mode=True, compress=None, rename_auto=True) -> bool:
         """ Download all images from the manga main page, rename them (purification) and download them
         TODO: REWORK THIS FUNCTION
         ARGS:
@@ -709,9 +710,11 @@ class EngineMangas(Engine):
             Doesn't raise an error.
 
         """
+        print("compress", compress)
+
         self.print_v("download_whole_manga_from_url")
         # We gather main manga page info
-        retrieved_manga: Manga = self.get_list_volume_from_manga_url(url)
+        retrieved_manga: Manga = self.get_manga_info_from_url(url)
         if retrieved_manga is None:
             return False
 
@@ -732,13 +735,21 @@ class EngineMangas(Engine):
                 self.async_download_chapter(url=chapter.link, folder_path=chapter_directory)
             else:
                 self.download_chapter(url=chapter.link, folder_path=chapter_directory)
+            if rename_auto:
+                self.rename_file_from_folder_lexico(chapter_directory, display_only=False)
+
+            if compress:
+                self.compress_folder(chapter_directory, compress)
 
         volumes: List[Volume] = retrieved_manga.volumes_list
         for volume in volumes:
             folder_name = retrieved_manga.name + "_V" + str(volume.number)
             volume_directory = os.path.join(manga_directory, folder_name)
             self.download_volume(volume=volume, folder_path=volume_directory, async_mode=async_mode)
-
+            if rename_auto:
+                self.rename_file_from_folder_lexico(volume_directory, display_only=False)
+            if compress:
+                self.compress_folder(volume_directory, compress)
 
 
         return True

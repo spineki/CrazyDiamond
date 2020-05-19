@@ -84,7 +84,7 @@ class EngineMangaFox(EngineMangas):
 
         return results
 
-    def get_list_volume_from_manga_url(self, url):
+    def get_manga_info_from_url(self, url):
         """
         Gets the list of all volumes from a manga url
 

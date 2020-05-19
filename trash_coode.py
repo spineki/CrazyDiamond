@@ -13,10 +13,12 @@ import aiofiles
 
 e = EngineScanOP()
 manga = e.find_manga_by_name("berserk")[0]
-print(e.get_list_volume_from_manga_url(manga.link))
+print(e.get_manga_info_from_url(manga.link))
 print(e.get_all_available_manga_list())
 print(e.get_info_from_chapter_url("https://scan-op.com/manga/berserk/360"))
 
+# scans manga, scan op
+# a faire; lelscan
 
 
 

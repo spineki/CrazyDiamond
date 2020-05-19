@@ -18,7 +18,7 @@ def test_find_manga_by_name():
 
 def test_get_list_volume_from_manga_url():
     e = EngineLelscan()
-    volume_list = e.get_list_volume_from_manga_url("https://www.lelscan-vf.com/manga/hunter-x-hunter")
+    volume_list = e.get_manga_info_from_url("https://www.lelscan-vf.com/manga/hunter-x-hunter")
     assert volume_list["title"] == 'Hunter X Hunter'
 
 def test_get_info_from_chapter_url():

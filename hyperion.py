@@ -115,7 +115,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.lineEdit_manga_name.setText(current_manga.name)
 
         retrieved_manga: Optional[Manga] = self.get_engine_by_name(current_item.engine_name)\
-            .get_list_volume_from_manga_url(current_manga.link)
+            .get_manga_info_from_url(current_manga.link)
 
         self.currentManga=retrieved_manga # we copy globally this manga, wich contains chapters, volume, etc
 
@@ -130,12 +130,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                 volume=volume)
             self.listWidget_volumes.addItem(item)
         self.listWidget_volumes.currentItemChanged.connect(self.volume_to_fields)
+        self.label_nb_vol_available.setText(str(self.listWidget_volumes.count()))
 
         self.listWidget_chapters.clear()
         for chapter in chapters_without_volume_list:
             item = chapterWidget(text=str(chapter.number) + " : " + chapter.name, chapter=chapter)
             self.listWidget_chapters.addItem(item)
         self.listWidget_chapters.currentItemChanged.connect(self.chapter_to_fields)
+        self.label_nb_chap_available.setText(str(self.listWidget_chapters.count()))
 
     def chapter_to_fields(self):
         print("chapter to fields")
@@ -181,8 +183,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def setupEngines(self):
         self.currentEngine = None
-        # self.engines = [EngineScanOP(), EngineScansMangas(), EngineLelscan()] # EngineMangaFox()
-        self.engines = [EngineScanOP()]
+        self.engines = [EngineScanOP(), EngineScansMangas(), EngineLelscan()] # EngineMangaFox()
 
     def startingState(self):
         self.activateRange()
@@ -245,12 +246,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def download_all(self):
         manga_name = self.lineEdit_manga_name.text()
         manga_url = self.lineEdit_url.text()
-        volume_number = self.spinBox_volume.value()
-        first_chap = self.spinBox_chap_start.value()
-        last_chap = self.spinBox_chap_end.value()
         compress = self.checkBox_compress.checkState()
         output_name = self.lineEdit_output_name.text()
-
+        if compress:
+            compress_ext = self.comboBox_compress_mode.currentText()
+        else:
+            compress_ext = None
         if self.currentEngine is None: # temporary
             print("pas de manga sélectionné")
             return
@@ -262,17 +263,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 engine = e
                 break
 
+
+        print("avant whole", compress_ext)
         self.fillQueue(manga_name, engine.name, str("all!"))
         self.core.add_new_Task(function=engine.download_whole_manga_from_url,
-                               args=(manga_url, first_chap, last_chap, output_name),
-                               kwargs={"async": compress_ext},
+                               args=(manga_url),
+                               kwargs={"compress": compress_ext},
                                startCallback=self.startCallback,
                                callback=self.callback,
                                endCallback=self.endCallback)
-
-
-        manga_url = self.lineEdit_url.text()
-        engine.download_whole_manga_from_url(manga_url, async_mode=True)
 
 
     def startCallback(self, args = None, kwargs={}):

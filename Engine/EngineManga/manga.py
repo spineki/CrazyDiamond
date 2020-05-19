@@ -12,12 +12,12 @@ class Page:
 
 class Chapter:
     def __init__(self, name="", link="", number=-1, number_page=-1):
-        self.name = name
-        self.link = link
-        self.number = number
-        self.number_page = number_page
-        self.manga_name = ""
-        self.pages_list = []
+        self.name: str = name
+        self.link: str = link
+        self.number: int = number
+        self.number_page: int = number_page
+        self.manga_name: str = ""
+        self.pages_list: List[Page] = []
 
     def __str__(self):
         return "chapter with name:{0}, link:{1}, number:{2}, number of page:{3}, related manga name:{4}"\
