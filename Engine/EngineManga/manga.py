@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Tuple
 
 
 class Page:
@@ -40,6 +40,9 @@ class Volume:
 
     def __str__(self):
         return "volume with name:{0}, link:{1}, number:{2}".format(self.name, self.link, self.number)
+
+    def get_min_max_number_chapters(self)-> Tuple[int, int]:
+        return min(self.chapters_list, key=lambda x: x.number).number, max(self.chapters_list, key=lambda x: x.number).number
 
     def add_chapter(self, chapter: Chapter) -> None:
         self.chapters_list.append(chapter)

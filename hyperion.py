@@ -126,7 +126,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.listWidget_volumes.clear()
         for volume in volumes_list:
-            item = volumeWidget(text=str(volume.link) + ": " +  volume.name,
+            min_chap_number, max_chap_number = volume.get_min_max_number_chapters()
+            item = volumeWidget(text=str(volume.number) + ": containing " + "chapters " + str(min_chap_number) + " - " + str(max_chap_number),
                                 volume=volume)
             self.listWidget_volumes.addItem(item)
         self.listWidget_volumes.currentItemChanged.connect(self.volume_to_fields)

@@ -1,7 +1,8 @@
 import os
 import json
 import sys
-from typing import List, Optional
+from typing import List, Optional, Dict
+import re
 
 from Engine.EngineManga.engineMangas import EngineMangas
 from Engine.EngineManga.manga import Manga, Volume, Chapter, Page
@@ -103,22 +104,50 @@ class EngineScanOP(EngineMangas):
         if soup is None:
             return None
 
-        retrieved_chapters_list = []
+        retrieved_chapters_list: List[Chapter] = []
+        retrieved_volumes_list: List[Volume] = []
+        retrieved_volumes_dict = {}
         try:
             name = soup.find("h2", {"class": "widget-title"}).text.strip()
             synopsis = soup.find("div", {"class": "well"}).find("p").text
 
-            raw_chapters_list = soup.find_all("h5", {"class": "chapter-title-rtl"})
+            #raw_chapters_list = soup.find_all("h5", {"class": "chapter-title-rtl"})
+
+            volume_re = re.compile(r'volume\-') # regex
+            # find chapters containing the class volume-numberOfTheVolume
+            raw_chapters_list = soup.find_all("li", {"class": volume_re})
+
+            # we group chapters with the same volume under the same dict key
             for raw_chapter in raw_chapters_list:
-                retrieved_chapter = Chapter(name=raw_chapter.find("em").text,
-                                            link=raw_chapter.find("a")["href"])
+                raw_volume_number = raw_chapter["class"][0]
+                if raw_volume_number not in retrieved_volumes_dict:
+                    retrieved_volumes_dict[raw_volume_number] = []
+                retrieved_volumes_dict[raw_volume_number].append(raw_chapter)
 
-                number_raw_chaper = raw_chapter.find("a").text
-                list_number = [float(s) for s in number_raw_chaper.split() if is_float(s)]
-                list_number = [int(s) if is_int(s) else s for s in list_number]
-                retrieved_chapter.number = list_number[-1]
+            # now, we can go through the dictionary and save chapters in their own volume
+            for raw_volume_label in retrieved_volumes_dict:
+                # for all chapters in the same volume
+                volume_number = int(raw_volume_label.split("-")[-1])
+                retrieved_volume = Volume(number=volume_number)
 
-                retrieved_chapters_list.append(retrieved_chapter)
+                for raw_chapter in retrieved_volumes_dict[raw_volume_label]:
+                    raw_chapter = raw_chapter.find("h5", {"class": "chapter-title-rtl"}) # we extract the surrounding info
+                    retrieved_chapter = Chapter(name=raw_chapter.find("em").text,
+                                                link=raw_chapter.find("a")["href"])
+                    number_raw_chapter = raw_chapter.find("a").text
+                    list_number = [float(s) for s in number_raw_chapter.split() if is_float(s)]
+                    list_number = [int(s) if is_int(s) else s for s in list_number]
+                    retrieved_chapter.number = list_number[-1]
+
+                    if (volume_number == 0): # if chapter without volume
+                        retrieved_chapters_list.append(retrieved_chapter)
+                    else:
+                        retrieved_volume.add_chapter(retrieved_chapter)
+
+                if (volume_number != 0):
+                    retrieved_volumes_list.append(retrieved_volume)
+
+
 
         except Exception as e:
             self.print_v("Impossible to get the correct tags from the soup from the page ", url, ": ", str(e))
@@ -130,6 +159,14 @@ class EngineScanOP(EngineMangas):
 
         retrieved_manga = Manga(name=name, link=url, synopsis=synopsis)
         retrieved_manga.add_chapters_without_volume(retrieved_chapters_list)
+
+        for retrieved_volume in retrieved_volumes_list:
+            retrieved_manga.add_volume(retrieved_volume)
+
+        print(len(retrieved_manga.chapters_without_volumes_list))
+        print(retrieved_manga.chapters_without_volumes_list)
+        print(len(retrieved_manga.volumes_list))
+        print(retrieved_manga.volumes_list)
 
         return retrieved_manga
 

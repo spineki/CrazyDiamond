@@ -5,5 +5,5 @@ aiohttp>=3.6.2
 cchardet>=2.1.5
 aiofiles>=0.4.0
 pytest>=5.3.2
-pyside2
+pyside2==5.12.4
 img2pdf
