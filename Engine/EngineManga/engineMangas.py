@@ -510,13 +510,12 @@ class EngineMangas(Engine):
         return results
 
     # volume -----
-    def download_volume(self, volume: Volume, folder_path: str, async_mode=False, rename_auto=True) -> bool:
+    def download_volume(self, volume: Volume, folder_path: str, async_mode=True, rename_auto=True) -> bool:
         for chapter in volume.chapters_list:
             if async_mode:
                 self.async_download_chapter(url=chapter.link, folder_path=folder_path, rename_auto=rename_auto)
             else:
                 self.download_chapter(url=chapter.link, folder_path=folder_path)
-
         return True
 
     def download_volume_from_manga_name(self, name: str, number: int, folder_path=None, volume_name=None,
@@ -662,7 +661,7 @@ class EngineMangas(Engine):
             return True
 
         if volume_name is None:
-            folder_name = found_volume.name + "_" + str(found_volume.number)
+            folder_name = retrieved_manga.name + "_V" + str(found_volume.number)
         else:
             folder_name = volume_name
 

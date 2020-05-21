@@ -80,6 +80,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.checkBox_compress.stateChanged.connect(self.activateCompress)
         self.spinBox_volume.valueChanged.connect(self.namingVolume)
         self.pushButton_download.clicked.connect(self.download_selection)
+        self.pushButton_download_volume.clicked.connect(self.download_volume)
         self.pushButton_download_all.clicked.connect(self.download_all)
 
     def auto_analyze(self):
@@ -153,6 +154,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         current_item: volumeWidget = self.listWidget_volumes.currentItem()
         current_volume: Volume = current_item.volume
         self.currentVolume = current_volume
+
+
+        self.listWidget_chapters.clear()
+        for chapter in current_volume.chapters_list:
+            item = chapterWidget(text=str(chapter.number) + " : " + chapter.name, chapter=chapter)
+            self.listWidget_chapters.addItem(item)
+        self.listWidget_chapters.currentItemChanged.connect(self.chapter_to_fields)
+        self.label_nb_chap_available.setText(str(self.listWidget_chapters.count()))
 
         self.spinBox_volume.setValue(int(current_volume.number))
         self.namingVolume()
@@ -244,6 +253,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                    callback=self.callback,
                                    endCallback=self.endCallback)
 
+    def download_volume(self):
+        manga_name = self.lineEdit_manga_name.text()
+        manga_url = self.lineEdit_url.text()
+        current_number = self.spinBox_volume.value()
+        first_chap = self.spinBox_chap_start.value()
+        last_chap = self.spinBox_chap_end.value()
+        compress = self.checkBox_compress.checkState()
+        if compress:
+            compress_ext = self.comboBox_compress_mode.currentText()
+        else:
+            compress_ext = None
+        output_name = self.lineEdit_output_name.text()
+
+        if self.currentEngine is None: # temporary
+            print("pas de manga sélectionné")
+            return
+
+        engine = None
+        for e in self.engines:
+            if e.name == self.currentEngine:
+                engine = e
+                break
+
+        volume = self.currentVolume
+        manga = self.currentManga
+
+        self.fillQueue(manga_name, engine.name, str(volume.number))
+        self.core.add_new_Task(function=engine.download_volume_from_manga_url,
+                               args=(manga.link, volume.number),
+                               kwargs={"compress": compress_ext, "display_only":False},
+                               startCallback=self.startCallback,
+                               callback=self.callback,
+                               endCallback=self.endCallback)
+
     def download_all(self):
         manga_name = self.lineEdit_manga_name.text()
         manga_url = self.lineEdit_url.text()
@@ -273,7 +316,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                startCallback=self.startCallback,
                                callback=self.callback,
                                endCallback=self.endCallback)
-
 
     def startCallback(self, args = None, kwargs={}):
         self.listWidget_queue.item(0).modifySubtext("downloading!")
