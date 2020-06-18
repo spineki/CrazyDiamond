@@ -31,7 +31,7 @@ class EngineScanOP(EngineMangas):
         self.url_picture = "http://funquizzes.fun/uploads/manga/"
 
     # INFO  ---------------------------------------------------------------------------------------
-    def get_all_available_manga_list(self) -> Optional[List[Manga]]:
+    def get_all_available_manga_online_list(self) -> Optional[List[Manga]]:
         """Returns the list of all mangas available on the lelscan website (after an online search)
 
         Args:
@@ -146,8 +146,6 @@ class EngineScanOP(EngineMangas):
 
                 if (volume_number != 0):
                     retrieved_volumes_list.append(retrieved_volume)
-
-
 
         except Exception as e:
             self.print_v("Impossible to get the correct tags from the soup from the page ", url, ": ", str(e))

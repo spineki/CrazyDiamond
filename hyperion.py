@@ -11,6 +11,7 @@ from gui.myWindow import Ui_MainWindow
 
 
 # import engines: better create a proper core class and deal with it outside
+from Engine.engine import Engine
 from Engine.EngineManga.scanOP import EngineScanOP
 # from Engine.EngineManga.mangaFox import EngineMangaFox
 from Engine.EngineManga.lelScan import EngineLelscan
@@ -70,9 +71,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.show()
 
     def startCore(self):
+        """
+        Launch a core instance
+
+        :return: None
+        """
         self.core = Core()
 
     def assignWidgets(self):
+        """
+        connect widgets to their function
+
+        :return: None
+        """
         self.pushButton_analyse_auto.clicked.connect(self.auto_analyze)
         self.lineEdit_search.returnPressed.connect(self.auto_analyze)
 
@@ -84,6 +95,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_download_all.clicked.connect(self.download_all)
 
     def auto_analyze(self):
+        """
+        analyse the name of the manga and search matching in every engine.
+
+        :return: None
+        """
         print("auto analyse")
         self.listWidget_results.clear()
         search_content = self.lineEdit_search.text()
@@ -108,6 +124,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.label_nb_website_available.setText(str(self.listWidget_results.count()))
 
     def fill_volume_chapters(self):
+        """
+        Fill volumes and chapters from the clicked manga
+
+        :return: None
+        """
         current_item: resultWidget = self.listWidget_results.currentItem()
         self.currentEngine = current_item.engine_name
         current_manga = current_item.manga
@@ -142,6 +163,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.label_nb_chap_available.setText(str(self.listWidget_chapters.count()))
 
     def chapter_to_fields(self):
+        """
+        Copy clicked chapter info to the textEntry field
+
+        :return: None
+        """
         print("chapter to fields")
         current_item: chapterWidget = self.listWidget_chapters.currentItem()
         current_chapter: Chapter = current_item.chapter
@@ -150,11 +176,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.namingVolume()
 
     def volume_to_fields(self):
-        print("volume to fields")
+        """
+        Add chapters of a specific volume to the chapter field
+
+        :return: None
+        """
+
         current_item: volumeWidget = self.listWidget_volumes.currentItem()
         current_volume: Volume = current_item.volume
         self.currentVolume = current_volume
-
 
         self.listWidget_chapters.clear()
         for chapter in current_volume.chapters_list:
@@ -166,18 +196,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.spinBox_volume.setValue(int(current_volume.number))
         self.namingVolume()
 
-    def fillQueue(self, manga_name, engine_name, number_string, subtext = "waiting..."):
+    def fillQueue(self, manga_name: str, engine_name: str, number_string: str, subtext = "waiting...") -> None:
+        """
+        Add an itemQueueWidget to the queue
 
+        :param str manga_name: Name of the manga
+        :param str engine_name: Name of the engine to process the current manga
+        :param str number_string: Volume or chapter number
+        :param str subtext: subtext to give more information about the current download
+        :return: None
+        """
         item = itemQueueWidget(manga_name, engine_name, number_string, subtext)
         self.listWidget_queue.addItem(item)
 
     def namingVolume(self):
+        """
+        Automatically fill the output_name field thanks to the name and nuùber field
+        :return:
+        """
         name = self.lineEdit_manga_name.text()
         number = self.spinBox_volume.value()
 
         self.lineEdit_output_name.setText(name + "_V" + str(number))
 
     def activateRange(self):
+        """
+        Allow spinbox interaction (choose the chapter range) once the checkbox is checked
+        :return: None
+        """
         if self.checkBox_range.checkState(): # activate cross = true
             self.spinBox_chap_end.setEnabled(True)
             self.spinBox_chap_start.setEnabled(True)
@@ -186,29 +232,62 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.spinBox_chap_start.setEnabled(False)
 
     def activateCompress(self):
+        """
+        Allow combobox interaction once the checkbox "compress" is checked
+        :return: None
+        """
         if self.checkBox_compress.checkState(): # activate cross = true
             self.comboBox_compress_mode.setEnabled(True)
         else:
             self.comboBox_compress_mode.setEnabled(False)
 
     def setupEngines(self):
+        """
+        create an array of used engines
+
+        :return: None
+        """
+
         self.currentEngine = None
         self.engines = [EngineScanOP(), EngineScansMangas(), EngineLelscan()] # EngineMangaFox()
 
     def startingState(self):
+        """
+        set the init state (compression disabled, range disabled)
+
+        :return: None
+        """
+
         self.activateRange()
         self.activateCompress()
 
-    def set_output_consol(self, text):
+    def set_output_consol(self, text: str):
+        """
+        Print the given text to the output consol
+
+        :param str text:
+        :return: None
+        """
         self.label_console.setText(text)
 
-    def get_engine_by_name(self, name):
+    def get_engine_by_name(self, name: str) -> Optional[Engine]:
+        """
+        Return the engine which contains the given name
+        :param name:
+        :return:
+        """
         for e in self.engines:
             if e.name == name:
                 return e
         return None
 
     def download_selection(self):
+        """
+        Download a chapter or a range of chapter according to the checked state of the gui
+
+        :return: None
+        """
+
         print("download selection")
         manga_name = self.lineEdit_manga_name.text()
         manga_url = self.lineEdit_url.text()
@@ -254,12 +333,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                    endCallback=self.endCallback)
 
     def download_volume(self):
+        """
+        Download selected volume
+        :return: None
+        """
+
         manga_name = self.lineEdit_manga_name.text()
-        manga_url = self.lineEdit_url.text()
-        current_number = self.spinBox_volume.value()
-        first_chap = self.spinBox_chap_start.value()
-        last_chap = self.spinBox_chap_end.value()
         compress = self.checkBox_compress.checkState()
+        folder_path = self.lineEdit_save_path.text()
+        if folder_path.strip() == "":
+            folder_path=None
+
         if compress:
             compress_ext = self.comboBox_compress_mode.currentText()
         else:
@@ -281,13 +365,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.fillQueue(manga_name, engine.name, str(volume.number))
         self.core.add_new_Task(function=engine.download_volume_from_manga_url,
-                               args=(manga.link, volume.number),
+                               args=(manga.link, volume.number, folder_path),
                                kwargs={"compress": compress_ext, "display_only":False},
                                startCallback=self.startCallback,
                                callback=self.callback,
                                endCallback=self.endCallback)
 
     def download_all(self):
+        """
+        Download full selected manga
+
+        :return: None
+        """
         manga_name = self.lineEdit_manga_name.text()
         manga_url = self.lineEdit_url.text()
         compress = self.checkBox_compress.checkState()
@@ -318,6 +407,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                endCallback=self.endCallback)
 
     def startCallback(self, args = None, kwargs={}):
+        """
+        A callback template that would be called before a download
+
+        :param args: an array of args
+        :param kwargs: a dict of kwargs
+        :return: None
+        """
         self.listWidget_queue.item(0).modifySubtext("downloading!")
         self.listWidget_queue.item(0).setBackgroundColor(QColor(119,181,254))
         self.set_output_consol("Download of " + self.listWidget_queue.item(0).text)

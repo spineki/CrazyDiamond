@@ -2,7 +2,11 @@ from Engine.EngineManga.engineMangas import EngineMangas
 from Engine.EngineManga.scansManga import EngineScansMangas
 from Engine.EngineManga.lelScan import EngineLelscan
 from Engine.EngineManga.scanOP import EngineScanOP
+from Engine.EngineManga.mangadex import EngineMangadex
 #from Engine.EngineMusic.youtube import EngineYoutube
+
+from typing import List, Optional, Union, Any
+from Engine.EngineManga.manga import Manga, Chapter, Volume
 
 import time
 import aiohttp
@@ -11,16 +15,21 @@ import aiofiles as aiof
 import aiofiles
 
 
-e = EngineScanOP()
+"""e = EngineScanOP()
 manga = e.find_manga_by_name("berserk")[0]
 print(e.get_manga_info_from_url(manga.link))
-print(e.get_all_available_manga_list())
-print(e.get_info_from_chapter_url("https://scan-op.com/manga/berserk/360"))
+print(e.get_all_available_manga_online_list())
+print(e.get_info_from_chapter_url("https://scan-op.com/manga/berserk/360"))"""
 
 # scans manga, scan op
 # a faire; lelscan
 
 
+
+e = EngineMangadex()
+mangas = e.find_manga_by_name("jojo")
+
+info = e.get_manga_info_from_name("battle tendency")
 
 
 

@@ -100,7 +100,7 @@ class EngineMangas(Engine):
             self.print_v("impossible to save in json file ", file_path, " : ", str(e))
             return False
 
-    def find_manga_by_name(self, name: str) -> Optional[List[Manga]]:
+    def find_manga_by_name(self, name: str, search_online = False) -> Optional[List[Manga]]:
         """ Searches a 'manga' by its name in the database.
         If not found, makes a requests, updates the config, and searches it again
             It returns every manga that has the name field in its title.
@@ -139,12 +139,12 @@ class EngineMangas(Engine):
                 found = True
                 results.append(manga)
 
-        # If the manga is not in the database, we look for it online
-        if not found:
+        # If the manga is not in the database, we look for it online (only if we use the 'online' mode
+        if not found and search_online:
             self.print_v("searching online " + name)
 
             # update the list
-            list_manga = self.get_all_available_manga_list()
+            list_manga = self.get_all_available_manga_online_list()
             if list_manga == []:
                 return []
 
@@ -180,7 +180,7 @@ class EngineMangas(Engine):
 
     # abstract
     @abstractmethod
-    def get_all_available_manga_list(self) -> Optional[List[Manga]]:
+    def get_all_available_manga_online_list(self) -> Optional[List[Manga]]:
         pass
 
     @abstractmethod

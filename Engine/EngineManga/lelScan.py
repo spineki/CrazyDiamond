@@ -32,7 +32,7 @@ class EngineLelscan(EngineMangas):
         self.print_v(self.name + "created in " + self.current_folder)
 
     # INFO  ---------------------------------------------------------------------------------------
-    def get_all_available_manga_list(self) -> Optional[List[Manga]]:
+    def get_all_available_manga_online_list(self) -> Optional[List[Manga]]:
         """Returns the list of all mangas available on the lelscan website (after an online search)
 
         Args:

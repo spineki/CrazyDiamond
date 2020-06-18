@@ -29,7 +29,7 @@ class EngineScansMangas(EngineMangas):
 
         # INFO  ---------------------------------------------------------------------------------------
 
-    def get_all_available_manga_list(self)  -> Optional[List[Manga]]:
+    def get_all_available_manga_online_list(self)  -> Optional[List[Manga]]:
         """ Returns the list of all mangas available on the scansmanga website (after an online search)
 
         Args:

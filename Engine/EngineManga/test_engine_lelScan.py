@@ -3,7 +3,7 @@ from Engine.EngineManga.lelScan import EngineLelscan
 def test_get_all_available_manga_list():
     print("pomme")
     e = EngineLelscan()
-    manga_list = e.get_all_available_manga_list()
+    manga_list = e.get_all_available_manga_online_list()
     verif = False
     for manga in manga_list:
         if manga["title"] == 'One Piece':
