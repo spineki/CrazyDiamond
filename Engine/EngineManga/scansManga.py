@@ -1,6 +1,7 @@
 from Engine.EngineManga.engineMangas import EngineMangas
 import os
 import sys
+import re
 from typing import List, Optional
 
 from Engine.EngineManga.manga import Manga, Volume, Chapter, Page
@@ -82,20 +83,6 @@ class EngineScansMangas(EngineMangas):
             None (None): None if there is an error
         """
 
-        def is_float(string):
-            try:
-                float(string)
-                return True
-            except ValueError:
-                return False
-
-        def is_int(_float):
-            try:
-                int(_float)
-                return True
-            except ValueError:
-                return False
-
         # We get the soup related to the url
         soup = self.get_soup(url)
         if soup is None:
@@ -110,27 +97,32 @@ class EngineScansMangas(EngineMangas):
 
         # we extract titles, number of the volume....
         retrieved_chapters_list: List[Chapter] = []
+        number_re = re.compile(r"([\d]+[\.,]?[\d]?)")
         try:
             for page in raw_page_list:
-                retrieved_chapter = Chapter(name=page.text.strip(),
-                                            link=page["value"])
 
-                title = page.text.strip()
-                # get rid of , converted to dot
-                raw_title = title.replace(",", ".")
+                try:
+                    retrieved_chapter = Chapter(name=page.text.strip(),
+                                                link=page["value"])
+                    title = page.text.strip()
+                    # get rid of , converted to dot
+                    raw_title = title.replace(",", ".")
 
-                # We need to handle decimal valued chapters
-                list_number = [float(s) for s in raw_title.split() if is_float(s)]
-                list_number = [int(s) if is_int(s) else s for s in list_number]
-                retrieved_chapter.number = list_number[-1]
+                    # We need to handle decimal valued chapters
+                    regex_search = number_re.search(raw_title)
 
-                retrieved_chapters_list.append(retrieved_chapter)
+                    retrieved_chapter.number = regex_search.group()
+
+                    retrieved_chapters_list.append(retrieved_chapter)
+                except Exception as e:
+                    self.print_v("error with " + str(page) + " due to error :" + str(e) )
+                    continue
 
         except Exception as e:
             self.print_v("Impossible to get proper numbers from the html page ", url, ": ", str(e))
             return None
 
-        retrieved_chapters_list = sorted(retrieved_chapters_list, key=lambda manga: manga.number)
+        retrieved_chapters_list = sorted(retrieved_chapters_list, key=lambda manga: float(manga.number))
 
         # We need the correct title as mentioned in the page
         try:

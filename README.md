@@ -12,3 +12,11 @@ Two goals are set for this project:
  Maintainer, Spineki
  
  
+To build the executable
+
+ 
+ pyinstaller -F  hyperion.py --clean
+
+ 
+ 
+ 

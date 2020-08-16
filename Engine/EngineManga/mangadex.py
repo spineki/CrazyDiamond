@@ -165,9 +165,28 @@ class EngineMangadex(EngineMangas):
 
         return retrieved_manga
 
-    def get_info_from_chapter_url(self, url):
-        pass
+    def get_info_from_chapter_url(self, url) -> Optional[Chapter]:
+        """Takes the url of a chapter, and returns a set of valuable infos
+            Args:
+                url (string): url of the chapter
+            Returns:
+                chapter (Chapter): chapters
+                None (None): None if there is an error
+            Raises:
+                Doesn't raise an error. print a warning with self.print_v().
+         """
 
+        soup = self.get_soup(url)
+        if soup is None:
+            return None
+
+        try:  # Some blank pages can still pass
+            manga_title = soup.title.text.split("(")[1].split(")")[0]
+            list_number_page = [int(opt["value"]) for opt in soup.find_all("option") if "value" in opt.attrs]
+            max_page = max(list_number_page)
+        except Exception as e:
+            self.print_v("Impossible to get 'img' and 'alt' fields in the soup from this url ", url, ": ", str(e))
+            return None
 
 
 

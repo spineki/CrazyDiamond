@@ -36,6 +36,7 @@ info = e.get_manga_info_from_name("battle tendency")
 
 
 
+
 # python -m pytest --ignore=envs
 # virtualenv --clear envs
 # done
