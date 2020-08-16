@@ -499,8 +499,6 @@ class EngineMangas(Engine):
                 if chap_number == chapter.number:
                     results.append(self.async_download_chapter(chapter.link, folder_path=volume_directory))
                     break
-
-
         if rename_auto:
             self.rename_file_from_folder_lexico(volume_directory, display_only=False)
 

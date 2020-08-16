@@ -111,9 +111,15 @@ class EngineScansMangas(EngineMangas):
                     # We need to handle decimal valued chapters
                     regex_search = number_re.search(raw_title)
 
-                    retrieved_chapter.number = regex_search.group()
+                    chapter_number_raw = regex_search.group()
 
-                    retrieved_chapters_list.append(retrieved_chapter)
+                    if float(chapter_number_raw) == int(chapter_number_raw):
+                        chapter_number = int(chapter_number_raw)
+                    else:
+                        chapter_number = float(chapter_number_raw)
+                    retrieved_chapter.number = chapter_number
+
+                    retrieved_chapters_list.append( retrieved_chapter )
                 except Exception as e:
                     self.print_v("error with " + str(page) + " due to error :" + str(e) )
                     continue

@@ -291,6 +291,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         print("download selection")
         manga_name = self.lineEdit_manga_name.text()
         manga_url = self.lineEdit_url.text()
+        folder_path = self.lineEdit_save_path.text()
+        if folder_path == "":
+            folder_path=None
         current_number = self.spinBox_volume.value()
         first_chap = self.spinBox_chap_start.value()
         last_chap = self.spinBox_chap_end.value()
@@ -317,7 +320,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.fillQueue(manga_name, engine.name, str(first_chap) + "_"+ str(last_chap))
             self.core.add_new_Task(function = engine.download_range_chapters_from_url,
                                    args = (manga_url, first_chap, last_chap, output_name),
-                                   kwargs = {"compress": compress_ext},
+                                   kwargs = {"compress": compress_ext, "folder_path": folder_path },
                                    startCallback=self.startCallback,
                                    callback=self.callback,
                                    endCallback=self.endCallback)
@@ -327,7 +330,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.fillQueue(manga_name, engine.name, str(current_number))
             self.core.add_new_Task(function=engine.download_range_chapters_from_url,
                                    args = (manga_url, current_number, current_number, output_name),
-                                   kwargs = {"compress": compress_ext},
+                                   kwargs = {"compress": compress_ext, "folder_path": folder_path},
                                    startCallback=self.startCallback,
                                    callback=self.callback,
                                    endCallback=self.endCallback)
