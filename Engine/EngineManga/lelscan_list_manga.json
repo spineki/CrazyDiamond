@@ -1,1206 +1,2462 @@
 [
     {
-        "title": "One Piece",
+        "name": "One Piece",
         "link": "https://www.lelscan-vf.com/manga/one-piece"
     },
     {
-        "title": "Black Butler",
+        "name": "Black Butler",
         "link": "https://www.lelscan-vf.com/manga/black-butler"
     },
     {
-        "title": "Hunter X Hunter",
+        "name": "Hunter X Hunter",
         "link": "https://www.lelscan-vf.com/manga/hunter-x-hunter"
     },
     {
-        "title": "Nanatsu No Taizai",
+        "name": "Nanatsu No Taizai",
         "link": "https://www.lelscan-vf.com/manga/nanatsu-no-taizai"
     },
     {
-        "title": "One Punch Man",
+        "name": "One Punch Man",
         "link": "https://www.lelscan-vf.com/manga/one-punch-man"
     },
     {
-        "title": "Kingdom",
+        "name": "Kingdom",
         "link": "https://www.lelscan-vf.com/manga/kingdom"
     },
     {
-        "title": "Shingeki No Kyojin",
+        "name": "Shingeki No Kyojin",
         "link": "https://www.lelscan-vf.com/manga/shingeki-no-kyojin"
     },
     {
-        "title": "Eden's Zero",
+        "name": "Eden's Zero",
         "link": "https://www.lelscan-vf.com/manga/edens-zero"
     },
     {
-        "title": "My Hero Academia",
+        "name": "My Hero Academia",
         "link": "https://www.lelscan-vf.com/manga/my-hero-academia"
     },
     {
-        "title": "The Promised neverland",
+        "name": "The Promised neverland",
         "link": "https://www.lelscan-vf.com/manga/the-promised-neverland"
     },
     {
-        "title": "Black Clover",
+        "name": "Black Clover",
         "link": "https://www.lelscan-vf.com/manga/black-clover"
     },
     {
-        "title": "Tokyo Ghoul:re",
+        "name": "Tokyo Ghoul:re",
         "link": "https://www.lelscan-vf.com/manga/tokyo-ghoulre"
     },
     {
-        "title": "Ace Of Diamond",
+        "name": "Ace Of Diamond",
         "link": "https://www.lelscan-vf.com/manga/ace-of-diamond"
     },
     {
-        "title": "+Anima",
+        "name": "+Anima",
         "link": "https://www.lelscan-vf.com/manga/anima"
     },
     {
-        "title": "A Story About Treating A Female Knight, Who Has Never Been Treated As A Woman, As A Woman",
+        "name": "A Story About Treating A Female Knight, Who Has Never Been Treated As A Woman, As A Woman",
         "link": "https://www.lelscan-vf.com/manga/a-story-about-treating-a-female-knight-who-has-never-been-treated-as-a-woman-as-a-woman"
     },
     {
-        "title": "Ad Astra",
+        "name": "Ad Astra",
         "link": "https://www.lelscan-vf.com/manga/ad-astra"
     },
     {
-        "title": "Aflame Inferno",
+        "name": "Aflame Inferno",
         "link": "https://www.lelscan-vf.com/manga/aflame-inferno"
     },
     {
-        "title": "After Transformation, Mine And Her Wild Fantasy",
+        "name": "After Transformation, Mine And Her Wild Fantasy",
         "link": "https://www.lelscan-vf.com/manga/after-transformation-mine-and-her-wild-fantasy"
     },
     {
-        "title": "Combat Continent - Douluo Dalu",
+        "name": "Combat Continent - Douluo Dalu",
         "link": "https://www.lelscan-vf.com/manga/combat-continent-douluo-dalu"
     },
     {
-        "title": "Boruto",
+        "name": "Boruto",
         "link": "https://www.lelscan-vf.com/manga/boruto"
     },
     {
-        "title": "Fairy Tail 100 Years Quest",
+        "name": "Fairy Tail 100 Years Quest",
         "link": "https://www.lelscan-vf.com/manga/fairy-tail-100-years-quest"
     },
     {
-        "title": "Berserk",
+        "name": "Berserk",
         "link": "https://www.lelscan-vf.com/manga/berserk"
     },
     {
-        "title": "Haikyuu",
+        "name": "Haikyuu",
         "link": "https://www.lelscan-vf.com/manga/haikyuu"
     },
     {
-        "title": "God Of Martial Arts",
+        "name": "God Of Martial Arts",
         "link": "https://www.lelscan-vf.com/manga/god-of-martial-arts"
     },
     {
-        "title": "Tales Of Demons And Gods",
+        "name": "Tales Of Demons And Gods",
         "link": "https://www.lelscan-vf.com/manga/tales-of-demons-and-gods"
     },
     {
-        "title": "The Gamer",
+        "name": "The Gamer",
         "link": "https://www.lelscan-vf.com/manga/the-gamer"
     },
     {
-        "title": "Doupo Cangqiong",
+        "name": "Doupo Cangqiong",
         "link": "https://www.lelscan-vf.com/manga/doupo-cangqiong"
     },
     {
-        "title": "Dr. Stone",
+        "name": "Dr. Stone",
         "link": "https://www.lelscan-vf.com/manga/dr-stone"
     },
     {
-        "title": "Ao No Exorcist",
+        "name": "Ao No Exorcist",
         "link": "https://www.lelscan-vf.com/manga/ao-no-exorcist"
     },
     {
-        "title": "Fairy Tail",
+        "name": "Fairy Tail",
         "link": "https://www.lelscan-vf.com/manga/fairy-tail"
     },
     {
-        "title": "Doupo Cangqiong Zhi Yao Lao Chuanqi",
+        "name": "Doupo Cangqiong Zhi Yao Lao Chuanqi",
         "link": "https://www.lelscan-vf.com/manga/doupo-cangqiong-zhi-yao-lao-chuanqi"
     },
     {
-        "title": "Hajime No Ippo",
+        "name": "Hajime No Ippo",
         "link": "https://www.lelscan-vf.com/manga/hajime-no-ippo"
     },
     {
-        "title": "Kimetsu No Yaiba",
+        "name": "Kimetsu No Yaiba",
         "link": "https://www.lelscan-vf.com/manga/kimetsu-no-yaiba"
     },
     {
-        "title": "Detective Conan",
+        "name": "Detective Conan",
         "link": "https://www.lelscan-vf.com/manga/detective-conan"
     },
     {
-        "title": "Bleach",
+        "name": "Bleach",
         "link": "https://www.lelscan-vf.com/manga/bleach"
     },
     {
-        "title": "Dragon Ball Super",
+        "name": "Dragon Ball Super",
         "link": "https://www.lelscan-vf.com/manga/dragon-ball-super"
     },
     {
-        "title": "Star Martial God Technique",
+        "name": "Star Martial God Technique",
         "link": "https://www.lelscan-vf.com/manga/star-martial-god-technique"
     },
     {
-        "title": "Ajin",
+        "name": "Ajin",
         "link": "https://www.lelscan-vf.com/manga/ajin"
     },
     {
-        "title": "Real Account",
+        "name": "Real Account",
         "link": "https://www.lelscan-vf.com/manga/real-account"
     },
     {
-        "title": "Naruto",
+        "name": "Naruto",
         "link": "https://www.lelscan-vf.com/manga/naruto"
     },
     {
-        "title": "Highschool Of The Dead",
+        "name": "Highschool Of The Dead",
         "link": "https://www.lelscan-vf.com/manga/highschool-of-the-dead"
     },
     {
-        "title": "Gantz",
+        "name": "Gantz",
         "link": "https://www.lelscan-vf.com/manga/gantz"
     },
     {
-        "title": "Boku Girl",
+        "name": "Boku Girl",
         "link": "https://www.lelscan-vf.com/manga/boku-girl"
     },
     {
-        "title": "Gamaran",
+        "name": "Gamaran",
         "link": "https://www.lelscan-vf.com/manga/gamaran"
     },
     {
-        "title": "Platinum END",
+        "name": "Platinum END",
         "link": "https://www.lelscan-vf.com/manga/platinum-end"
     },
     {
-        "title": "Karate Shoukoushi Kohinata Minoru",
+        "name": "Karate Shoukoushi Kohinata Minoru",
         "link": "https://www.lelscan-vf.com/manga/karate-shoukoushi-kohinata-minoru"
     },
     {
-        "title": "Very Pure",
+        "name": "Very Pure",
         "link": "https://www.lelscan-vf.com/manga/very-pure"
     },
     {
-        "title": "Moriarty",
+        "name": "Moriarty",
         "link": "https://www.lelscan-vf.com/manga/moriarty"
     },
     {
-        "title": "Orient",
+        "name": "Orient",
         "link": "https://www.lelscan-vf.com/manga/orient"
     },
     {
-        "title": "Gintama",
+        "name": "Gintama",
         "link": "https://www.lelscan-vf.com/manga/gintama"
     },
     {
-        "title": "Tenkuu Shinpan",
+        "name": "Tenkuu Shinpan",
         "link": "https://www.lelscan-vf.com/manga/tenkuu-shinpan"
     },
     {
-        "title": "Solo Leveling",
+        "name": "Solo Leveling",
         "link": "https://www.lelscan-vf.com/manga/solo-leveling"
     },
     {
-        "title": "Shokugeki No Soma",
+        "name": "Shokugeki No Soma",
         "link": "https://www.lelscan-vf.com/manga/shokugeki-no-soma"
     },
     {
-        "title": "Chainsaw Man",
+        "name": "Chainsaw Man",
         "link": "https://www.lelscan-vf.com/manga/chainsaw-man"
     },
     {
-        "title": "Blades Of The Guardians",
+        "name": "Blades Of The Guardians",
         "link": "https://www.lelscan-vf.com/manga/blades-of-the-guardians"
     },
     {
-        "title": "Samurai 8: Conte D'Hachimaru",
+        "name": "Samurai 8: Conte D'Hachimaru",
         "link": "https://www.lelscan-vf.com/manga/samurai-8-conte-dhachimaru"
     },
     {
-        "title": "Dai Dark",
+        "name": "Dai Dark",
         "link": "https://www.lelscan-vf.com/manga/dai-dark"
     },
     {
-        "title": "Aku Ingin Menjadi Resepsionis Dunia Sihir!",
+        "name": "Aku Ingin Menjadi Resepsionis Dunia Sihir!",
         "link": "https://www.lelscan-vf.com/manga/aku-ingin-menjadi-resepsionis-dunia-sihir"
     },
     {
-        "title": "Tokyo Shinobi Squad",
+        "name": "Tokyo Shinobi Squad",
         "link": "https://www.lelscan-vf.com/manga/tokyo-shinobi-squad"
     },
     {
-        "title": "one piece",
+        "name": "one piece",
         "link": "https://www.lelscan-vf.com/manga/one-piece-"
     },
     {
-        "title": "Shokugeki No Soma: Le Dessert",
+        "name": "Shokugeki No Soma: Le Dessert",
         "link": "https://www.lelscan-vf.com/manga/shokugeki-no-soma-le-dessert"
     },
     {
-        "title": "Douluo Dalu 2 - L'exceptionnel Clan Tang",
+        "name": "Douluo Dalu 2 - L'exceptionnel Clan Tang",
         "link": "https://www.lelscan-vf.com/manga/douluo-dalu-2-lexceptionnel-clan-tang"
     },
     {
-        "title": "Isekai Goumon Hime",
+        "name": "Isekai Goumon Hime",
         "link": "https://www.lelscan-vf.com/manga/isekai-goumon-hime"
     },
     {
-        "title": "Feng Shen Ji",
+        "name": "Feng Shen Ji",
         "link": "https://www.lelscan-vf.com/manga/feng-shen-ji"
     },
     {
-        "title": "A Returner's Magic Should Be Special",
+        "name": "A Returner's Magic Should Be Special",
         "link": "https://www.lelscan-vf.com/manga/a-returners-magic-should-be-special"
     },
     {
-        "title": "Mejaz - Regulus In The World",
+        "name": "Mejaz - Regulus In The World",
         "link": "https://www.lelscan-vf.com/manga/mejaz-regulus-in-the-world"
     },
     {
-        "title": "A World Ruled By Cats",
+        "name": "A World Ruled By Cats",
         "link": "https://www.lelscan-vf.com/manga/a-world-ruled-by-cats"
     },
     {
-        "title": "Time Lover",
+        "name": "Time Lover",
         "link": "https://www.lelscan-vf.com/manga/time-lover"
     },
     {
-        "title": "MookHyang - Dark Lady",
+        "name": "MookHyang - Dark Lady",
         "link": "https://www.lelscan-vf.com/manga/mookhyang-dark-lady"
     },
     {
-        "title": "Dimensional Mercenary",
+        "name": "Dimensional Mercenary",
         "link": "https://www.lelscan-vf.com/manga/dimensional-mercenary"
     },
     {
-        "title": "Sincerely: I Became A Duke's Maid",
+        "name": "Sincerely: I Became A Duke's Maid",
         "link": "https://www.lelscan-vf.com/manga/sincerely-i-became-a-dukes-maid"
     },
     {
-        "title": "Regnal Trigger",
+        "name": "Regnal Trigger",
         "link": "https://www.lelscan-vf.com/manga/regnal-trigger"
     },
     {
-        "title": "Fox Girls Are Better",
+        "name": "Fox Girls Are Better",
         "link": "https://www.lelscan-vf.com/manga/fox-girls-are-better"
     },
     {
-        "title": "Cangqiong Bang Zhi Wan Shou Gui Yuan",
+        "name": "Cangqiong Bang Zhi Wan Shou Gui Yuan",
         "link": "https://www.lelscan-vf.com/manga/cangqiong-bang-zhi-wan-shou-gui-yuan"
     },
     {
-        "title": "Player Reborn",
+        "name": "Player Reborn",
         "link": "https://www.lelscan-vf.com/manga/player-reborn"
     },
     {
-        "title": "Tondemo Skill De Isekai Hourou Meshi",
+        "name": "Tondemo Skill De Isekai Hourou Meshi",
         "link": "https://www.lelscan-vf.com/manga/tondemo-skill-de-isekai-hourou-meshi"
     },
     {
-        "title": "Lalin's Curse",
+        "name": "Lalin's Curse",
         "link": "https://www.lelscan-vf.com/manga/lalins-curse"
     },
     {
-        "title": "Jagaaaaaan",
+        "name": "Jagaaaaaan",
         "link": "https://www.lelscan-vf.com/manga/jagaaaaaan"
     },
     {
-        "title": "Arigatights!",
+        "name": "Arigatights!",
         "link": "https://www.lelscan-vf.com/manga/arigatights"
     },
     {
-        "title": "Fuufu Ijou, Koibito Miman.",
+        "name": "Fuufu Ijou, Koibito Miman.",
         "link": "https://www.lelscan-vf.com/manga/fuufu-ijou-koibito-miman"
     },
     {
-        "title": "My Wife Is A Man",
+        "name": "My Wife Is A Man",
         "link": "https://www.lelscan-vf.com/manga/my-wife-is-a-man"
     },
     {
-        "title": "You'Re In The Deep Starlight",
+        "name": "You'Re In The Deep Starlight",
         "link": "https://www.lelscan-vf.com/manga/youre-in-the-deep-starlight"
     },
     {
-        "title": "Dad Is A Hero, Mom Is A Spirit, I'm A Reincarnator",
+        "name": "Dad Is A Hero, Mom Is A Spirit, I'm A Reincarnator",
         "link": "https://www.lelscan-vf.com/manga/dad-is-a-hero-mom-is-a-spirit-im-a-reincarnator"
     },
     {
-        "title": "Aka Akatoretachi No Monogatari",
+        "name": "Aka Akatoretachi No Monogatari",
         "link": "https://www.lelscan-vf.com/manga/aka-akatoretachi-no-monogatari"
     },
     {
-        "title": "Tokyo Revengers",
+        "name": "Tokyo Revengers",
         "link": "https://www.lelscan-vf.com/manga/tokyo-revengers"
     },
     {
-        "title": "Act-Age",
+        "name": "Act-Age",
         "link": "https://www.lelscan-vf.com/manga/actage"
     },
     {
-        "title": "Martial King's Retired Life",
+        "name": "Martial King's Retired Life",
         "link": "https://www.lelscan-vf.com/manga/martial-kings-retired-life"
     },
     {
-        "title": "Vinland Saga",
+        "name": "Vinland Saga",
         "link": "https://www.lelscan-vf.com/manga/vinland-saga"
     },
     {
-        "title": "War's Unwomanly Face",
+        "name": "War's Unwomanly Face",
         "link": "https://www.lelscan-vf.com/manga/wars-unwomanly-face"
     },
     {
-        "title": "Gleipnir",
+        "name": "Gleipnir",
         "link": "https://www.lelscan-vf.com/manga/gleipnir"
     },
     {
-        "title": "Akai Kiba: Blue Sonnet",
+        "name": "Akai Kiba: Blue Sonnet",
         "link": "https://www.lelscan-vf.com/manga/akai-kiba-blue-sonnet"
     },
     {
-        "title": "Revival Man",
+        "name": "Revival Man",
         "link": "https://www.lelscan-vf.com/manga/revival-man"
     },
     {
-        "title": "Bouncer",
+        "name": "Bouncer",
         "link": "https://www.lelscan-vf.com/manga/bouncer"
     },
     {
-        "title": "Her Highness Is Mighty",
+        "name": "Her Highness Is Mighty",
         "link": "https://www.lelscan-vf.com/manga/her-highness-is-mighty"
     },
     {
-        "title": "Dahliya Wilts No More",
+        "name": "Dahliya Wilts No More",
         "link": "https://www.lelscan-vf.com/manga/dahliya-wilts-no-more"
     },
     {
-        "title": "Choco Latte",
+        "name": "Choco Latte",
         "link": "https://www.lelscan-vf.com/manga/choco-latte"
     },
     {
-        "title": "Mayabi",
+        "name": "Mayabi",
         "link": "https://www.lelscan-vf.com/manga/mayabi"
     },
     {
-        "title": "Lazy Dungeon Master",
+        "name": "Lazy Dungeon Master",
         "link": "https://www.lelscan-vf.com/manga/lazy-dungeon-master"
     },
     {
-        "title": "River God Seeks Adoption",
+        "name": "River God Seeks Adoption",
         "link": "https://www.lelscan-vf.com/manga/river-god-seeks-adoption"
     },
     {
-        "title": "Spider-Man: Fake Red",
+        "name": "Spider-Man: Fake Red",
         "link": "https://www.lelscan-vf.com/manga/spiderman-fake-red"
     },
     {
-        "title": "FFF-Class Trashero",
+        "name": "FFF-Class Trashero",
         "link": "https://www.lelscan-vf.com/manga/fffclass-trashero"
     },
     {
-        "title": "My Lord, The Wolf Queen",
+        "name": "My Lord, The Wolf Queen",
         "link": "https://www.lelscan-vf.com/manga/my-lord-the-wolf-queen"
     },
     {
-        "title": "Gundam Seed Destiny dj - AA",
+        "name": "Gundam Seed Destiny dj - AA",
         "link": "https://www.lelscan-vf.com/manga/gundam-seed-destiny-dj-aa"
     },
     {
-        "title": "Humor Me",
+        "name": "Humor Me",
         "link": "https://www.lelscan-vf.com/manga/humor-me"
     },
     {
-        "title": "We Shall Now Begin Ethics",
+        "name": "We Shall Now Begin Ethics",
         "link": "https://www.lelscan-vf.com/manga/we-shall-now-begin-ethics"
     },
     {
-        "title": "Ikurou-san (43-sai) wa Amaetai",
+        "name": "Ikurou-san (43-sai) wa Amaetai",
         "link": "https://www.lelscan-vf.com/manga/ikurousan-43sai-wa-amaetai"
     },
     {
-        "title": "Disease",
+        "name": "Disease",
         "link": "https://www.lelscan-vf.com/manga/disease"
     },
     {
-        "title": "Shinigami Bocchan To Kuro Maid",
+        "name": "Shinigami Bocchan To Kuro Maid",
         "link": "https://www.lelscan-vf.com/manga/shinigami-bocchan-to-kuro-maid"
     },
     {
-        "title": "Charlotte has five disciples",
+        "name": "Charlotte has five disciples",
         "link": "https://www.lelscan-vf.com/manga/charlotte-has-five-disciples"
     },
     {
-        "title": "Magi Craft Meister",
+        "name": "Magi Craft Meister",
         "link": "https://www.lelscan-vf.com/manga/magi-craft-meister"
     },
     {
-        "title": "Break The World",
+        "name": "Break The World",
         "link": "https://www.lelscan-vf.com/manga/break-the-world"
     },
     {
-        "title": "Cross Days",
+        "name": "Cross Days",
         "link": "https://www.lelscan-vf.com/manga/cross-days"
     },
     {
-        "title": "Grappler Baki",
+        "name": "Grappler Baki",
         "link": "https://www.lelscan-vf.com/manga/grappler-baki"
     },
     {
-        "title": "World Teacher \u2013 Other World Style Education & Agent",
+        "name": "World Teacher \u2013 Other World Style Education & Agent",
         "link": "https://www.lelscan-vf.com/manga/world-teacher-other-world-style-education-agent"
     },
     {
-        "title": "The Reincarnation Magician Of The Inferior Eyes",
+        "name": "The Reincarnation Magician Of The Inferior Eyes",
         "link": "https://www.lelscan-vf.com/manga/the-reincarnation-magician-of-the-inferior-eyes"
     },
     {
-        "title": "Hero's",
+        "name": "Hero's",
         "link": "https://www.lelscan-vf.com/manga/heros"
     },
     {
-        "title": "Murenase! Shiiton Gakuen",
+        "name": "Murenase! Shiiton Gakuen",
         "link": "https://www.lelscan-vf.com/manga/murenase-shiiton-gakuen"
     },
     {
-        "title": "Shed! Ryugasaki-San",
+        "name": "Shed! Ryugasaki-San",
         "link": "https://www.lelscan-vf.com/manga/shed-ryugasakisan"
     },
     {
-        "title": "Asoko De Hataraku Musubu-San",
+        "name": "Asoko De Hataraku Musubu-San",
         "link": "https://www.lelscan-vf.com/manga/asoko-de-hataraku-musubusan"
     },
     {
-        "title": "Ore No Ie Ga Maryoku Spot Datta Ken - Sundeiru Dake De Sekai Saikyou",
+        "name": "Ore No Ie Ga Maryoku Spot Datta Ken - Sundeiru Dake De Sekai Saikyou",
         "link": "https://www.lelscan-vf.com/manga/ore-no-ie-ga-maryoku-spot-datta-ken-sundeiru-dake-de-sekai-saikyou"
     },
     {
-        "title": "Isekai De Kojiin Wo Hiraitakedo, Nazeka Darehitori Sudatou To Shinai Ken",
+        "name": "Isekai De Kojiin Wo Hiraitakedo, Nazeka Darehitori Sudatou To Shinai Ken",
         "link": "https://www.lelscan-vf.com/manga/isekai-de-kojiin-wo-hiraitakedo-nazeka-darehitori-sudatou-to-shinai-ken"
     },
     {
-        "title": "D Gray Man",
+        "name": "D Gray Man",
         "link": "https://www.lelscan-vf.com/manga/d-gray-man"
     },
     {
-        "title": "Dramatic Irony",
+        "name": "Dramatic Irony",
         "link": "https://www.lelscan-vf.com/manga/dramatic-irony"
     },
     {
-        "title": "Kimetsu no Yaiba - A Story about a Small Promise they made with Kyoujurou-san (Doujinshi)",
+        "name": "Kimetsu no Yaiba - A Story about a Small Promise they made with Kyoujurou-san (Doujinshi)",
         "link": "https://www.lelscan-vf.com/manga/kimetsu-no-yaiba-a-story-about-a-small-promise-they-made-with-kyoujurousan-doujinshi"
     },
     {
-        "title": "Tian Mei De Yao Hen",
+        "name": "Tian Mei De Yao Hen",
         "link": "https://www.lelscan-vf.com/manga/tian-mei-de-yao-hen"
     },
     {
-        "title": "Taihen Yoku Dekimashita",
+        "name": "Taihen Yoku Dekimashita",
         "link": "https://www.lelscan-vf.com/manga/taihen-yoku-dekimashita"
     },
     {
-        "title": "Dr. Stone Reboot: Byakuya",
+        "name": "Dr. Stone Reboot: Byakuya",
         "link": "https://www.lelscan-vf.com/manga/dr-stone-reboot-byakuya"
     },
     {
-        "title": "MOMO: The Blood Taker",
+        "name": "MOMO: The Blood Taker",
         "link": "https://www.lelscan-vf.com/manga/momo-the-blood-taker"
     },
     {
-        "title": "Duranki",
+        "name": "Duranki",
         "link": "https://www.lelscan-vf.com/manga/duranki"
     },
     {
-        "title": "Tenkuu Shinpan Arrive",
+        "name": "Tenkuu Shinpan Arrive",
         "link": "https://www.lelscan-vf.com/manga/tenkuu-shinpan-arrive"
     },
     {
-        "title": "World Trigger",
+        "name": "World Trigger",
         "link": "https://www.lelscan-vf.com/manga/world-trigger"
     },
     {
-        "title": "Jujutsu Kaisen",
+        "name": "Jujutsu Kaisen",
         "link": "https://www.lelscan-vf.com/manga/jujutsu-kaisen"
     },
     {
-        "title": "Gantz:E",
+        "name": "Gantz:E",
         "link": "https://www.lelscan-vf.com/manga/gantze"
     },
     {
-        "title": "Otherworldly Sword King\u2019S Survival Records",
+        "name": "Otherworldly Sword King\u2019S Survival Records",
         "link": "https://www.lelscan-vf.com/manga/otherworldly-sword-kings-survival-records"
     },
     {
-        "title": "The Second Coming Of Gluttony",
+        "name": "The Second Coming Of Gluttony",
         "link": "https://www.lelscan-vf.com/manga/the-second-coming-of-gluttony"
     },
     {
-        "title": "Black-Box",
+        "name": "Black-Box",
         "link": "https://www.lelscan-vf.com/manga/blackbox"
     },
     {
-        "title": "ReLIFE",
+        "name": "ReLIFE",
         "link": "https://www.lelscan-vf.com/manga/relife"
     },
     {
-        "title": "Blizzard Axel",
+        "name": "Blizzard Axel",
         "link": "https://www.lelscan-vf.com/manga/blizzard-axel"
     },
     {
-        "title": "BEGIN",
+        "name": "BEGIN",
         "link": "https://www.lelscan-vf.com/manga/begin"
     },
     {
-        "title": "Takarakuji De 40-Oku Atattandakedo Isekai Ni Ijuu Suru",
+        "name": "Takarakuji De 40-Oku Atattandakedo Isekai Ni Ijuu Suru",
         "link": "https://www.lelscan-vf.com/manga/takarakuji-de-40oku-atattandakedo-isekai-ni-ijuu-suru"
     },
     {
-        "title": "Real",
+        "name": "Real",
         "link": "https://www.lelscan-vf.com/manga/real"
     },
     {
-        "title": "Shingeki No Kyojin - Before The Fall",
+        "name": "Shingeki No Kyojin - Before The Fall",
         "link": "https://www.lelscan-vf.com/manga/shingeki-no-kyojin-before-the-fall"
     },
     {
-        "title": "S'il Te Plait, Ne Me Harc\u00e8le Pas, Nagatoro",
+        "name": "S'il Te Plait, Ne Me Harc\u00e8le Pas, Nagatoro",
         "link": "https://www.lelscan-vf.com/manga/sil-te-plait-ne-me-harcle-pas-nagatoro"
     },
     {
-        "title": "School Of Mages",
+        "name": "School Of Mages",
         "link": "https://www.lelscan-vf.com/manga/school-of-mages"
     },
     {
-        "title": "Digimon Xros Wars",
+        "name": "Digimon Xros Wars",
         "link": "https://www.lelscan-vf.com/manga/digimon-xros-wars"
     },
     {
-        "title": "DaXiangWuXing (Taoist)",
+        "name": "DaXiangWuXing (Taoist)",
         "link": "https://www.lelscan-vf.com/manga/daxiangwuxing-taoist"
     },
     {
-        "title": "Your Name.",
+        "name": "Your Name.",
         "link": "https://www.lelscan-vf.com/manga/your-name"
     },
     {
-        "title": "Shed Be Such A Cutie If Only She Stayed Silent",
+        "name": "Shed Be Such A Cutie If Only She Stayed Silent",
         "link": "https://www.lelscan-vf.com/manga/shed-be-such-a-cutie-if-only-she-stayed-silent"
     },
     {
-        "title": "Strongest Leveling",
+        "name": "Strongest Leveling",
         "link": "https://www.lelscan-vf.com/manga/strongest-leveling"
     },
     {
-        "title": "Solo Auto-Hunting",
+        "name": "Solo Auto-Hunting",
         "link": "https://www.lelscan-vf.com/manga/solo-autohunting"
     },
     {
-        "title": "The Strongest Cheat Player",
+        "name": "The Strongest Cheat Player",
         "link": "https://www.lelscan-vf.com/manga/the-strongest-cheat-player"
     },
     {
-        "title": "Assassin De Aru Ore No Sutetasu Ga Yuusha Yori Mo Akiraka Ni Tsuyoi Nodaga",
+        "name": "Assassin De Aru Ore No Sutetasu Ga Yuusha Yori Mo Akiraka Ni Tsuyoi Nodaga",
         "link": "https://www.lelscan-vf.com/manga/assassin-de-aru-ore-no-sutetasu-ga-yuusha-yori-mo-akiraka-ni-tsuyoi-nodaga"
     },
     {
-        "title": "RaW Hero",
+        "name": "RaW Hero",
         "link": "https://www.lelscan-vf.com/manga/raw-hero"
     },
     {
-        "title": "Freak-Quency",
+        "name": "Freak-Quency",
         "link": "https://www.lelscan-vf.com/manga/freakquency"
     },
     {
-        "title": "White Blood",
+        "name": "White Blood",
         "link": "https://www.lelscan-vf.com/manga/white-blood"
     },
     {
-        "title": "Banished Disciple's Counterattack",
+        "name": "Banished Disciple's Counterattack",
         "link": "https://www.lelscan-vf.com/manga/banished-disciples-counterattack"
     },
     {
-        "title": "Mieruko-Chan",
+        "name": "Mieruko-Chan",
         "link": "https://www.lelscan-vf.com/manga/mierukochan"
     },
     {
-        "title": "Ranker's Return",
+        "name": "Ranker's Return",
         "link": "https://www.lelscan-vf.com/manga/rankers-return"
     },
     {
-        "title": "Fu Fu Qing Chen",
+        "name": "Fu Fu Qing Chen",
         "link": "https://www.lelscan-vf.com/manga/fu-fu-qing-chen"
     },
     {
-        "title": "Rich Player",
+        "name": "Rich Player",
         "link": "https://www.lelscan-vf.com/manga/rich-player"
     },
     {
-        "title": "I Was Told To Relinquish My Fianc\u00e9 To My Little Sister, And The Greatest Dragon Took A Liking To Me And Unbelievably Took Over The Kingdom",
+        "name": "I Was Told To Relinquish My Fianc\u00e9 To My Little Sister, And The Greatest Dragon Took A Liking To Me And Unbelievably Took Over The Kingdom",
         "link": "https://www.lelscan-vf.com/manga/i-was-told-to-relinquish-my-fianc-to-my-little-sister-and-the-greatest-dragon-took-a-liking-to-me-and-unbelievably-took-over-the-kingdom"
     },
     {
-        "title": "Terra Formars - Asimov",
+        "name": "Terra Formars - Asimov",
         "link": "https://www.lelscan-vf.com/manga/terra-formars-asimov"
     },
     {
-        "title": "Fukushuu Kansuisha No Jinsei Nishuume Isekaitan",
+        "name": "Fukushuu Kansuisha No Jinsei Nishuume Isekaitan",
         "link": "https://www.lelscan-vf.com/manga/fukushuu-kansuisha-no-jinsei-nishuume-isekaitan"
     },
     {
-        "title": "My Wife Is A Cold-Hearted",
+        "name": "My Wife Is A Cold-Hearted",
         "link": "https://www.lelscan-vf.com/manga/my-wife-is-a-coldhearted"
     },
     {
-        "title": "Chronicles Of Heavenly Demon",
+        "name": "Chronicles Of Heavenly Demon",
         "link": "https://www.lelscan-vf.com/manga/chronicles-of-heavenly-demon"
     },
     {
-        "title": "Lady Baby",
+        "name": "Lady Baby",
         "link": "https://www.lelscan-vf.com/manga/lady-baby"
     },
     {
-        "title": "SPY X FAMILY",
+        "name": "SPY X FAMILY",
         "link": "https://www.lelscan-vf.com/manga/spy-x-family"
     },
     {
-        "title": "Kill The Hero",
+        "name": "Kill The Hero",
         "link": "https://www.lelscan-vf.com/manga/kill-the-hero"
     },
     {
-        "title": "Martial Arts Reigns",
+        "name": "Martial Arts Reigns",
         "link": "https://www.lelscan-vf.com/manga/martial-arts-reigns"
     },
     {
-        "title": "Blue Lock",
+        "name": "Blue Lock",
         "link": "https://www.lelscan-vf.com/manga/blue-lock"
     },
     {
-        "title": "Ranker Who Lives A Second Time",
+        "name": "Ranker Who Lives A Second Time",
         "link": "https://www.lelscan-vf.com/manga/ranker-who-lives-a-second-time"
     },
     {
-        "title": "Martial Arts Of Demonic Humans",
+        "name": "Martial Arts Of Demonic Humans",
         "link": "https://www.lelscan-vf.com/manga/martial-arts-of-demonic-humans"
     },
     {
-        "title": "Medical Return",
+        "name": "Medical Return",
         "link": "https://www.lelscan-vf.com/manga/medical-return"
     },
     {
-        "title": "Rebirth Of Abandoned Young Master",
+        "name": "Rebirth Of Abandoned Young Master",
         "link": "https://www.lelscan-vf.com/manga/rebirth-of-abandoned-young-master"
     },
     {
-        "title": "Return Of Immortal Emperor",
+        "name": "Return Of Immortal Emperor",
         "link": "https://www.lelscan-vf.com/manga/return-of-immortal-emperor"
     },
     {
-        "title": "The Rebirth Of The Demon God",
+        "name": "The Rebirth Of The Demon God",
         "link": "https://www.lelscan-vf.com/manga/the-rebirth-of-the-demon-god"
     },
     {
-        "title": "My Great Sword",
+        "name": "My Great Sword",
         "link": "https://www.lelscan-vf.com/manga/my-great-sword"
     },
     {
-        "title": "Anti-Gods Dragon System",
+        "name": "Anti-Gods Dragon System",
         "link": "https://www.lelscan-vf.com/manga/antigods-dragon-system"
     },
     {
-        "title": "Koroshi Ai",
+        "name": "Koroshi Ai",
         "link": "https://www.lelscan-vf.com/manga/koroshi-ai"
     },
     {
-        "title": "God Slayer",
+        "name": "God Slayer",
         "link": "https://www.lelscan-vf.com/manga/god-slayer"
     },
     {
-        "title": "Indestructible Primordial Spirit",
+        "name": "Indestructible Primordial Spirit",
         "link": "https://www.lelscan-vf.com/manga/indestructible-primordial-spirit"
     },
     {
-        "title": "Dungeon Reset",
+        "name": "Dungeon Reset",
         "link": "https://www.lelscan-vf.com/manga/dungeon-reset"
     },
     {
-        "title": "Wicked Trapper: Hunter Of Heroes",
+        "name": "Wicked Trapper: Hunter Of Heroes",
         "link": "https://www.lelscan-vf.com/manga/wicked-trapper-hunter-of-heroes"
     },
     {
-        "title": "Zero Game",
+        "name": "Zero Game",
         "link": "https://www.lelscan-vf.com/manga/zero-game"
     },
     {
-        "title": "Tower Of God",
+        "name": "Tower Of God",
         "link": "https://www.lelscan-vf.com/manga/tower-of-god"
     },
     {
-        "title": "Jank Runk Family",
+        "name": "Jank Runk Family",
         "link": "https://www.lelscan-vf.com/manga/jank-runk-family"
     },
     {
-        "title": "Fate/Type Redline",
+        "name": "Fate/Type Redline",
         "link": "https://www.lelscan-vf.com/manga/fatetype-redline"
     },
     {
-        "title": "Chaotic Sword God",
+        "name": "Chaotic Sword God",
         "link": "https://www.lelscan-vf.com/manga/chaotic-sword-god"
     },
     {
-        "title": "Spirit Sword Sovereign",
+        "name": "Spirit Sword Sovereign",
         "link": "https://www.lelscan-vf.com/manga/spirit-sword-sovereign"
     },
     {
-        "title": "Kage No Jitsuryokusha Ni Naritakute",
+        "name": "Kage No Jitsuryokusha Ni Naritakute",
         "link": "https://www.lelscan-vf.com/manga/kage-no-jitsuryokusha-ni-naritakute"
     },
     {
-        "title": "Slime Life",
+        "name": "Slime Life",
         "link": "https://www.lelscan-vf.com/manga/slime-life"
     },
     {
-        "title": "Wind Breaker",
+        "name": "Wind Breaker",
         "link": "https://www.lelscan-vf.com/manga/wind-breaker"
     },
     {
-        "title": "Fight Club Kindergarten",
+        "name": "Fight Club Kindergarten",
         "link": "https://www.lelscan-vf.com/manga/fight-club-kindergarten"
     },
     {
-        "title": "Matchless Emperor",
+        "name": "Matchless Emperor",
         "link": "https://www.lelscan-vf.com/manga/matchless-emperor"
     },
     {
-        "title": "Vanguard",
+        "name": "Vanguard",
         "link": "https://www.lelscan-vf.com/manga/vanguard"
     },
     {
-        "title": "Sasayaku you ni koi o utau",
+        "name": "Sasayaku you ni koi o utau",
         "link": "https://www.lelscan-vf.com/manga/sasayaku-you-ni-koi-o-utau"
     },
     {
-        "title": "Devil Wants to Hug",
+        "name": "Devil Wants to Hug",
         "link": "https://www.lelscan-vf.com/manga/devil-wants-to-hug"
     },
     {
-        "title": "Black Horda",
+        "name": "Black Horda",
         "link": "https://www.lelscan-vf.com/manga/black-horda"
     },
     {
-        "title": "Dog Nigga",
+        "name": "Dog Nigga",
         "link": "https://www.lelscan-vf.com/manga/dog-nigga"
     },
     {
-        "title": "Light Vs Shadow",
+        "name": "Light Vs Shadow",
         "link": "https://www.lelscan-vf.com/manga/light-vs-shadow"
     },
     {
-        "title": "Meng Shi Zai Shang",
+        "name": "Meng Shi Zai Shang",
         "link": "https://www.lelscan-vf.com/manga/meng-shi-zai-shang"
     },
     {
-        "title": "The Revenge Of The Soul Eater",
+        "name": "The Revenge Of The Soul Eater",
         "link": "https://www.lelscan-vf.com/manga/the-revenge-of-the-soul-eater"
     },
     {
-        "title": "The Weekly Roll",
+        "name": "The Weekly Roll",
         "link": "https://www.lelscan-vf.com/manga/the-weekly-roll"
     },
     {
-        "title": "SHY",
+        "name": "SHY",
         "link": "https://www.lelscan-vf.com/manga/shy"
     },
     {
-        "title": "Poor Father And Daughter",
+        "name": "Poor Father And Daughter",
         "link": "https://www.lelscan-vf.com/manga/poor-father-and-daughter"
     },
     {
-        "title": "Under Prin",
+        "name": "Under Prin",
         "link": "https://www.lelscan-vf.com/manga/under-prin"
     },
     {
-        "title": "Empress In Turbulent Days",
+        "name": "Empress In Turbulent Days",
         "link": "https://www.lelscan-vf.com/manga/empress-in-turbulent-days"
     },
     {
-        "title": "Tensei Kenja Wa Musume To Kurasu",
+        "name": "Tensei Kenja Wa Musume To Kurasu",
         "link": "https://www.lelscan-vf.com/manga/tensei-kenja-wa-musume-to-kurasu"
     },
     {
-        "title": "Full Metal Panic! Another",
+        "name": "Full Metal Panic! Another",
         "link": "https://www.lelscan-vf.com/manga/full-metal-panic-another"
     },
     {
-        "title": "Zenaku No Kuzu",
+        "name": "Zenaku No Kuzu",
         "link": "https://www.lelscan-vf.com/manga/zenaku-no-kuzu"
     },
     {
-        "title": "Solo Login",
+        "name": "Solo Login",
         "link": "https://www.lelscan-vf.com/manga/solo-login"
     },
     {
-        "title": "Release That Witch",
+        "name": "Release That Witch",
         "link": "https://www.lelscan-vf.com/manga/release-that-witch"
     },
     {
-        "title": "Sweet Home",
+        "name": "Sweet Home",
         "link": "https://www.lelscan-vf.com/manga/sweet-home"
     },
     {
-        "title": "Bless",
+        "name": "Bless",
         "link": "https://www.lelscan-vf.com/manga/bless"
     },
     {
-        "title": "I Became The Emperor's Daughter One Day",
+        "name": "I Became The Emperor's Daughter One Day",
         "link": "https://www.lelscan-vf.com/manga/i-became-the-emperors-daughter-one-day"
     },
     {
-        "title": "Jitsu Wa Watashi Wa",
+        "name": "Jitsu Wa Watashi Wa",
         "link": "https://www.lelscan-vf.com/manga/jitsu-wa-watashi-wa"
     },
     {
-        "title": "Tianbao Fuyao Lu",
+        "name": "Tianbao Fuyao Lu",
         "link": "https://www.lelscan-vf.com/manga/tianbao-fuyao-lu"
     },
     {
-        "title": "Overgeared",
+        "name": "Overgeared",
         "link": "https://www.lelscan-vf.com/manga/overgeared-"
     },
     {
-        "title": "Weakest Little Monster",
+        "name": "Weakest Little Monster",
         "link": "https://www.lelscan-vf.com/manga/weakest-little-monster"
     },
     {
-        "title": "In the Dark",
+        "name": "In the Dark",
         "link": "https://www.lelscan-vf.com/manga/in-the-dark"
     },
     {
-        "title": "Heavenly God Mnemonic",
+        "name": "Heavenly God Mnemonic",
         "link": "https://www.lelscan-vf.com/manga/heavenly-god-mnemonic"
     },
     {
-        "title": "The Jinx's Lover",
+        "name": "The Jinx's Lover",
         "link": "https://www.lelscan-vf.com/manga/the-jinxs-lover"
     },
     {
-        "title": "Black999",
+        "name": "Black999",
         "link": "https://www.lelscan-vf.com/manga/black999"
     },
     {
-        "title": "Unorthodox Spiritualist",
+        "name": "Unorthodox Spiritualist",
         "link": "https://www.lelscan-vf.com/manga/unorthodox-spiritualist"
     },
     {
-        "title": "Time Stop Brave",
+        "name": "Time Stop Brave",
         "link": "https://www.lelscan-vf.com/manga/time-stop-brave"
     },
     {
-        "title": "Descent of the Phoenix - 13 Years Old Princess Consort",
+        "name": "Descent of the Phoenix - 13 Years Old Princess Consort",
         "link": "https://www.lelscan-vf.com/manga/descent-of-the-phoenix-13-years-old-princess-consort"
     },
     {
-        "title": "Beauty and the Beasts",
+        "name": "Beauty and the Beasts",
         "link": "https://www.lelscan-vf.com/manga/beauty-and-the-beasts"
     },
     {
-        "title": "Hana To Shinobi",
+        "name": "Hana To Shinobi",
         "link": "https://www.lelscan-vf.com/manga/hana-to-shinobi"
     },
     {
-        "title": "Jichou Shinai Moto Yuusha No Tsuyokute Tanoshii New Game",
+        "name": "Jichou Shinai Moto Yuusha No Tsuyokute Tanoshii New Game",
         "link": "https://www.lelscan-vf.com/manga/jichou-shinai-moto-yuusha-no-tsuyokute-tanoshii-new-game"
     },
     {
-        "title": "Greatest Boss System",
+        "name": "Greatest Boss System",
         "link": "https://www.lelscan-vf.com/manga/greatest-boss-system"
     },
     {
-        "title": "Zombie 100 ~Zombie ni Naru Made ni Shitai 100 no Koto~",
+        "name": "Zombie 100 ~Zombie ni Naru Made ni Shitai 100 no Koto~",
         "link": "https://www.lelscan-vf.com/manga/zombie-100-zombie-ni-naru-made-ni-shitai-100-no-koto"
     },
     {
-        "title": "The Strongest God King",
+        "name": "The Strongest God King",
         "link": "https://www.lelscan-vf.com/manga/the-strongest-god-king"
     },
     {
-        "title": "Koko Wa Ore Ni Makasete Saki Ni Ike To Itte Kara 10 Nen Ga Tattara Densetsu Ni Natteita",
+        "name": "Koko Wa Ore Ni Makasete Saki Ni Ike To Itte Kara 10 Nen Ga Tattara Densetsu Ni Natteita",
         "link": "https://www.lelscan-vf.com/manga/koko-wa-ore-ni-makasete-saki-ni-ike-to-itte-kara-10-nen-ga-tattara-densetsu-ni-natteita"
     },
     {
-        "title": "Mom, Please Do Not Come For Adventure!",
+        "name": "Mom, Please Do Not Come For Adventure!",
         "link": "https://www.lelscan-vf.com/manga/mom-please-do-not-come-for-adventure"
     },
     {
-        "title": "Futari Ashitamo Sorenarini",
+        "name": "Futari Ashitamo Sorenarini",
         "link": "https://www.lelscan-vf.com/manga/futari-ashitamo-sorenarini"
     },
     {
-        "title": "Feng Qiu Huang",
+        "name": "Feng Qiu Huang",
         "link": "https://www.lelscan-vf.com/manga/feng-qiu-huang"
     },
     {
-        "title": "Ihoujin, Dungeon Ni Moguru",
+        "name": "Ihoujin, Dungeon Ni Moguru",
         "link": "https://www.lelscan-vf.com/manga/ihoujin-dungeon-ni-moguru"
     },
     {
-        "title": "That Year, Under The Starry Sky",
+        "name": "That Year, Under The Starry Sky",
         "link": "https://www.lelscan-vf.com/manga/that-year-under-the-starry-sky"
     },
     {
-        "title": "As You Wish, Prince",
+        "name": "As You Wish, Prince",
         "link": "https://www.lelscan-vf.com/manga/as-you-wish-prince"
     },
     {
-        "title": "Kowamote Koukousei to Jimiko-san",
+        "name": "Kowamote Koukousei to Jimiko-san",
         "link": "https://www.lelscan-vf.com/manga/kowamote-koukousei-to-jimikosan"
     },
     {
-        "title": "White Angels Have No Rest",
+        "name": "White Angels Have No Rest",
         "link": "https://www.lelscan-vf.com/manga/white-angels-have-no-rest"
     },
     {
-        "title": "Assassins Pride",
+        "name": "Assassins Pride",
         "link": "https://www.lelscan-vf.com/manga/assassins-pride"
     },
     {
-        "title": "Youngest Princess",
+        "name": "Youngest Princess",
         "link": "https://www.lelscan-vf.com/manga/youngest-princess"
     },
     {
-        "title": "Yu Huo Du Ni",
+        "name": "Yu Huo Du Ni",
         "link": "https://www.lelscan-vf.com/manga/yu-huo-du-ni"
     },
     {
-        "title": "Beware of the Brothers!",
+        "name": "Beware of the Brothers!",
         "link": "https://www.lelscan-vf.com/manga/beware-of-the-brothers"
     },
     {
-        "title": "Eto\u273fRoyale",
+        "name": "Eto\u273fRoyale",
         "link": "https://www.lelscan-vf.com/manga/etoroyale"
     },
     {
-        "title": "Ouji-sama ni wa Doku ga Aru",
+        "name": "Ouji-sama ni wa Doku ga Aru",
         "link": "https://www.lelscan-vf.com/manga/oujisama-ni-wa-doku-ga-aru"
     },
     {
-        "title": "Anti Gods Dragon System",
+        "name": "Anti Gods Dragon System",
         "link": "https://www.lelscan-vf.com/manga/anti-gods-dragon-system"
     },
     {
-        "title": "The Super Doctor From 2089",
+        "name": "The Super Doctor From 2089",
         "link": "https://www.lelscan-vf.com/manga/the-super-doctor-from-2089"
     },
     {
-        "title": "Martial God's Space",
+        "name": "Martial God's Space",
         "link": "https://www.lelscan-vf.com/manga/martial-gods-space"
     },
     {
-        "title": "God of Blackfield",
+        "name": "God of Blackfield",
         "link": "https://www.lelscan-vf.com/manga/god-of-blackfield"
     },
     {
-        "title": "Kino no Tabi: The Beautiful World",
+        "name": "Kino no Tabi: The Beautiful World",
         "link": "https://www.lelscan-vf.com/manga/kino-no-tabi-the-beautiful-world"
     },
     {
-        "title": "Ascension to Godhood by Slaying Demons",
+        "name": "Ascension to Godhood by Slaying Demons",
         "link": "https://www.lelscan-vf.com/manga/ascension-to-godhood-by-slaying-demons"
     },
     {
-        "title": "Sensei, Ore ni Kamawazu Itte Kudasai!!",
+        "name": "Sensei, Ore ni Kamawazu Itte Kudasai!!",
         "link": "https://www.lelscan-vf.com/manga/sensei-ore-ni-kamawazu-itte-kudasai"
     },
     {
-        "title": "Higurashi No Naku Koro Ni - Tatarigoroshi Hen",
+        "name": "Higurashi No Naku Koro Ni - Tatarigoroshi Hen",
         "link": "https://www.lelscan-vf.com/manga/higurashi-no-naku-koro-ni-tatarigoroshi-hen"
     },
     {
-        "title": "The Evil Sorceress Plans To Survive!",
+        "name": "The Evil Sorceress Plans To Survive!",
         "link": "https://www.lelscan-vf.com/manga/the-evil-sorceress-plans-to-survive"
     },
     {
-        "title": "New life: Savior from another world",
+        "name": "New life: Savior from another world",
         "link": "https://www.lelscan-vf.com/manga/new-life-savior-from-another-world"
     },
     {
-        "title": "I Was Born as the Demon Lord's Daughter",
+        "name": "I Was Born as the Demon Lord's Daughter",
         "link": "https://www.lelscan-vf.com/manga/i-was-born-as-the-demon-lords-daughter"
     },
     {
-        "title": "By the Way, Dragon Mistress",
+        "name": "By the Way, Dragon Mistress",
         "link": "https://www.lelscan-vf.com/manga/by-the-way-dragon-mistress"
     },
     {
-        "title": "Konna Elf ni You wa Nai!",
+        "name": "Konna Elf ni You wa Nai!",
         "link": "https://www.lelscan-vf.com/manga/konna-elf-ni-you-wa-nai"
     },
     {
-        "title": "Heavenly Jewel Change",
+        "name": "Heavenly Jewel Change",
         "link": "https://www.lelscan-vf.com/manga/heavenly-jewel-change"
     },
     {
-        "title": "Lv2 kara Cheat datta Moto Yuusha Kouho no Mattari Isekai Life",
+        "name": "Lv2 kara Cheat datta Moto Yuusha Kouho no Mattari Isekai Life",
         "link": "https://www.lelscan-vf.com/manga/lv2-kara-cheat-datta-moto-yuusha-kouho-no-mattari-isekai-life"
     },
     {
-        "title": "I'm an Evil God",
+        "name": "I'm an Evil God",
         "link": "https://www.lelscan-vf.com/manga/im-an-evil-god"
     },
     {
-        "title": "The Exploding Girl",
+        "name": "The Exploding Girl",
         "link": "https://www.lelscan-vf.com/manga/the-exploding-girl"
     },
     {
-        "title": "Jikan Teishi Yuusha",
+        "name": "Jikan Teishi Yuusha",
         "link": "https://www.lelscan-vf.com/manga/jikan-teishi-yuusha"
     },
     {
-        "title": "Tales of an Exorcist",
+        "name": "Tales of an Exorcist",
         "link": "https://www.lelscan-vf.com/manga/tales-of-an-exorcist"
     },
     {
-        "title": "Dark Mortal",
+        "name": "Dark Mortal",
         "link": "https://www.lelscan-vf.com/manga/dark-mortal"
     },
     {
-        "title": "The Hero is Overpowered but Overly Cautious",
+        "name": "The Hero is Overpowered but Overly Cautious",
         "link": "https://www.lelscan-vf.com/manga/the-hero-is-overpowered-but-overly-cautious"
     },
     {
-        "title": "Chicano Kei",
+        "name": "Chicano Kei",
         "link": "https://www.lelscan-vf.com/manga/chicano-kei"
     },
     {
-        "title": "The Holy Grail of Eris",
+        "name": "The Holy Grail of Eris",
         "link": "https://www.lelscan-vf.com/manga/the-holy-grail-of-eris"
     },
     {
-        "title": "Shiori Experience: Jimi na Watashi to Hen na Ojisan",
+        "name": "Shiori Experience: Jimi na Watashi to Hen na Ojisan",
         "link": "https://www.lelscan-vf.com/manga/shiori-experience-jimi-na-watashi-to-hen-na-ojisan"
     },
     {
-        "title": "Watashi ni Tenshi ga Maiorita!",
+        "name": "Watashi ni Tenshi ga Maiorita!",
         "link": "https://www.lelscan-vf.com/manga/watashi-ni-tenshi-ga-maiorita"
     },
     {
-        "title": "The Ride-On King",
+        "name": "The Ride-On King",
         "link": "https://www.lelscan-vf.com/manga/the-rideon-king"
     },
     {
-        "title": "White noon, Black night",
+        "name": "White noon, Black night",
         "link": "https://www.lelscan-vf.com/manga/white-noon-black-night"
     },
     {
-        "title": "Obedient Heritage",
+        "name": "Obedient Heritage",
         "link": "https://www.lelscan-vf.com/manga/obedient-heritage"
     },
     {
-        "title": "The Live",
+        "name": "The Live",
         "link": "https://www.lelscan-vf.com/manga/the-live"
     },
     {
-        "title": "I Don't Know What My Little Sister's Friend Is Thinking!",
+        "name": "I Don't Know What My Little Sister's Friend Is Thinking!",
         "link": "https://www.lelscan-vf.com/manga/i-dont-know-what-my-little-sisters-friend-is-thinking"
     },
     {
-        "title": "Reverse Villain",
+        "name": "Reverse Villain",
         "link": "https://www.lelscan-vf.com/manga/reverse-villain"
     },
     {
-        "title": "Dracorun",
+        "name": "Dracorun",
         "link": "https://www.lelscan-vf.com/manga/dracorun"
     },
     {
-        "title": "I met the male lead in prison",
+        "name": "I met the male lead in prison",
         "link": "https://www.lelscan-vf.com/manga/i-met-the-male-lead-in-prison"
     },
     {
-        "title": "The Last Summoner",
+        "name": "The Last Summoner",
         "link": "https://www.lelscan-vf.com/manga/the-last-summoner"
     },
     {
-        "title": "Nii-chan [Harada]",
+        "name": "Nii-chan [Harada]",
         "link": "https://www.lelscan-vf.com/manga/niichan-harada"
     },
     {
-        "title": "Kyou mo Onnanoko wo Kouryaku shita.",
+        "name": "Kyou mo Onnanoko wo Kouryaku shita.",
         "link": "https://www.lelscan-vf.com/manga/kyou-mo-onnanoko-wo-kouryaku-shita"
     },
     {
-        "title": "Heresy",
+        "name": "Heresy",
         "link": "https://www.lelscan-vf.com/manga/heresy"
     },
     {
-        "title": "Doujinshi Demon Slayer",
+        "name": "Doujinshi Demon Slayer",
         "link": "https://www.lelscan-vf.com/manga/doujinshi-demon-slayer"
     },
     {
-        "title": "Jahy-sama wa Kujikenai!",
+        "name": "Jahy-sama wa Kujikenai!",
         "link": "https://www.lelscan-vf.com/manga/jahysama-wa-kujikenai"
     },
     {
-        "title": "The Great Wife",
+        "name": "The Great Wife",
         "link": "https://www.lelscan-vf.com/manga/the-great-wife"
     },
     {
-        "title": "Ninkyou Tensei",
+        "name": "Ninkyou Tensei",
         "link": "https://www.lelscan-vf.com/manga/ninkyou-tensei"
     },
     {
-        "title": "An Imperfect Kiss",
+        "name": "An Imperfect Kiss",
         "link": "https://www.lelscan-vf.com/manga/an-imperfect-kiss"
     },
     {
-        "title": "The Dragon Prince's Bride",
+        "name": "The Dragon Prince's Bride",
         "link": "https://www.lelscan-vf.com/manga/the-dragon-princes-bride"
     },
     {
-        "title": "The Duchess with an Empty Soul",
+        "name": "The Duchess with an Empty Soul",
         "link": "https://www.lelscan-vf.com/manga/the-duchess-with-an-empty-soul"
     },
     {
-        "title": "This Is an Obvious Fraudulent Marriage",
+        "name": "This Is an Obvious Fraudulent Marriage",
         "link": "https://www.lelscan-vf.com/manga/this-is-an-obvious-fraudulent-marriage"
     },
     {
-        "title": "Unbending Flower",
+        "name": "Unbending Flower",
         "link": "https://www.lelscan-vf.com/manga/unbending-flower"
     },
     {
-        "title": "You're My Destiny",
+        "name": "You're My Destiny",
         "link": "https://www.lelscan-vf.com/manga/youre-my-destiny"
     },
     {
-        "title": "Bug Player",
+        "name": "Bug Player",
         "link": "https://www.lelscan-vf.com/manga/bug-player"
     },
     {
-        "title": "Weak Point",
+        "name": "Weak Point",
         "link": "https://www.lelscan-vf.com/manga/weak-point"
     },
     {
-        "title": "Hidden Surface Town",
+        "name": "Hidden Surface Town",
         "link": "https://www.lelscan-vf.com/manga/hidden-surface-town"
     },
     {
-        "title": "The Villainess Reverses the Hourglass",
+        "name": "The Villainess Reverses the Hourglass",
         "link": "https://www.lelscan-vf.com/manga/the-villainess-reverses-the-hourglass"
     },
     {
-        "title": "Nozomu Nozomi",
+        "name": "Nozomu Nozomi",
         "link": "https://www.lelscan-vf.com/manga/nozomu-nozomi"
     },
     {
-        "title": "A High School Girl And A Private Teacher",
+        "name": "A High School Girl And A Private Teacher",
         "link": "https://www.lelscan-vf.com/manga/a-high-school-girl-and-a-private-teacher"
     },
     {
-        "title": "Okaeri Alice",
+        "name": "Okaeri Alice",
         "link": "https://www.lelscan-vf.com/manga/okaeri-alice"
+    },
+    {
+        "name": "Black Keys",
+        "link": "https://www.lelscan-vf.com/manga/black-keys"
+    },
+    {
+        "name": "Zhi Zi Zhi Jian",
+        "link": "https://www.lelscan-vf.com/manga/zhi-zi-zhi-jian"
+    },
+    {
+        "name": "Almighty Master",
+        "link": "https://www.lelscan-vf.com/manga/almighty-master"
+    },
+    {
+        "name": "Kingdom hearts RS collection",
+        "link": "https://www.lelscan-vf.com/manga/kingdom-hearts-rs-collection"
+    },
+    {
+        "name": "The Duchess' 50 Tea Recipes",
+        "link": "https://www.lelscan-vf.com/manga/the-duchess-50-tea-recipes"
+    },
+    {
+        "name": "Study Group",
+        "link": "https://www.lelscan-vf.com/manga/study-group"
+    },
+    {
+        "name": "A Wage Slave is Reincarnated in a Different World!! It's Heartbreaking!!!",
+        "link": "https://www.lelscan-vf.com/manga/a-wage-slave-is-reincarnated-in-a-different-world-its-heartbreaking"
+    },
+    {
+        "name": "Infinite Apostles and Twelve War Girls",
+        "link": "https://www.lelscan-vf.com/manga/infinite-apostles-and-twelve-war-girls"
+    },
+    {
+        "name": "Blaze",
+        "link": "https://www.lelscan-vf.com/manga/blaze"
+    },
+    {
+        "name": "Starting From Today I'll Work As A City Lord",
+        "link": "https://www.lelscan-vf.com/manga/starting-from-today-ill-work-as-a-city-lord"
+    },
+    {
+        "name": "Guraburu!",
+        "link": "https://www.lelscan-vf.com/manga/guraburu"
+    },
+    {
+        "name": "Onee-chan ga Kita",
+        "link": "https://www.lelscan-vf.com/manga/oneechan-ga-kita"
+    },
+    {
+        "name": "Gamble Giant",
+        "link": "https://www.lelscan-vf.com/manga/gamble-giant"
+    },
+    {
+        "name": "The Story of a Yakuza Boss Reborn as a Little Girl",
+        "link": "https://www.lelscan-vf.com/manga/the-story-of-a-yakuza-boss-reborn-as-a-little-girl"
+    },
+    {
+        "name": "His Highness, Don't Leave! I Will Lose Weight for You!",
+        "link": "https://www.lelscan-vf.com/manga/his-highness-dont-leave-i-will-lose-weight-for-you"
+    },
+    {
+        "name": "PIGPEN",
+        "link": "https://www.lelscan-vf.com/manga/pigpen"
+    },
+    {
+        "name": "Lockdown No Escape",
+        "link": "https://www.lelscan-vf.com/manga/lockdown-no-escape"
+    },
+    {
+        "name": "Isekai Kenkokuki",
+        "link": "https://www.lelscan-vf.com/manga/isekai-kenkokuki"
+    },
+    {
+        "name": "Daily Life Of The Fairy King",
+        "link": "https://www.lelscan-vf.com/manga/daily-life-of-the-fairy-king"
+    },
+    {
+        "name": "Shikkaku Mon no Saikyou Kenja",
+        "link": "https://www.lelscan-vf.com/manga/shikkaku-mon-no-saikyou-kenja"
+    },
+    {
+        "name": "Beware of the villainess !",
+        "link": "https://www.lelscan-vf.com/manga/beware-of-the-villainess-"
+    },
+    {
+        "name": "Chunqing Lushao",
+        "link": "https://www.lelscan-vf.com/manga/chunqing-lushao"
+    },
+    {
+        "name": "Cheat Kusushi no Slow Life: isekai ni Tsukurou Drugstore",
+        "link": "https://www.lelscan-vf.com/manga/cheat-kusushi-no-slow-life-isekai-ni-tsukurou-drugstore"
+    },
+    {
+        "name": "Mujintou De Elf to Kyoudou Seikatsu",
+        "link": "https://www.lelscan-vf.com/manga/mujintou-de-elf-to-kyoudou-seikatsu"
+    },
+    {
+        "name": "Sayonara Peter Pan",
+        "link": "https://www.lelscan-vf.com/manga/sayonara-peter-pan"
+    },
+    {
+        "name": "Saiyuuki Ibun",
+        "link": "https://www.lelscan-vf.com/manga/saiyuuki-ibun"
+    },
+    {
+        "name": "No Guard Wife",
+        "link": "https://www.lelscan-vf.com/manga/no-guard-wife"
+    },
+    {
+        "name": "Kiznaiver",
+        "link": "https://www.lelscan-vf.com/manga/kiznaiver"
+    },
+    {
+        "name": "Jibun ga Twintail no Kawaii Onnanoko da to Omoikonde, Kyou no Dekigoto wo 4koma ni Suru",
+        "link": "https://www.lelscan-vf.com/manga/jibun-ga-twintail-no-kawaii-onnanoko-da-to-omoikonde-kyou-no-dekigoto-wo-4koma-ni-suru"
+    },
+    {
+        "name": "Seduce the Villain's Father",
+        "link": "https://www.lelscan-vf.com/manga/seduce-the-villains-father"
+    },
+    {
+        "name": "The Blade of Evolution-Walking Alone in the Dungeon",
+        "link": "https://www.lelscan-vf.com/manga/the-blade-of-evolutionwalking-alone-in-the-dungeon"
+    },
+    {
+        "name": "Reminiscence Adonis",
+        "link": "https://www.lelscan-vf.com/manga/reminiscence-adonis"
+    },
+    {
+        "name": "The Second Journey to the West",
+        "link": "https://www.lelscan-vf.com/manga/the-second-journey-to-the-west"
+    },
+    {
+        "name": "G Senjou Heaven's Door",
+        "link": "https://www.lelscan-vf.com/manga/g-senjou-heavens-door"
+    },
+    {
+        "name": "1HP Club",
+        "link": "https://www.lelscan-vf.com/manga/1hp-club"
+    },
+    {
+        "name": "Maou Gakuin no Futekigousha",
+        "link": "https://www.lelscan-vf.com/manga/maou-gakuin-no-futekigousha"
+    },
+    {
+        "name": "The King's First Embrace",
+        "link": "https://www.lelscan-vf.com/manga/the-kings-first-embrace"
+    },
+    {
+        "name": "I'M Stanning The Prince",
+        "link": "https://www.lelscan-vf.com/manga/im-stanning-the-prince"
+    },
+    {
+        "name": "Bungo",
+        "link": "https://www.lelscan-vf.com/manga/bungo"
+    },
+    {
+        "name": "Henkyou no Roukishi - Bard Loen",
+        "link": "https://www.lelscan-vf.com/manga/henkyou-no-roukishi-bard-loen"
+    },
+    {
+        "name": "Saijaku Tamer wa Gomi Hiroi no Tabi wo Hajimemashita.",
+        "link": "https://www.lelscan-vf.com/manga/saijaku-tamer-wa-gomi-hiroi-no-tabi-wo-hajimemashita"
+    },
+    {
+        "name": "Lost Princess",
+        "link": "https://www.lelscan-vf.com/manga/lost-princess"
+    },
+    {
+        "name": "Crimson Karma",
+        "link": "https://www.lelscan-vf.com/manga/crimson-karma"
+    },
+    {
+        "name": "Raba The Mules",
+        "link": "https://www.lelscan-vf.com/manga/raba-the-mules"
+    },
+    {
+        "name": "A Star Reborn: The Queen's Return",
+        "link": "https://www.lelscan-vf.com/manga/a-star-reborn-the-queens-return"
+    },
+    {
+        "name": "Realist Maou Niyoru Seiiki Naki Isekai Kaikaku",
+        "link": "https://www.lelscan-vf.com/manga/realist-maou-niyoru-seiiki-naki-isekai-kaikaku"
+    },
+    {
+        "name": "The Baby Isn\u2019t Yours",
+        "link": "https://www.lelscan-vf.com/manga/the-baby-isnt-yours"
+    },
+    {
+        "name": "Get Back",
+        "link": "https://www.lelscan-vf.com/manga/get-back"
+    },
+    {
+        "name": "Mairimashita! Iruma-kun",
+        "link": "https://www.lelscan-vf.com/manga/mairimashita-irumakun"
+    },
+    {
+        "name": "The Stereotypical Life of a Reincarnated Lady",
+        "link": "https://www.lelscan-vf.com/manga/the-stereotypical-life-of-a-reincarnated-lady"
+    },
+    {
+        "name": "Little Girl x Scoop x Evil Eye",
+        "link": "https://www.lelscan-vf.com/manga/little-girl-x-scoop-x-evil-eye"
+    },
+    {
+        "name": "Spare Me, Great Lord!",
+        "link": "https://www.lelscan-vf.com/manga/spare-me-great-lord"
+    },
+    {
+        "name": "Haritoge Kuremi to Ou no Ie",
+        "link": "https://www.lelscan-vf.com/manga/haritoge-kuremi-to-ou-no-ie"
+    },
+    {
+        "name": "Namae no nai Kaibutsu",
+        "link": "https://www.lelscan-vf.com/manga/namae-no-nai-kaibutsu"
+    },
+    {
+        "name": "Otome Monster Caramelize",
+        "link": "https://www.lelscan-vf.com/manga/otome-monster-caramelize"
+    },
+    {
+        "name": "Rasetsu no Hana",
+        "link": "https://www.lelscan-vf.com/manga/rasetsu-no-hana"
+    },
+    {
+        "name": "Ebony",
+        "link": "https://www.lelscan-vf.com/manga/ebony"
+    },
+    {
+        "name": "Seifuku no Joou-sama",
+        "link": "https://www.lelscan-vf.com/manga/seifuku-no-joousama"
+    },
+    {
+        "name": "Flash Marriage - President's Contract Wife",
+        "link": "https://www.lelscan-vf.com/manga/flash-marriage-presidents-contract-wife"
+    },
+    {
+        "name": "Kakeochi Girl",
+        "link": "https://www.lelscan-vf.com/manga/kakeochi-girl"
+    },
+    {
+        "name": "Don't Disobey the Beast",
+        "link": "https://www.lelscan-vf.com/manga/dont-disobey-the-beast"
+    },
+    {
+        "name": "The Mythical Realm",
+        "link": "https://www.lelscan-vf.com/manga/the-mythical-realm"
+    },
+    {
+        "name": "Otomege Sekai wa Mob ni Kibishii Sekai Desu",
+        "link": "https://www.lelscan-vf.com/manga/otomege-sekai-wa-mob-ni-kibishii-sekai-desu"
+    },
+    {
+        "name": "Maseki Gurume: Mamono no Chikara o Tabeta Ore wa Saikyou!",
+        "link": "https://www.lelscan-vf.com/manga/maseki-gurume-mamono-no-chikara-o-tabeta-ore-wa-saikyou"
+    },
+    {
+        "name": "Matsurika Kanriden",
+        "link": "https://www.lelscan-vf.com/manga/matsurika-kanriden"
+    },
+    {
+        "name": "Douluo Dalu 4 - Zhongji Douluo",
+        "link": "https://www.lelscan-vf.com/manga/douluo-dalu-4-zhongji-douluo"
+    },
+    {
+        "name": "Dungeon Kurashi no Moto Yuusha",
+        "link": "https://www.lelscan-vf.com/manga/dungeon-kurashi-no-moto-yuusha"
+    },
+    {
+        "name": "Nanbaka",
+        "link": "https://www.lelscan-vf.com/manga/nanbaka"
+    },
+    {
+        "name": "A Beauty, a Fatal Concubine",
+        "link": "https://www.lelscan-vf.com/manga/a-beauty-a-fatal-concubine"
+    },
+    {
+        "name": "Play Dead",
+        "link": "https://www.lelscan-vf.com/manga/play-dead"
+    },
+    {
+        "name": "Vampire lord",
+        "link": "https://www.lelscan-vf.com/manga/vampire-lord"
+    },
+    {
+        "name": "Kengan Omega",
+        "link": "https://www.lelscan-vf.com/manga/kengan-omega"
+    },
+    {
+        "name": "Mede Shireru Yoru no Junjou",
+        "link": "https://www.lelscan-vf.com/manga/mede-shireru-yoru-no-junjou"
+    },
+    {
+        "name": "Shinrin Ousha Mori King",
+        "link": "https://www.lelscan-vf.com/manga/shinrin-ousha-mori-king"
+    },
+    {
+        "name": "The Hero Who Seeks Revenge Shall Exterminate With Darkness",
+        "link": "https://www.lelscan-vf.com/manga/the-hero-who-seeks-revenge-shall-exterminate-with-darkness"
+    },
+    {
+        "name": "Ashita Dorobou",
+        "link": "https://www.lelscan-vf.com/manga/ashita-dorobou"
+    },
+    {
+        "name": "Shin Mazinger Zero",
+        "link": "https://www.lelscan-vf.com/manga/shin-mazinger-zero"
+    },
+    {
+        "name": "Path of the Sword",
+        "link": "https://www.lelscan-vf.com/manga/path-of-the-sword"
+    },
+    {
+        "name": "Jibaku Shounen Hanako-kun",
+        "link": "https://www.lelscan-vf.com/manga/jibaku-shounen-hanakokun"
+    },
+    {
+        "name": "Kuro No Maou",
+        "link": "https://www.lelscan-vf.com/manga/kuro-no-maou"
+    },
+    {
+        "name": "Shards of Sin",
+        "link": "https://www.lelscan-vf.com/manga/shards-of-sin"
+    },
+    {
+        "name": "AKB49 Renai Kinshi Jourei",
+        "link": "https://www.lelscan-vf.com/manga/akb49-renai-kinshi-jourei"
+    },
+    {
+        "name": "Tensei Shoujo Zukan",
+        "link": "https://www.lelscan-vf.com/manga/tensei-shoujo-zukan"
+    },
+    {
+        "name": "To Love-Ru",
+        "link": "https://www.lelscan-vf.com/manga/to-loveru"
+    },
+    {
+        "name": "Genjitsu Shugi Yuusha no Oukoku Saikenki",
+        "link": "https://www.lelscan-vf.com/manga/genjitsu-shugi-yuusha-no-oukoku-saikenki"
+    },
+    {
+        "name": "Trial Marriage Husband: Need to Work Hard",
+        "link": "https://www.lelscan-vf.com/manga/trial-marriage-husband-need-to-work-hard"
+    },
+    {
+        "name": "Saitei Megami",
+        "link": "https://www.lelscan-vf.com/manga/saitei-megami"
+    },
+    {
+        "name": "Slave B",
+        "link": "https://www.lelscan-vf.com/manga/slave-b"
+    },
+    {
+        "name": "Esprit Martial: L'\u00c9p\u00e9e",
+        "link": "https://www.lelscan-vf.com/manga/esprit-martial-lpe"
+    },
+    {
+        "name": "The trick of Eros",
+        "link": "https://www.lelscan-vf.com/manga/the-trick-of-eros"
+    },
+    {
+        "name": "How to Be God",
+        "link": "https://www.lelscan-vf.com/manga/how-to-be-god"
+    },
+    {
+        "name": "Toaru Tenin to Kyaku no Hanashi",
+        "link": "https://www.lelscan-vf.com/manga/toaru-tenin-to-kyaku-no-hanashi"
+    },
+    {
+        "name": "The epic revenge",
+        "link": "https://www.lelscan-vf.com/manga/the-epic-revenge"
+    },
+    {
+        "name": "Lanxi Zhen",
+        "link": "https://www.lelscan-vf.com/manga/lanxi-zhen"
+    },
+    {
+        "name": "Hot Enemies",
+        "link": "https://www.lelscan-vf.com/manga/hot-enemies"
+    },
+    {
+        "name": "Bewitching Empress so Pampered by Her Tyrant",
+        "link": "https://www.lelscan-vf.com/manga/bewitching-empress-so-pampered-by-her-tyrant"
+    },
+    {
+        "name": "Genius Doctor: Black Belly Miss",
+        "link": "https://www.lelscan-vf.com/manga/genius-doctor-black-belly-miss"
+    },
+    {
+        "name": "The Great Mage Returns After 4000 Years",
+        "link": "https://www.lelscan-vf.com/manga/the-great-mage-returns-after-4000-years"
+    },
+    {
+        "name": "The Villain's Savior",
+        "link": "https://www.lelscan-vf.com/manga/the-villains-savior"
+    },
+    {
+        "name": "Saurus",
+        "link": "https://www.lelscan-vf.com/manga/saurus"
+    },
+    {
+        "name": "Imperial Edict",
+        "link": "https://www.lelscan-vf.com/manga/imperial-edict"
+    },
+    {
+        "name": "Tensei Pandemic",
+        "link": "https://www.lelscan-vf.com/manga/tensei-pandemic"
+    },
+    {
+        "name": "The Beginning After the End",
+        "link": "https://www.lelscan-vf.com/manga/the-beginning-after-the-end"
+    },
+    {
+        "name": "One Piece: La Mal\u00e9diction De L\u2019\u00e9p\u00e9e Sacr\u00e9e",
+        "link": "https://www.lelscan-vf.com/manga/one-piece-la-maldiction-de-lpe-sacre"
+    },
+    {
+        "name": "One Piece: Dead End",
+        "link": "https://www.lelscan-vf.com/manga/one-piece-dead-end"
+    },
+    {
+        "name": "Aho Girl",
+        "link": "https://www.lelscan-vf.com/manga/aho-girl"
+    },
+    {
+        "name": "What Kind of Empress Is This ?",
+        "link": "https://www.lelscan-vf.com/manga/what-kind-of-empress-is-this"
+    },
+    {
+        "name": "The Evil King's Wicked Consort",
+        "link": "https://www.lelscan-vf.com/manga/the-evil-kings-wicked-consort"
+    },
+    {
+        "name": "Mashle: Magic and Muscles",
+        "link": "https://www.lelscan-vf.com/manga/mashle-magic-and-muscles"
+    },
+    {
+        "name": "Handyman Saitou In Another World",
+        "link": "https://www.lelscan-vf.com/manga/handyman-saitou-in-another-world"
+    },
+    {
+        "name": "Senpai\u00d7Kouhai",
+        "link": "https://www.lelscan-vf.com/manga/senpaikouhai"
+    },
+    {
+        "name": "Pomegranate Blooms in Spring",
+        "link": "https://www.lelscan-vf.com/manga/pomegranate-blooms-in-spring"
+    },
+    {
+        "name": "The Villain's Ending Is Death",
+        "link": "https://www.lelscan-vf.com/manga/the-villains-ending-is-death"
+    },
+    {
+        "name": "No Way, My Best Actress Wife",
+        "link": "https://www.lelscan-vf.com/manga/no-way-my-best-actress-wife"
+    },
+    {
+        "name": "Me ga Sametara Onna no Ko ni natte ita Hanashi",
+        "link": "https://www.lelscan-vf.com/manga/me-ga-sametara-onna-no-ko-ni-natte-ita-hanashi"
+    },
+    {
+        "name": "Reapers Dice Game",
+        "link": "https://www.lelscan-vf.com/manga/reapers-dice-game"
+    },
+    {
+        "name": "The Strongest Florist",
+        "link": "https://www.lelscan-vf.com/manga/the-strongest-florist"
+    },
+    {
+        "name": "Cat loaf adventure",
+        "link": "https://www.lelscan-vf.com/manga/cat-loaf-adventure"
+    },
+    {
+        "name": "Revenge of a Fierce Princess",
+        "link": "https://www.lelscan-vf.com/manga/revenge-of-a-fierce-princess"
+    },
+    {
+        "name": "Boku datte, Kiss Shitai.",
+        "link": "https://www.lelscan-vf.com/manga/boku-datte-kiss-shitai"
+    },
+    {
+        "name": "Mahouka Koukou no Rettousei : Kyuukousen-hen",
+        "link": "https://www.lelscan-vf.com/manga/mahouka-koukou-no-rettousei-kyuukousenhen"
+    },
+    {
+        "name": "NEET dakedo Hello Work ni Ittara Isekai ni Tsuretekareta",
+        "link": "https://www.lelscan-vf.com/manga/neet-dakedo-hello-work-ni-ittara-isekai-ni-tsuretekareta"
+    },
+    {
+        "name": "Saving 80,000 Gold Coins in the Different World for My Old Age",
+        "link": "https://www.lelscan-vf.com/manga/saving-80000-gold-coins-in-the-different-world-for-my-old-age"
+    },
+    {
+        "name": "Saikyou no Shuzoku ga Ningen datta Ken",
+        "link": "https://www.lelscan-vf.com/manga/saikyou-no-shuzoku-ga-ningen-datta-ken"
+    },
+    {
+        "name": "Seven Knights: Alkaid",
+        "link": "https://www.lelscan-vf.com/manga/seven-knights-alkaid"
+    },
+    {
+        "name": "While Killing Slimes for 300 Years, I Became the MAX Level Unknowingly",
+        "link": "https://www.lelscan-vf.com/manga/while-killing-slimes-for-300-years-i-became-the-max-level-unknowingly"
+    },
+    {
+        "name": "Reader",
+        "link": "https://www.lelscan-vf.com/manga/reader"
+    },
+    {
+        "name": "Peerless Battle Spirit",
+        "link": "https://www.lelscan-vf.com/manga/peerless-battle-spirit"
+    },
+    {
+        "name": "Danball Senki Gaiden",
+        "link": "https://www.lelscan-vf.com/manga/danball-senki-gaiden"
+    },
+    {
+        "name": "Yondome wa Iya na Shizokusei Majutsushi",
+        "link": "https://www.lelscan-vf.com/manga/yondome-wa-iya-na-shizokusei-majutsushi"
+    },
+    {
+        "name": "IF",
+        "link": "https://www.lelscan-vf.com/manga/if"
+    },
+    {
+        "name": "Satanophany",
+        "link": "https://www.lelscan-vf.com/manga/satanophany"
+    },
+    {
+        "name": "Professeur Layton Et L'\u00e9trange Enqu\u00eate",
+        "link": "https://www.lelscan-vf.com/manga/professeur-layton-et-ltrange-enqute"
+    },
+    {
+        "name": "Mon petit copain est androgyne",
+        "link": "https://www.lelscan-vf.com/manga/mon-petit-copain-est-androgyne"
+    },
+    {
+        "name": "One Day",
+        "link": "https://www.lelscan-vf.com/manga/one-day"
+    },
+    {
+        "name": "Le Meilleur Assassin, R\u00e9incarn\u00e9 en un aristocrate dans un autre monde",
+        "link": "https://www.lelscan-vf.com/manga/le-meilleur-assassin-rincarn-en-un-aristocrate-dans-un-autre-monde"
+    },
+    {
+        "name": "Maken-Ki! Kai!!",
+        "link": "https://www.lelscan-vf.com/manga/makenki-kai"
+    },
+    {
+        "name": "Sunny Side Skies",
+        "link": "https://www.lelscan-vf.com/manga/sunny-side-skies"
+    },
+    {
+        "name": "L.O.R.D: Legend of Ravaging Dynasties",
+        "link": "https://www.lelscan-vf.com/manga/lord-legend-of-ravaging-dynasties"
+    },
+    {
+        "name": "Dive In The Vampire Bund",
+        "link": "https://www.lelscan-vf.com/manga/dive-in-the-vampire-bund"
+    },
+    {
+        "name": "Daddy from hell",
+        "link": "https://www.lelscan-vf.com/manga/daddy-from-hell"
+    },
+    {
+        "name": "Batuque",
+        "link": "https://www.lelscan-vf.com/manga/batuque"
+    },
+    {
+        "name": "La L\u00e9gende De Midgardia",
+        "link": "https://www.lelscan-vf.com/manga/la-lgende-de-midgardia"
+    },
+    {
+        "name": "The Fable",
+        "link": "https://www.lelscan-vf.com/manga/the-fable"
+    },
+    {
+        "name": "Dragon Vessel Martial God",
+        "link": "https://www.lelscan-vf.com/manga/dragon-vessel-martial-god"
+    },
+    {
+        "name": "unOrdinary",
+        "link": "https://www.lelscan-vf.com/manga/unordinary"
+    },
+    {
+        "name": "CITY OF SANCTUARY",
+        "link": "https://www.lelscan-vf.com/manga/city-of-sanctuary"
+    },
+    {
+        "name": "Together with Gau",
+        "link": "https://www.lelscan-vf.com/manga/together-with-gau"
+    },
+    {
+        "name": "Koohi Jikan",
+        "link": "https://www.lelscan-vf.com/manga/koohi-jikan"
+    },
+    {
+        "name": "NightS",
+        "link": "https://www.lelscan-vf.com/manga/nights"
+    },
+    {
+        "name": "President's Wife Don't Run Away",
+        "link": "https://www.lelscan-vf.com/manga/presidents-wife-dont-run-away"
+    },
+    {
+        "name": "Elio the fugitive",
+        "link": "https://www.lelscan-vf.com/manga/elio-the-fugitive"
+    },
+    {
+        "name": "Sentouin, Haken shimasu!",
+        "link": "https://www.lelscan-vf.com/manga/sentouin-haken-shimasu"
+    },
+    {
+        "name": "Tomb Raider King",
+        "link": "https://www.lelscan-vf.com/manga/tomb-raider-king"
+    },
+    {
+        "name": "Citrus Anthology",
+        "link": "https://www.lelscan-vf.com/manga/citrus-anthology"
+    },
+    {
+        "name": "Beastars",
+        "link": "https://www.lelscan-vf.com/manga/beastars"
+    },
+    {
+        "name": "Maji de Watashi ni Koi shinasai! After party!!",
+        "link": "https://www.lelscan-vf.com/manga/maji-de-watashi-ni-koi-shinasai-after-party"
+    },
+    {
+        "name": "Plum",
+        "link": "https://www.lelscan-vf.com/manga/plum"
+    },
+    {
+        "name": "The Devil\u2019s Daughter",
+        "link": "https://www.lelscan-vf.com/manga/the-devils-daughter"
+    },
+    {
+        "name": "Shen Ze",
+        "link": "https://www.lelscan-vf.com/manga/shen-ze"
+    },
+    {
+        "name": "Eros Survival",
+        "link": "https://www.lelscan-vf.com/manga/eros-survival"
+    },
+    {
+        "name": "Maou-sama no Machizukuri! Saikyou no Dungeon wa Kindai Toshi",
+        "link": "https://www.lelscan-vf.com/manga/maousama-no-machizukuri-saikyou-no-dungeon-wa-kindai-toshi"
+    },
+    {
+        "name": "The Sign Of Abyss",
+        "link": "https://www.lelscan-vf.com/manga/the-sign-of-abyss"
+    },
+    {
+        "name": "First Rate Master",
+        "link": "https://www.lelscan-vf.com/manga/first-rate-master"
+    },
+    {
+        "name": "Blood Loop",
+        "link": "https://www.lelscan-vf.com/manga/blood-loop"
+    },
+    {
+        "name": "I Became The Villain's Mother",
+        "link": "https://www.lelscan-vf.com/manga/i-became-the-villains-mother"
+    },
+    {
+        "name": "Empira's Awakening",
+        "link": "https://www.lelscan-vf.com/manga/empiras-awakening"
+    },
+    {
+        "name": "Rebuild World",
+        "link": "https://www.lelscan-vf.com/manga/rebuild-world"
+    },
+    {
+        "name": "General, Please Stay",
+        "link": "https://www.lelscan-vf.com/manga/general-please-stay"
+    },
+    {
+        "name": "Perfect Secret Love: The Bad New Wife is a Little Sweet",
+        "link": "https://www.lelscan-vf.com/manga/perfect-secret-love-the-bad-new-wife-is-a-little-sweet"
+    },
+    {
+        "name": "Tenohira Kaitaku Mura De Isekai Kenkokuki: Fueteku Yome-Tachi To Nonbiri Mujintou Life",
+        "link": "https://www.lelscan-vf.com/manga/tenohira-kaitaku-mura-de-isekai-kenkokuki-fueteku-yometachi-to-nonbiri-mujintou-life"
+    },
+    {
+        "name": "Blue Period",
+        "link": "https://www.lelscan-vf.com/manga/blue-period"
+    },
+    {
+        "name": "Martial Art Successor",
+        "link": "https://www.lelscan-vf.com/manga/martial-art-successor"
+    },
+    {
+        "name": "Sabaku No Harem",
+        "link": "https://www.lelscan-vf.com/manga/sabaku-no-harem"
+    },
+    {
+        "name": "The Fallen TS Girl",
+        "link": "https://www.lelscan-vf.com/manga/the-fallen-ts-girl"
+    },
+    {
+        "name": "Solstice Ville",
+        "link": "https://www.lelscan-vf.com/manga/solstice-ville"
+    },
+    {
+        "name": "Once More",
+        "link": "https://www.lelscan-vf.com/manga/once-more"
+    },
+    {
+        "name": "elDLIVE",
+        "link": "https://www.lelscan-vf.com/manga/eldlive"
+    },
+    {
+        "name": "Kyou, Koshiba Aoi Ni Aetara",
+        "link": "https://www.lelscan-vf.com/manga/kyou-koshiba-aoi-ni-aetara"
+    },
+    {
+        "name": "Bungo Stray Dogs",
+        "link": "https://www.lelscan-vf.com/manga/bungo-stray-dogs"
+    },
+    {
+        "name": "Virus Girlfriend",
+        "link": "https://www.lelscan-vf.com/manga/virus-girlfriend"
+    },
+    {
+        "name": "The Strongest Dull Prince\u2019s Secret Battle for the Throne",
+        "link": "https://www.lelscan-vf.com/manga/the-strongest-dull-princes-secret-battle-for-the-throne"
+    },
+    {
+        "name": "Juuza Engi - Engetsu Sangokuden",
+        "link": "https://www.lelscan-vf.com/manga/juuza-engi-engetsu-sangokuden"
+    },
+    {
+        "name": "Foxtail",
+        "link": "https://www.lelscan-vf.com/manga/foxtail"
+    },
+    {
+        "name": "Kono Ai Wa, Itan.",
+        "link": "https://www.lelscan-vf.com/manga/kono-ai-wa-itan"
+    },
+    {
+        "name": "Shen Sheng",
+        "link": "https://www.lelscan-vf.com/manga/shen-sheng"
+    },
+    {
+        "name": "Dress Him Up !",
+        "link": "https://www.lelscan-vf.com/manga/dress-him-up-"
+    },
+    {
+        "name": "American Ghost Jack",
+        "link": "https://www.lelscan-vf.com/manga/american-ghost-jack"
+    },
+    {
+        "name": "Mofa Shaonu\u0308 Tongji Zhong!",
+        "link": "https://www.lelscan-vf.com/manga/mofa-shaonu-tongji-zhong"
+    },
+    {
+        "name": "Apocalyptic Super System",
+        "link": "https://www.lelscan-vf.com/manga/apocalyptic-super-system"
+    },
+    {
+        "name": "Menhera Shoujo Kurumi-chan",
+        "link": "https://www.lelscan-vf.com/manga/menhera-shoujo-kurumichan"
+    },
+    {
+        "name": "Watanuki-san ni wa Boku ga Tarinai",
+        "link": "https://www.lelscan-vf.com/manga/watanukisan-ni-wa-boku-ga-tarinai"
+    },
+    {
+        "name": "If You Give Me Flowers, I'll Give You Me",
+        "link": "https://www.lelscan-vf.com/manga/if-you-give-me-flowers-ill-give-you-me"
+    },
+    {
+        "name": "The Readymade Queen",
+        "link": "https://www.lelscan-vf.com/manga/the-readymade-queen"
+    },
+    {
+        "name": "Picked Up A Little Fox",
+        "link": "https://www.lelscan-vf.com/manga/picked-up-a-little-fox"
+    },
+    {
+        "name": "Sakigake!! Otokojuku",
+        "link": "https://www.lelscan-vf.com/manga/sakigake-otokojuku"
+    },
+    {
+        "name": "Ichirei Shite, Kiss",
+        "link": "https://www.lelscan-vf.com/manga/ichirei-shite-kiss"
+    },
+    {
+        "name": "Her Majesty's Dog",
+        "link": "https://www.lelscan-vf.com/manga/her-majestys-dog"
+    },
+    {
+        "name": "Fall in Love With Fox",
+        "link": "https://www.lelscan-vf.com/manga/fall-in-love-with-fox"
+    },
+    {
+        "name": "Our Relationship Is...",
+        "link": "https://www.lelscan-vf.com/manga/our-relationship-is"
+    },
+    {
+        "name": "Hajimete No Gal",
+        "link": "https://www.lelscan-vf.com/manga/hajimete-no-gal"
+    },
+    {
+        "name": "Peach And The Book Of The Last Days",
+        "link": "https://www.lelscan-vf.com/manga/peach-and-the-book-of-the-last-days"
+    },
+    {
+        "name": "Onizuka-Chan And Sawarida-Kun",
+        "link": "https://www.lelscan-vf.com/manga/onizukachan-and-sawaridakun"
+    },
+    {
+        "name": "Singularity Subspecies III",
+        "link": "https://www.lelscan-vf.com/manga/singularity-subspecies-iii"
+    },
+    {
+        "name": "Runaway Magical Girl!",
+        "link": "https://www.lelscan-vf.com/manga/runaway-magical-girl"
+    },
+    {
+        "name": "Kara no Kyoukai: The Garden of Sinners",
+        "link": "https://www.lelscan-vf.com/manga/kara-no-kyoukai-the-garden-of-sinners"
+    },
+    {
+        "name": "Le Patron a de nouveau 16 ans",
+        "link": "https://www.lelscan-vf.com/manga/le-patron-a-de-nouveau-16-ans"
+    },
+    {
+        "name": "Arasa Dakedo, Hatsukoi desu.",
+        "link": "https://www.lelscan-vf.com/manga/arasa-dakedo-hatsukoi-desu"
+    },
+    {
+        "name": "Asterisk",
+        "link": "https://www.lelscan-vf.com/manga/asterisk"
+    },
+    {
+        "name": "Chief Seduction Officer",
+        "link": "https://www.lelscan-vf.com/manga/chief-seduction-officer"
+    },
+    {
+        "name": "Conveni-N",
+        "link": "https://www.lelscan-vf.com/manga/convenin"
+    },
+    {
+        "name": "Tenohira No Netsu Wo",
+        "link": "https://www.lelscan-vf.com/manga/tenohira-no-netsu-wo"
+    },
+    {
+        "name": "Blade 2 - The Return Of Evil",
+        "link": "https://www.lelscan-vf.com/manga/blade-2-the-return-of-evil"
+    },
+    {
+        "name": "I Am the Sorcerer King",
+        "link": "https://www.lelscan-vf.com/manga/i-am-the-sorcerer-king"
+    },
+    {
+        "name": "Guang Zhi Zi",
+        "link": "https://www.lelscan-vf.com/manga/guang-zhi-zi"
+    },
+    {
+        "name": "Switch",
+        "link": "https://www.lelscan-vf.com/manga/switch"
+    },
+    {
+        "name": "Rebirth",
+        "link": "https://www.lelscan-vf.com/manga/rebirth"
+    },
+    {
+        "name": "Yes, My Lich!",
+        "link": "https://www.lelscan-vf.com/manga/yes-my-lich-"
+    },
+    {
+        "name": "Leona the Werewolf",
+        "link": "https://www.lelscan-vf.com/manga/leona-the-werewolf"
+    },
+    {
+        "name": "My Universe",
+        "link": "https://www.lelscan-vf.com/manga/my-universe"
+    },
+    {
+        "name": "Secret Love",
+        "link": "https://www.lelscan-vf.com/manga/secret-love"
+    },
+    {
+        "name": "Coffin Jackson",
+        "link": "https://www.lelscan-vf.com/manga/coffin-jackson"
+    },
+    {
+        "name": "Love Curiosity: Hades X Persephone",
+        "link": "https://www.lelscan-vf.com/manga/love-curiosity-hades-x-persephone"
+    },
+    {
+        "name": "OOPARTS",
+        "link": "https://www.lelscan-vf.com/manga/ooparts"
+    },
+    {
+        "name": "Koohii Jikan",
+        "link": "https://www.lelscan-vf.com/manga/koohii-jikan"
+    },
+    {
+        "name": "La renaissance de Noble",
+        "link": "https://www.lelscan-vf.com/manga/la-renaissance-de-noble"
+    },
+    {
+        "name": "Makai No Ossan",
+        "link": "https://www.lelscan-vf.com/manga/makai-no-ossan"
+    },
+    {
+        "name": "This Girl Will Express Herself in 100 Days",
+        "link": "https://www.lelscan-vf.com/manga/this-girl-will-express-herself-in-100-days"
+    },
+    {
+        "name": "Past Life Regressor",
+        "link": "https://www.lelscan-vf.com/manga/past-life-regressor"
+    },
+    {
+        "name": "Inaka ni Kaeru to Yakeni Jiben ni Natsuita Kasshoku Ponytail Shota ga Iru",
+        "link": "https://www.lelscan-vf.com/manga/inaka-ni-kaeru-to-yakeni-jiben-ni-natsuita-kasshoku-ponytail-shota-ga-iru"
+    },
+    {
+        "name": "Long Night Come",
+        "link": "https://www.lelscan-vf.com/manga/long-night-come"
+    },
+    {
+        "name": "Supreme Demon",
+        "link": "https://www.lelscan-vf.com/manga/supreme-demon"
+    },
+    {
+        "name": "I Shall Seal the Heavens",
+        "link": "https://www.lelscan-vf.com/manga/i-shall-seal-the-heavens"
+    },
+    {
+        "name": "On Your Majesty's Lap",
+        "link": "https://www.lelscan-vf.com/manga/on-your-majestys-lap"
+    },
+    {
+        "name": "Kekkon Yubiwa Monogatari",
+        "link": "https://www.lelscan-vf.com/manga/kekkon-yubiwa-monogatari"
+    },
+    {
+        "name": "Player",
+        "link": "https://www.lelscan-vf.com/manga/player"
+    },
+    {
+        "name": "Aki-Sora",
+        "link": "https://www.lelscan-vf.com/manga/akisora"
+    },
+    {
+        "name": "Strongest Worker",
+        "link": "https://www.lelscan-vf.com/manga/strongest-worker"
+    },
+    {
+        "name": "A Falling Cohabitation",
+        "link": "https://www.lelscan-vf.com/manga/a-falling-cohabitation"
+    },
+    {
+        "name": "Gu Daoist Master",
+        "link": "https://www.lelscan-vf.com/manga/gu-daoist-master"
+    },
+    {
+        "name": "Manga Tokyo Red Hood",
+        "link": "https://www.lelscan-vf.com/manga/manga-tokyo-red-hood"
+    },
+    {
+        "name": "Tensei Shitara Slime Datta Ken",
+        "link": "https://www.lelscan-vf.com/manga/tensei-shitara-slime-datta-ken"
+    },
+    {
+        "name": "Legend Of Phoenix",
+        "link": "https://www.lelscan-vf.com/manga/legend-of-phoenix"
+    },
+    {
+        "name": "Above the Cloud Sea",
+        "link": "https://www.lelscan-vf.com/manga/above-the-cloud-sea"
+    },
+    {
+        "name": "Nidome no Yuusha",
+        "link": "https://www.lelscan-vf.com/manga/nidome-no-yuusha"
+    },
+    {
+        "name": "Abide In The Wind",
+        "link": "https://www.lelscan-vf.com/manga/abide-in-the-wind"
+    },
+    {
+        "name": "Living as the Emperor's Fiance\u0301e",
+        "link": "https://www.lelscan-vf.com/manga/living-as-the-emperors-fiancee"
+    },
+    {
+        "name": "\u201cIt\u2019s Too Precious And Hard To Read !!\u201d 4P Short Stories",
+        "link": "https://www.lelscan-vf.com/manga/its-too-precious-and-hard-to-read-4p-short-stories"
+    },
+    {
+        "name": "Leveling Up, By Only Eating!",
+        "link": "https://www.lelscan-vf.com/manga/leveling-up-by-only-eating"
+    },
+    {
+        "name": "The Undead Lord Of The Palace Of Darkness",
+        "link": "https://www.lelscan-vf.com/manga/the-undead-lord-of-the-palace-of-darkness"
+    },
+    {
+        "name": "A Story About a Creepy Girl Smile",
+        "link": "https://www.lelscan-vf.com/manga/a-story-about-a-creepy-girl-smile"
+    },
+    {
+        "name": "Onecha.",
+        "link": "https://www.lelscan-vf.com/manga/onecha"
+    },
+    {
+        "name": "The Dungeon Master",
+        "link": "https://www.lelscan-vf.com/manga/the-dungeon-master"
+    },
+    {
+        "name": "Kamitachi ni Hirowareta Otoko",
+        "link": "https://www.lelscan-vf.com/manga/kamitachi-ni-hirowareta-otoko"
+    },
+    {
+        "name": "Succubus & Hitman",
+        "link": "https://www.lelscan-vf.com/manga/succubus-hitman"
+    },
+    {
+        "name": "Kitsune No Yomeiri (Chiyori)",
+        "link": "https://www.lelscan-vf.com/manga/kitsune-no-yomeiri-chiyori"
+    },
+    {
+        "name": "Tale Of A Scribe Who Retires To The Countryside",
+        "link": "https://www.lelscan-vf.com/manga/tale-of-a-scribe-who-retires-to-the-countryside"
+    },
+    {
+        "name": "Flying Over a Thousand Mountains to Love You",
+        "link": "https://www.lelscan-vf.com/manga/flying-over-a-thousand-mountains-to-love-you"
+    },
+    {
+        "name": "Ominous Liar",
+        "link": "https://www.lelscan-vf.com/manga/ominous-liar"
+    },
+    {
+        "name": "Don't Hate",
+        "link": "https://www.lelscan-vf.com/manga/dont-hate"
+    },
+    {
+        "name": "Black Shadow",
+        "link": "https://www.lelscan-vf.com/manga/black-shadow"
+    },
+    {
+        "name": "Shokugeki No Soma - L'\u00c9toile",
+        "link": "https://www.lelscan-vf.com/manga/shokugeki-no-soma-ltoile"
+    },
+    {
+        "name": "4 pages - Histoires courtes",
+        "link": "https://www.lelscan-vf.com/manga/4-pages-histoires-courtes"
+    },
+    {
+        "name": "Always human",
+        "link": "https://www.lelscan-vf.com/manga/always-human"
+    },
+    {
+        "name": "Toraware no Uta-hime",
+        "link": "https://www.lelscan-vf.com/manga/toraware-no-utahime"
+    },
+    {
+        "name": "Kuma to Tanuki",
+        "link": "https://www.lelscan-vf.com/manga/kuma-to-tanuki"
+    },
+    {
+        "name": "Tonari no Furi-san ga Tonikaku Kowai",
+        "link": "https://www.lelscan-vf.com/manga/tonari-no-furisan-ga-tonikaku-kowai"
+    },
+    {
+        "name": "Time Paradox Ghost Writer",
+        "link": "https://www.lelscan-vf.com/manga/time-paradox-ghost-writer"
+    },
+    {
+        "name": "Life-Prolonging Wizard",
+        "link": "https://www.lelscan-vf.com/manga/lifeprolonging-wizard"
+    },
+    {
+        "name": "In A Heartbreak",
+        "link": "https://www.lelscan-vf.com/manga/in-a-heartbreak"
+    },
+    {
+        "name": "The waning moon",
+        "link": "https://www.lelscan-vf.com/manga/the-waning-moon"
+    },
+    {
+        "name": "My Wife Is a Demon Queen",
+        "link": "https://www.lelscan-vf.com/manga/my-wife-is-a-demon-queen"
+    },
+    {
+        "name": "Semelparous",
+        "link": "https://www.lelscan-vf.com/manga/semelparous"
+    },
+    {
+        "name": "Seishun Re:Try",
+        "link": "https://www.lelscan-vf.com/manga/seishun-retry"
+    },
+    {
+        "name": "The Heiress VS Young Ruffian",
+        "link": "https://www.lelscan-vf.com/manga/the-heiress-vs-young-ruffian"
+    },
+    {
+        "name": "I Was Trash",
+        "link": "https://www.lelscan-vf.com/manga/i-was-trash"
+    },
+    {
+        "name": "DEAD Tube",
+        "link": "https://www.lelscan-vf.com/manga/dead-tube"
+    },
+    {
+        "name": "Mind-Reading Princess",
+        "link": "https://www.lelscan-vf.com/manga/mindreading-princess"
+    },
+    {
+        "name": "Fate/stay night",
+        "link": "https://www.lelscan-vf.com/manga/fatestay-night"
+    },
+    {
+        "name": "Tsuru, Princesse Des Mers",
+        "link": "https://www.lelscan-vf.com/manga/tsuru-princesse-des-mers"
+    },
+    {
+        "name": "Melancholia",
+        "link": "https://www.lelscan-vf.com/manga/melancholia"
+    },
+    {
+        "name": "The Whale Star",
+        "link": "https://www.lelscan-vf.com/manga/the-whale-star"
+    },
+    {
+        "name": "Yuanlong",
+        "link": "https://www.lelscan-vf.com/manga/yuanlong"
+    },
+    {
+        "name": "Wakamono no Kuro Mahou Hanare ga Shinkoku desu ga, Shuushoku shite Mitara Taiguu Iishi, Shachou mo Tsukaima mo Kawaikute Saikou desu!",
+        "link": "https://www.lelscan-vf.com/manga/wakamono-no-kuro-mahou-hanare-ga-shinkoku-desu-ga-shuushoku-shite-mitara-taiguu-iishi-shachou-mo-tsukaima-mo-kawaikute-saikou-desu"
+    },
+    {
+        "name": "Be Blues! - Ao ni Nare",
+        "link": "https://www.lelscan-vf.com/manga/be-blues-ao-ni-nare"
+    },
+    {
+        "name": "Across The Dangerous Ocean",
+        "link": "https://www.lelscan-vf.com/manga/across-the-dangerous-ocean"
+    },
+    {
+        "name": "The King Wants Me Dead",
+        "link": "https://www.lelscan-vf.com/manga/the-king-wants-me-dead"
+    },
+    {
+        "name": "Fatal Code",
+        "link": "https://www.lelscan-vf.com/manga/fatal-code"
+    },
+    {
+        "name": "Rule - Annihilation Classroom -",
+        "link": "https://www.lelscan-vf.com/manga/rule-annihilation-classroom-"
+    },
+    {
+        "name": "Killing Time",
+        "link": "https://www.lelscan-vf.com/manga/killing-time-"
+    },
+    {
+        "name": "The Wolf Won't Sleep",
+        "link": "https://www.lelscan-vf.com/manga/the-wolf-wont-sleep"
+    },
+    {
+        "name": "S-Rank Monster No Behemoth",
+        "link": "https://www.lelscan-vf.com/manga/srank-monster-no-behemoth"
+    },
+    {
+        "name": "Kengan Ashura",
+        "link": "https://www.lelscan-vf.com/manga/kengan-ashura"
+    },
+    {
+        "name": "CEO\u2019s Sudden Proposal",
+        "link": "https://www.lelscan-vf.com/manga/ceos-sudden-proposal"
+    },
+    {
+        "name": "Hundred Demon Spectrum",
+        "link": "https://www.lelscan-vf.com/manga/hundred-demon-spectrum"
+    },
+    {
+        "name": "Shinobi Gataki",
+        "link": "https://www.lelscan-vf.com/manga/shinobi-gataki"
+    },
+    {
+        "name": "Ane Naru Mono",
+        "link": "https://www.lelscan-vf.com/manga/ane-naru-mono"
+    },
+    {
+        "name": "Road To Kingdom",
+        "link": "https://www.lelscan-vf.com/manga/road-to-kingdom"
+    },
+    {
+        "name": "Restraining order of Ant",
+        "link": "https://www.lelscan-vf.com/manga/restraining-order-of-ant"
+    },
+    {
+        "name": "Fuguushoku To Baka Ni Saremashita Ga, Jissai Wa Sorehodo Waruku Arimasen?",
+        "link": "https://www.lelscan-vf.com/manga/fuguushoku-to-baka-ni-saremashita-ga-jissai-wa-sorehodo-waruku-arimasen"
+    },
+    {
+        "name": "Osananajimi Wa Onnanoko Ni Naare",
+        "link": "https://www.lelscan-vf.com/manga/osananajimi-wa-onnanoko-ni-naare"
+    },
+    {
+        "name": "Beware of the Red Thread",
+        "link": "https://www.lelscan-vf.com/manga/beware-of-the-red-thread"
+    },
+    {
+        "name": "Don't Mess With Me, Mis",
+        "link": "https://www.lelscan-vf.com/manga/dont-mess-with-me-mis"
+    },
+    {
+        "name": "Under The Water And Mutated Fishes",
+        "link": "https://www.lelscan-vf.com/manga/under-the-water-and-mutated-fishes"
+    },
+    {
+        "name": "Endeavor\u2019s Cross",
+        "link": "https://www.lelscan-vf.com/manga/endeavors-cross"
+    },
+    {
+        "name": "Kemono Giga",
+        "link": "https://www.lelscan-vf.com/manga/kemono-giga"
+    },
+    {
+        "name": "I Stack Experience Through Writing Books",
+        "link": "https://www.lelscan-vf.com/manga/i-stack-experience-through-writing-books"
+    },
+    {
+        "name": "I'm Destined for Greatness!",
+        "link": "https://www.lelscan-vf.com/manga/im-destined-for-greatness"
+    },
+    {
+        "name": "La Duchesse Du Grenier",
+        "link": "https://www.lelscan-vf.com/manga/la-duchesse-du-grenier"
+    },
+    {
+        "name": "The Basketball Girl",
+        "link": "https://www.lelscan-vf.com/manga/the-basketball-girl"
+    },
+    {
+        "name": "Dokgo",
+        "link": "https://www.lelscan-vf.com/manga/dokgo"
+    },
+    {
+        "name": "Fate/Grand Order -Epic of Remnant",
+        "link": "https://www.lelscan-vf.com/manga/fategrand-order-epic-of-remnant-"
+    },
+    {
+        "name": "Wangsheng Yu",
+        "link": "https://www.lelscan-vf.com/manga/wangsheng-yu"
+    },
+    {
+        "name": "Rengoku Deadroll",
+        "link": "https://www.lelscan-vf.com/manga/rengoku-deadroll"
     }
 ]

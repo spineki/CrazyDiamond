@@ -2,6 +2,7 @@ import subprocess
 
 subprocess.run(["pyside2-uic" , "gui/myWindow.ui", "-o" ,"gui/myWindow.py"])
 
+# pyinstaller hyperion.py --onefile
 # pyside2-designer
 
 

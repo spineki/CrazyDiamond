@@ -2,7 +2,11 @@ from Engine.EngineManga.engineMangas import EngineMangas
 from Engine.EngineManga.scansManga import EngineScansMangas
 from Engine.EngineManga.lelScan import EngineLelscan
 from Engine.EngineManga.scanOP import EngineScanOP
+from Engine.EngineManga.mangadex import EngineMangadex
 #from Engine.EngineMusic.youtube import EngineYoutube
+
+from typing import List, Optional, Union, Any
+from Engine.EngineManga.manga import Manga, Chapter, Volume
 
 import time
 import aiohttp
@@ -11,29 +15,23 @@ import aiofiles as aiof
 import aiofiles
 
 
-""" hgfhksg
-Args:
+"""e = EngineScanOP()
+manga = e.find_manga_by_name("berserk")[0]
+print(e.get_manga_info_from_url(manga.link))
+print(e.get_all_available_manga_online_list())
+print(e.get_info_from_chapter_url("https://scan-op.com/manga/berserk/360"))"""
 
-Returns:
-
-Raises:
-
-Example:
+# scans manga, scan op
+# a faire; lelscan
 
 
- """
 
-def f(a,b, c, d="valeurD"):
-    print(a,b,c, d)
+e = EngineMangadex()
+mangas = e.find_manga_by_name("jojo")
 
-def startFunction(function, args=None, kwargs={}):
-    print("args: ", args)
-    function(*args, **kwargs)
+info = e.get_manga_info_from_name("battle tendency")
 
-def test():
-    startFunction( f, [3,4,5], {"d": "zarma"} )
 
-test()
 
 
 
@@ -60,37 +58,3 @@ import requests
 #e.download_manga("https://scan-op.com/manga/kimetsu-no-yaiba", async_mode=True)
 # e.download_range_chapters_from_name("jojo",351, 357, "Berserk Tome 40")
 #e.download_volume_from_manga_name("shingeki", 128, display_only=False)
-
-"""
-# soup.find_all("div", {"class":"chapter_number"})[10].find("a")
-engines = [EngineScansMangas(), EngineLelscan(), EngineScanOP()]
-
-for e in engines:
-    print(e.find_manga_by_name("creatu"))
-
-
-# engines[0].download_manga_from_name('https://scans-mangas.com/lecture-en-ligne/dr-stone/')
-exit()
-def mini_switch(name, num_chapter):
-    link_found = False
-    link = ""
-    title = ""
-    for e in engines:
-        result_search = e.get_list_volume_from_manga_name(name)['chapter_list']
-        for chapter in result_search:
-            if chapter["num"] == num_chapter:
-                link_found = True
-                link = chapter["link"]
-                title = chapter["title"]
-                break
-        if link_found:
-            e.download_volume_from_manga_name(name, num_chapter, display_only=False)
-            break
-
-"""
-#mini_switch("shingeki", 128)
-
-# On peut remplacer if a == [] par if not a:
-
-
-# e.download_volume_from_manga_name("one piece", 965, display_only=False)

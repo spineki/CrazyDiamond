@@ -24,7 +24,7 @@ class EngineMangaFox(EngineMangas):
         self.print_v(self.name + "created in " + self.current_folder)
 
         # INFO  ---------------------------------------------------------------------------------------
-    def get_all_available_manga_list(self):
+    def get_all_available_manga_online_list(self):
         """ Returns the list of all mangas available on the mangaFox website (after an online search)
 
         Args:
@@ -84,7 +84,7 @@ class EngineMangaFox(EngineMangas):
 
         return results
 
-    def get_list_volume_from_manga_url(self, url):
+    def get_manga_info_from_url(self, url):
         """
         Gets the list of all volumes from a manga url
 

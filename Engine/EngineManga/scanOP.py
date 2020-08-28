@@ -1,11 +1,18 @@
-from Engine.EngineManga.engineMangas import EngineMangas
 import os
 import json
 import sys
+from typing import List, Optional, Dict
+import re
+
+from Engine.EngineManga.engineMangas import EngineMangas
+from Engine.EngineManga.manga import Manga, Volume, Chapter, Page
+
+
 
 class EngineScanOP(EngineMangas):
     """
     A class that parses, searches and downloads mangas from the website https://scans-mangas.com/mangas/
+    TODO: distinguish volume from chapter
     """
 
     def __init__(self):
@@ -13,7 +20,6 @@ class EngineScanOP(EngineMangas):
         self.reactive_keyword = ["scan-op"]
         self.break_time = 0.1
         self.name = "Scan-OP"
-        #self.current_folder = os.path.dirname(__file__)
         if getattr(sys, 'frozen', False):
             self.print_v("frozen mode")
             self.current_folder = os.path.dirname(sys.executable)
@@ -24,22 +30,15 @@ class EngineScanOP(EngineMangas):
         self.url_manga = "https://scan-op.com/manga/"
         self.url_picture = "http://funquizzes.fun/uploads/manga/"
 
-
-
-
     # INFO  ---------------------------------------------------------------------------------------
-    def get_all_available_manga_list(self):
+    def get_all_available_manga_online_list(self) -> Optional[List[Manga]]:
         """Returns the list of all mangas available on the lelscan website (after an online search)
 
         Args:
             None (None): None
 
         Returns:
-            results (list): list of all found manga. Each element is a dict with the following keys
-            {
-            title (string): Name of the manga
-            link (string): url of the manga main page
-            }
+            results (list): list of all found manga. (Manga object)
             None (None): None if there is no manga or an error
 
         Raises:
@@ -53,42 +52,38 @@ class EngineScanOP(EngineMangas):
         if soup is None:
             return None
 
-        try:
-            list_manga = json.loads(soup.find("p").text)["suggestions"]
+        saving_mangas_list = []
 
-            for manga in list_manga:
-                title = manga["value"]
-                del manga["value"]
-                manga["title"] = title
-                manga_identifier = manga["data"]
-                del manga["data"]
-                manga["link"] = self.url_manga + manga_identifier
+        try:
+            online_mangas_list = json.loads(soup.find("p").text)["suggestions"]
+
+            for online_manga in online_mangas_list:
+                saving_manga = Manga()
+
+                name = online_manga["value"]
+                manga_identifier = online_manga["data"]
+                url = self.url_manga + manga_identifier
+
+                saving_manga.name = name
+                saving_manga.link = url
+
+                saving_mangas_list.append(saving_manga)
 
         except Exception as e:
             self.print_v("Impossible to get the info from the ", self.url_search, " page. Maybe the site tags have change: ", str(e))
             return None
 
-        return list_manga
+        return saving_mangas_list
 
-    def get_list_volume_from_manga_url(self, url):
+    def get_manga_info_from_url(self, url: str) -> Optional[Manga]:
         """
-        Gets the list of all volumes from a manga presentation page url
+        a manga object
 
         Args:
             url (string): url of the manga
 
         Returns:
-             A dict with the following keys
-             {
-            title (string): Title of the manga
-            synopsis (string): synopsis of the manga
-            chapter_list (dict): A dictionnary with the following keys
-            {
-            title (string): title of the chapter
-            link (string): link of the url of the chapter
-            num (float or int): number of the chapter
-            }
-            }
+            manga filled with retrieved volumes and chapters
             None (None): None if there is an error
         """
         def is_float(string):
@@ -108,56 +103,87 @@ class EngineScanOP(EngineMangas):
         soup = self.get_soup(url)
         if soup is None:
             return None
+
+        retrieved_chapters_list: List[Chapter] = []
+        retrieved_volumes_list: List[Volume] = []
+        retrieved_volumes_dict = {}
         try:
-            title = soup.find("h2", {"class": "widget-title"}).text.strip()
+            name = soup.find("h2", {"class": "widget-title"}).text.strip()
             synopsis = soup.find("div", {"class": "well"}).find("p").text
-            chapter_list = [ {"title":chap.find("em").text, "num": chap.find("a").text, "link": chap.find("a")["href"]}   for chap in soup.find_all("h5", {"class": "chapter-title-rtl"})]
-            for chapter in chapter_list:
-                list_number = [float(s) for s in chapter["num"].split() if is_float(s)]
-                list_number = [int(s) if is_int(s) else s for s in list_number]
-                chapter["num"] = list_number[-1]
+
+            #raw_chapters_list = soup.find_all("h5", {"class": "chapter-title-rtl"})
+
+            volume_re = re.compile(r'volume\-') # regex
+            # find chapters containing the class volume-numberOfTheVolume
+            raw_chapters_list = soup.find_all("li", {"class": volume_re})
+
+            # we group chapters with the same volume under the same dict key
+            for raw_chapter in raw_chapters_list:
+                raw_volume_number = raw_chapter["class"][0]
+                if raw_volume_number not in retrieved_volumes_dict:
+                    retrieved_volumes_dict[raw_volume_number] = []
+                retrieved_volumes_dict[raw_volume_number].append(raw_chapter)
+
+            # now, we can go through the dictionary and save chapters in their own volume
+            for raw_volume_label in retrieved_volumes_dict:
+                # for all chapters in the same volume
+                volume_number = int(raw_volume_label.split("-")[-1])
+                retrieved_volume = Volume(number=volume_number)
+
+                for raw_chapter in retrieved_volumes_dict[raw_volume_label]:
+                    raw_chapter = raw_chapter.find("h5", {"class": "chapter-title-rtl"}) # we extract the surrounding info
+                    retrieved_chapter = Chapter(name=raw_chapter.find("em").text,
+                                                link=raw_chapter.find("a")["href"])
+                    number_raw_chapter = raw_chapter.find("a").text
+                    list_number = [float(s) for s in number_raw_chapter.split() if is_float(s)]
+                    list_number = [int(s) if is_int(s) else s for s in list_number]
+                    retrieved_chapter.number = list_number[-1]
+
+                    if (volume_number == 0): # if chapter without volume
+                        retrieved_chapters_list.append(retrieved_chapter)
+                    else:
+                        retrieved_volume.add_chapter(retrieved_chapter)
+
+                if (volume_number != 0):
+                    retrieved_volumes_list.append(retrieved_volume)
 
         except Exception as e:
             self.print_v("Impossible to get the correct tags from the soup from the page ", url, ": ", str(e))
             return None
 
-        return { "title":title, "synopsis":synopsis, "chapter_list":chapter_list}
+        # there is no volume/chapter separation on scan op, so fill a default volume with number -1 with chapters
+        # retrieved_volume = Volume()
+        # retrieved_volume.add_chapters(retrieved_chapters_list)
 
-    def get_info_from_chapter_url(self, url):
+        retrieved_manga = Manga(name=name, link=url, synopsis=synopsis)
+        retrieved_manga.add_chapters_without_volume(retrieved_chapters_list)
+
+        for retrieved_volume in retrieved_volumes_list:
+            retrieved_manga.add_volume(retrieved_volume)
+
+        print(len(retrieved_manga.chapters_without_volumes_list))
+        print(retrieved_manga.chapters_without_volumes_list)
+        print(len(retrieved_manga.volumes_list))
+        print(retrieved_manga.volumes_list)
+
+        return retrieved_manga
+
+    def get_info_from_chapter_url(self, url: str) -> Optional[Chapter]:
         """Takes the url of a chapter, and returns a set of valuable infos
             Args:
                 url (string): url of the chapter
             Returns:
-                Dictionnary with the following keys
-                {
-                manga_title (string): title of the manga
-                chapter_num (int): number of the current chapter
-                max_pages (int): number of pages in the current chapter
-                pages (list): A list of dictionnary with the following keys
-                {
-                link (string): link of the picture
-                num (int): number of the picture (page)
-                }
-                }
+                chapter (Chapter): chapters
                 None (None): None if there is an error
             Raises:
                 Doesn't raise an error. print a warning with self.print_v().
-
-            Examples:
-                >>> e = EngineLelscan()
-                >>> e.get_info_from_chapter_url("https://www.lelscan-vf.com/manga/shingeki-no-kyojin/22")
-                >>> output: {'manga_title': 'Shingeki No Kyojin', 'chapter_num': '22', 'max_pages': 44, 'pages': [{'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/001.jpg ', 'num': 1}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/002.jpg ', 'num': 2}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/003.jpg ', 'num': 3}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/004.jpg ', 'num': 4}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/005.jpg ', 'num': 5}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/006.jpg ', 'num': 6}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/007.jpg ', 'num': 7}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/008.jpg ', 'num': 8}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/009.jpg ', 'num': 9}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/010.jpg ', 'num': 10}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/011.jpg ', 'num': 11}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/012.jpg ', 'num': 12}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/013.jpg ', 'num': 13}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/014.jpg ', 'num': 14}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/015.jpg ', 'num': 15}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/016.jpg ', 'num': 16}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/017.jpg ', 'num': 17}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/018.jpg ', 'num': 18}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/019.jpg ', 'num': 19}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/020.jpg ', 'num': 20}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/021.jpg ', 'num': 21}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/022.jpg ', 'num': 22}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/023.jpg ', 'num': 23}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/024.jpg ', 'num': 24}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/025.jpg ', 'num': 25}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/026.jpg ', 'num': 26}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/027.jpg ', 'num': 27}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/028.jpg ', 'num': 28}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/029.jpg ', 'num': 29}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/030.jpg ', 'num': 30}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/031.jpg ', 'num': 31}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/032.jpg ', 'num': 32}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/033.jpg ', 'num': 33}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/034.jpg ', 'num': 34}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/035.jpg ', 'num': 35}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/036.jpg ', 'num': 36}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/037.jpg ', 'num': 37}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/038.jpg ', 'num': 38}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/039.jpg ', 'num': 39}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/040.jpg ', 'num': 40}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/041.jpg ', 'num': 41}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/042.jpg ', 'num': 42}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/043.jpg ', 'num': 43}, {'link': ' https://www.lelscan-vf.com/uploads/manga/shingeki-no-kyojin/chapters/0022/044.jpg ', 'num': 44}]}
-        """
+         """
 
         soup = self.get_soup(url)
         if soup is None:
             return None
 
-        # if the chapter is missing, quits
-        if not self.verify_missing_chapter(soup):
-            return None
-
-        try: # Some blank pages can still pass
+        try:  # Some blank pages can still pass
             manga_title = soup.find("img", {"class": "scan-page"})["alt"].split(":")[0].strip()
             list_number_page = [int(opt["value"]) for opt in soup.find_all("option") if "value" in opt.attrs]
             max_page = max(list_number_page)
@@ -176,36 +202,18 @@ class EngineScanOP(EngineMangas):
             self.print_v("Error, the number of pictures in the page doesn't match with the number of links, ", url, ": ")
             return None
 
-        pages = []
+        pages_list: List[Page] = []
         for i in range(len(images_link)):
-            pages.append({"link": images_link[i], "num": list_number_page[i]})
+            page = Page(number=list_number_page[i], link=images_link[i])
+            pages_list.append(page)
 
         chapter_num = url.rsplit("/", 1)[-1]
-        return {"manga_title": manga_title, "chapter_num": chapter_num, "max_pages": max_page, "pages": pages}
 
-    # DOWNLOAD ------------------------------------------------------------------------------------
-    def verify_missing_chapter(self, soup):
-        """Verify if a chapter is missing
-        Args:
-            soup (soup): Beautiful soup object containing html code of the page
+        retrieved_chapter = Chapter()
 
-        Returns:
-            bool (bool): True if the page is not empty, False else
+        retrieved_chapter.manga_name = manga_title
+        retrieved_chapter.number = chapter_num
+        retrieved_chapter.number_page = max_page
+        retrieved_chapter.add_pages(pages_list)
 
-        Raises:
-            doesn't raise an error. print_v() warnings
-        """
-        try:
-            # We search the alert tag that appears on empty pages
-            a = soup.find_all("div", {"class": "alert"})
-            if a ==[]:
-                return True
-
-            a = a[0]
-            if "Aucune page publiee" in a.text:
-                return False
-            return True
-
-        except Exception as e:
-            self.print_v("impossible to properly parse the soup", soup.prettify(), str(e))
-            return False
+        return retrieved_chapter

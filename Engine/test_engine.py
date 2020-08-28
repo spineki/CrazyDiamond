@@ -17,7 +17,7 @@ def test_print_v(capsys):
     e.verbose = True
     e.print_v("test")
     captured = capsys.readouterr()
-    assert captured.out == "test\n"
+    assert captured.out == "test; \n"
 
     e.verbose = False
     e.print_v("second_test")
@@ -25,7 +25,7 @@ def test_print_v(capsys):
     assert captured.out == ""
 
     logs = e.log
-    assert logs == ["test", "second_test"]
+    assert logs[2:] == ['test; ','second_test; ']
 
 def test_get_logs():
     e = Engine()
