@@ -9,7 +9,6 @@ from PySide2.QtWidgets import *
 from gui.myWindow import Ui_MainWindow
 
 
-
 # import engines: better create a proper core class and deal with it outside
 from Engine.engine import Engine
 from Engine.EngineManga.scanOP import EngineScanOP
@@ -22,31 +21,38 @@ class resultWidget(QListWidgetItem):
     """
     class for the line where result of search are displayed
     """
+
     def __init__(self, text: str, engine_name: str, manga: Manga):
         super().__init__(text)
         self.engine_name = engine_name
         self.manga = manga
 
+
 class volumeWidget(QListWidgetItem):
     """
     class of lines where volume found are displayed
     """
+
     def __init__(self, text: str, volume: Volume):
         super().__init__(text)
         self.volume = volume
+
 
 class chapterWidget(QListWidgetItem):
     """
     class of lines where volume found are displayed
     """
+
     def __init__(self, text: str, chapter: Chapter):
         super().__init__(text)
         self.chapter = chapter
 
+
 class itemQueueWidget(QListWidgetItem):
     def __init__(self, manga_name, engine_name, number_string, subtext):
-        self.text = "Vol. " + number_string +  "--\""+manga_name + "\""+ " from " + engine_name
-        self.subtext= subtext
+        self.text = "Vol. " + number_string + "--\"" + \
+            manga_name + "\"" + " from " + engine_name
+        self.subtext = subtext
         super().__init__(self.text + " \n" + subtext)
 
     def modifyText(self, text):
@@ -56,6 +62,7 @@ class itemQueueWidget(QListWidgetItem):
     def modifySubtext(self, subText):
         self.subtext = subText
         self.setText(self.text + " \n" + self.subtext)
+
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -107,7 +114,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         results = {}
         for e in self.engines:
             matching_mangas = e.find_manga_by_name(search_content)
-            if matching_mangas is None: # no manga corresponding to this name
+            if matching_mangas is None:  # no manga corresponding to this name
                 continue
 
             # we store separately for each engine all the matching mangas
@@ -115,13 +122,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         for engine_name in results:
             for matching_manga in results[engine_name]:
-                item = resultWidget(text=matching_manga.name + " (à l'adresse) " +  matching_manga.link,
+                item = resultWidget(text=matching_manga.name + " (à l'adresse) " + matching_manga.link,
                                     engine_name=engine_name,
                                     manga=matching_manga)
                 self.listWidget_results.addItem(item)
 
-        self.listWidget_results.currentItemChanged.connect(self.fill_volume_chapters)
-        self.label_nb_website_available.setText(str(self.listWidget_results.count()))
+        self.listWidget_results.currentItemChanged.connect(
+            self.fill_volume_chapters)
+        self.label_nb_website_available.setText(
+            str(self.listWidget_results.count()))
 
     def fill_volume_chapters(self):
         """
@@ -139,7 +148,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         retrieved_manga: Optional[Manga] = self.get_engine_by_name(current_item.engine_name)\
             .get_manga_info_from_url(current_manga.link)
 
-        self.currentManga=retrieved_manga # we copy globally this manga, wich contains chapters, volume, etc
+        # we copy globally this manga, wich contains chapters, volume, etc
+        self.currentManga = retrieved_manga
 
         volumes_list: List[Volume] = retrieved_manga.volumes_list
         chapters_without_volume_list: List[Chapter] = retrieved_manga.chapters_without_volumes_list
@@ -152,15 +162,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             item = volumeWidget(text=str(volume.number) + ": containing " + "chapters " + str(min_chap_number) + " - " + str(max_chap_number),
                                 volume=volume)
             self.listWidget_volumes.addItem(item)
-        self.listWidget_volumes.currentItemChanged.connect(self.volume_to_fields)
-        self.label_nb_vol_available.setText(str(self.listWidget_volumes.count()))
+        self.listWidget_volumes.currentItemChanged.connect(
+            self.volume_to_fields)
+        self.label_nb_vol_available.setText(
+            str(self.listWidget_volumes.count()))
 
         self.listWidget_chapters.clear()
         for chapter in chapters_without_volume_list:
-            item = chapterWidget(text=str(chapter.number) + " : " + chapter.name, chapter=chapter)
+            item = chapterWidget(text=str(chapter.number) +
+                                 " : " + chapter.name, chapter=chapter)
             self.listWidget_chapters.addItem(item)
-        self.listWidget_chapters.currentItemChanged.connect(self.chapter_to_fields)
-        self.label_nb_chap_available.setText(str(self.listWidget_chapters.count()))
+        self.listWidget_chapters.currentItemChanged.connect(
+            self.chapter_to_fields)
+        self.label_nb_chap_available.setText(
+            str(self.listWidget_chapters.count()))
 
     def chapter_to_fields(self):
         """
@@ -188,15 +203,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.listWidget_chapters.clear()
         for chapter in current_volume.chapters_list:
-            item = chapterWidget(text=str(chapter.number) + " : " + chapter.name, chapter=chapter)
+            item = chapterWidget(text=str(chapter.number) +
+                                 " : " + chapter.name, chapter=chapter)
             self.listWidget_chapters.addItem(item)
-        self.listWidget_chapters.currentItemChanged.connect(self.chapter_to_fields)
-        self.label_nb_chap_available.setText(str(self.listWidget_chapters.count()))
+        self.listWidget_chapters.currentItemChanged.connect(
+            self.chapter_to_fields)
+        self.label_nb_chap_available.setText(
+            str(self.listWidget_chapters.count()))
 
         self.spinBox_volume.setValue(int(current_volume.number))
         self.namingVolume()
 
-    def fillQueue(self, manga_name: str, engine_name: str, number_string: str, subtext = "waiting...") -> None:
+    def fillQueue(self, manga_name: str, engine_name: str, number_string: str, subtext="waiting...") -> None:
         """
         Add an itemQueueWidget to the queue
 
@@ -224,7 +242,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         Allow spinbox interaction (choose the chapter range) once the checkbox is checked
         :return: None
         """
-        if self.checkBox_range.checkState(): # activate cross = true
+        if self.checkBox_range.checkState():  # activate cross = true
             self.spinBox_chap_end.setEnabled(True)
             self.spinBox_chap_start.setEnabled(True)
         else:
@@ -236,7 +254,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         Allow combobox interaction once the checkbox "compress" is checked
         :return: None
         """
-        if self.checkBox_compress.checkState(): # activate cross = true
+        if self.checkBox_compress.checkState():  # activate cross = true
             self.comboBox_compress_mode.setEnabled(True)
         else:
             self.comboBox_compress_mode.setEnabled(False)
@@ -249,7 +267,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
 
         self.currentEngine = None
-        self.engines = [EngineScanOP(), EngineScansMangas(), EngineLelscan()] # EngineMangaFox()
+        self.engines = [EngineScanOP(), EngineScansMangas(),
+                        EngineLelscan()]  # EngineMangaFox()
 
     def startingState(self):
         """
@@ -293,7 +312,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         manga_url = self.lineEdit_url.text()
         folder_path = self.lineEdit_save_path.text()
         if folder_path == "":
-            folder_path=None
+            folder_path = None
         current_number = self.spinBox_volume.value()
         first_chap = self.spinBox_chap_start.value()
         last_chap = self.spinBox_chap_end.value()
@@ -304,8 +323,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             compress_ext = None
         output_name = self.lineEdit_output_name.text()
 
-
-        if self.currentEngine is None: # temporary
+        if self.currentEngine is None:  # temporary
             print("pas de manga sélectionné")
             return
 
@@ -315,22 +333,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 engine = e
                 break
 
-        if self.checkBox_range.checkState(): # if range of chapter mode
+        if self.checkBox_range.checkState():  # if range of chapter mode
             # graphical
-            self.fillQueue(manga_name, engine.name, str(first_chap) + "_"+ str(last_chap))
-            self.core.add_new_Task(function = engine.download_range_chapters_from_url,
-                                   args = (manga_url, first_chap, last_chap, output_name),
-                                   kwargs = {"compress": compress_ext, "folder_path": folder_path },
+            self.fillQueue(manga_name, engine.name, str(
+                first_chap) + "_" + str(last_chap))
+            self.core.add_new_Task(function=engine.download_range_chapters_from_url,
+                                   args=(manga_url, first_chap,
+                                         last_chap, output_name),
+                                   kwargs={"compress": compress_ext,
+                                           "folder_path": folder_path},
                                    startCallback=self.startCallback,
                                    callback=self.callback,
                                    endCallback=self.endCallback)
         else:
             # normal mode, only for a single chapter
-            #graphical
+            # graphical
             self.fillQueue(manga_name, engine.name, str(current_number))
             self.core.add_new_Task(function=engine.download_range_chapters_from_url,
-                                   args = (manga_url, current_number, current_number, output_name),
-                                   kwargs = {"compress": compress_ext, "folder_path": folder_path},
+                                   args=(manga_url, current_number,
+                                         current_number, output_name),
+                                   kwargs={"compress": compress_ext,
+                                           "folder_path": folder_path},
                                    startCallback=self.startCallback,
                                    callback=self.callback,
                                    endCallback=self.endCallback)
@@ -345,7 +368,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         compress = self.checkBox_compress.checkState()
         folder_path = self.lineEdit_save_path.text()
         if folder_path.strip() == "":
-            folder_path=None
+            folder_path = None
 
         if compress:
             compress_ext = self.comboBox_compress_mode.currentText()
@@ -353,7 +376,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             compress_ext = None
         output_name = self.lineEdit_output_name.text()
 
-        if self.currentEngine is None: # temporary
+        if self.currentEngine is None:  # temporary
             print("pas de manga sélectionné")
             return
 
@@ -369,7 +392,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.fillQueue(manga_name, engine.name, str(volume.number))
         self.core.add_new_Task(function=engine.download_volume_from_manga_url,
                                args=(manga.link, volume.number, folder_path),
-                               kwargs={"compress": compress_ext, "display_only":False},
+                               kwargs={"compress": compress_ext,
+                                       "display_only": False},
                                startCallback=self.startCallback,
                                callback=self.callback,
                                endCallback=self.endCallback)
@@ -388,7 +412,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             compress_ext = self.comboBox_compress_mode.currentText()
         else:
             compress_ext = None
-        if self.currentEngine is None: # temporary
+        if self.currentEngine is None:  # temporary
             print("pas de manga sélectionné")
             return
 
@@ -399,7 +423,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 engine = e
                 break
 
-
         print("avant whole", compress_ext)
         self.fillQueue(manga_name, engine.name, str("all!"))
         self.core.add_new_Task(function=engine.download_whole_manga_from_url,
@@ -409,7 +432,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                callback=self.callback,
                                endCallback=self.endCallback)
 
-    def startCallback(self, args = None, kwargs={}):
+    def startCallback(self, args=None, kwargs={}):
         """
         A callback template that would be called before a download
 
@@ -418,8 +441,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         :return: None
         """
         self.listWidget_queue.item(0).modifySubtext("downloading!")
-        self.listWidget_queue.item(0).setBackgroundColor(QColor(119,181,254))
-        self.set_output_consol("Download of " + self.listWidget_queue.item(0).text)
+        self.listWidget_queue.item(0).setBackgroundColor(QColor(119, 181, 254))
+        self.set_output_consol(
+            "Download of " + self.listWidget_queue.item(0).text)
 
     def callback(self, args=None, kwargs={}):
         pass
@@ -428,7 +452,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if args is None:
             self.set_output_consol("An error occured")
         elif args == False:
-            self.set_output_consol("Your volume is not on the website\n try another one or some pictures are missing\n Verify in the download folder")
+            self.set_output_consol(
+                "Your volume is not on the website\n try another one or some pictures are missing\n Verify in the download folder")
         else:
             self.set_output_consol("Download finished")
         self.listWidget_queue.takeItem(0)
